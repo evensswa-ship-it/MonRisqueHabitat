@@ -1,0 +1,28 @@
+[
+  {
+    "id": "fcb49181-589c-400a-a568-b1690497ac48",
+    "createdAt": "2026-04-12T19:26:26.119Z",
+    "firstName": "Claire",
+    "email": "claire@example.fr",
+    "phone": "0612345678",
+    "project": "preparer-un-devis",
+    "consent": true,
+    "selectedAddress": {
+      "id": "fallback-paris-rosiers",
+      "label": "12 rue des Rosiers, 75004 Paris",
+      "line1": "12 rue des Rosiers",
+      "postcode": "75004",
+      "city": "Paris",
+      "cityCode": "75056",
+      "context": "Paris, Ile-de-France",
+      "coordinates": {
+        "lat": 48.8576,
+        "lon": 2.3611
+      },
+      "country": "France",
+      "provider": "fallback"
+    },
+    "riskSummaryLabel": "Profil equilibre",
+    "riskTakeaway": "Le point le plus utile ici est de garder une bonne vigilance sur l'eau et sur les signes d'usure du bati."
+  }
+]
