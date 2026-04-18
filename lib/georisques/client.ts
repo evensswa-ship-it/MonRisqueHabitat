@@ -59,11 +59,11 @@ const RISK_CATALOG: RiskCatalogItem[] = [
     keywords: ["inond", "submersion", "crue", "debordement"],
     decision: "Vigilance recommandée avant acquisition",
     summary:
-      "Le bien peut être exposé à des montées d'eau, des débordements ou du ruissellement lors d'épisodes intenses.",
+      "Ce bien peut être touché par des montées d'eau ou du ruissellement lors de fortes pluies. Caves et rez-de-chaussée sont les espaces les plus exposés.",
     recommendation:
-      "Demandez si des sinistres passés sont connus, vérifiez les points bas et prévoyez la protection des espaces sensibles.",
+      "Renseignez-vous sur d'éventuels sinistres passés auprès du vendeur ou de la mairie. Vérifiez l'état des caves, des évacuations et des murs en contact avec le sol.",
     watch:
-      "Les caves, rez-de-chaussée, évacuations d'eau, traces d'humidité et zones de ruissellement."
+      "Les caves, rez-de-chaussée, évacuations d'eau bouchées, traces d'humidité sur les murs et sols en légère cuvette."
   },
   {
     id: "clay",
@@ -72,11 +72,11 @@ const RISK_CATALOG: RiskCatalogItem[] = [
     keywords: ["argile", "secheresse", "retrait"],
     decision: "Analyse à compléter si nécessaire",
     summary:
-      "Les variations d'humidité du sol peuvent créer des mouvements progressifs du bâti et fragiliser certaines parties de la structure.",
+      "Le sol peut gonfler ou se rétracter selon l'humidité des saisons. Sur le long terme, cela peut provoquer des fissures dans les murs ou les fondations.",
     recommendation:
-      "Vérifiez l'historique des fissures, l'état des façades et la bonne gestion des eaux autour du bien.",
+      "Regardez si des fissures sont visibles sur les façades ou à l'intérieur. Vérifiez que les eaux de pluie s'écoulent bien loin du bâtiment, sans stagner contre les murs.",
     watch:
-      "Les fissures évolutives, les déformations de sols, les portes qui ferment mal et les abords du logement."
+      "Les fissures en diagonale sur les murs, les portes ou fenêtres qui coincent, les décollements de carrelage ou de parquet."
   },
   {
     id: "ground-movement",
@@ -85,11 +85,11 @@ const RISK_CATALOG: RiskCatalogItem[] = [
     keywords: ["mouvement", "glissement", "eboulement", "terrain"],
     decision: "Point d'attention sur le terrain",
     summary:
-      "Le terrain peut présenter une instabilité ponctuelle qui mérite une lecture attentive du site et de ses abords.",
+      "Le terrain autour du bien peut présenter une certaine instabilité — glissements, affaissements — surtout si le sol est en pente ou a été remblayé.",
     recommendation:
-      "Observez la topographie, les soutènements et faites vérifier tout désordre inhabituel si le contexte local le justifie.",
+      "Vérifiez si le terrain est en pente, s'il existe des murs de soutènement et s'il y a des signes d'affaissement visibles. En cas de doute, faites passer un professionnel.",
     watch:
-      "Les affaissements, glissements, fissures, soutènements et changements de niveau autour du bien."
+      "Les terrains en pente, les murs de soutènement fissurés, les décalages de niveau au sol et les fissures à la jonction sol-mur."
   },
   {
     id: "seismic",
@@ -98,10 +98,11 @@ const RISK_CATALOG: RiskCatalogItem[] = [
     keywords: ["sism", "seisme"],
     decision: "Exposition limitée",
     summary:
-      "Une exposition sismique existe, mais elle ne constitue pas ici le premier facteur de décision.",
+      "La zone est légèrement exposée au risque sismique, mais cela ne représente pas un danger majeur dans la grande majorité des cas.",
     recommendation:
-      "Conservez les bons réflexes de prévention et vérifiez la conformité du bâti si le projet comporte des travaux importants.",
-    watch: "Les consignes locales, les travaux structurels prévus et les prescriptions de construction applicables."
+      "Pas d'inquiétude particulière dans l'immédiat. Si vous prévoyez des travaux structurels importants, vérifiez simplement que les normes parasismiques en vigueur sont respectées.",
+    watch:
+      "Les travaux de structure importants (extension, surélévation) et les prescriptions de construction applicables localement."
   },
   {
     id: "storm",
@@ -110,11 +111,11 @@ const RISK_CATALOG: RiskCatalogItem[] = [
     keywords: ["tempete", "vent", "orage"],
     decision: "Vigilance saisonnière",
     summary:
-      "Les épisodes de vent ou d'orage peuvent fragiliser la toiture, les fermetures et les équipements extérieurs.",
+      "Le bien peut être exposé à des vents forts ou des orages qui fragilisent la toiture et les éléments en extérieur.",
     recommendation:
-      "Vérifiez la toiture, les fixations et l'état général des extérieurs, surtout avant les périodes les plus exposées.",
+      "Vérifiez régulièrement l'état de la toiture, des gouttières et des volets — idéalement avant l'automne. Sécurisez ce qui peut s'envoler en cas de vent fort.",
     watch:
-      "Les tuiles, fixations, volets, clôtures, gouttières et éléments extérieurs sensibles au vent."
+      "Les tuiles descellées, gouttières obstruées, volets mal fixés, antennes, clôtures et mobilier de jardin."
   },
   {
     id: "fire",
@@ -123,11 +124,11 @@ const RISK_CATALOG: RiskCatalogItem[] = [
     keywords: ["feu", "incendie", "foret"],
     decision: "Vigilance renforcée sur l'environnement proche",
     summary:
-      "L'environnement du bien peut être concerné par un risque d'incendie nécessitant une lecture attentive des abords et des accès.",
+      "L'environnement proche du bien peut être exposé au risque de feu de forêt, notamment en période sèche ou de vent fort.",
     recommendation:
-      "Vérifiez le débroussaillement, les accès et la capacité du bien à rester protégé pendant les périodes à risque.",
+      "Vérifiez qu'un débroussaillement est effectué autour du bien — c'est une obligation légale dans certaines zones. Assurez-vous que les accès restent dégagés.",
     watch:
-      "La végétation proche, les zones boisées, les accès secours et les obligations locales de débroussaillement."
+      "La végétation contre le bien, les zones boisées à proximité immédiate, les accès pour les secours et les obligations locales de débroussaillement."
   },
   {
     id: "radon",
@@ -136,10 +137,11 @@ const RISK_CATALOG: RiskCatalogItem[] = [
     keywords: ["radon"],
     decision: "Analyse à compléter si nécessaire",
     summary:
-      "Le sujet concerne surtout la qualité de ventilation et mérite un contrôle simple dans les espaces peu aérés.",
+      "Le radon est un gaz naturel présent dans certains sous-sols. Il s'accumule dans les pièces peu aérées et peut devenir un sujet de santé sur la durée.",
     recommendation:
-      "Vérifiez l'aération, en particulier dans les pièces en sous-sol, et complétez l'analyse si l'usage du bien le justifie.",
-    watch: "Les pièces basses, caves, sous-sols et zones durablement peu ventilées."
+      "Assurez-vous que les caves et pièces en sous-sol sont bien ventilées. Un test de mesure simple et peu coûteux existe si vous souhaitez aller plus loin.",
+    watch:
+      "Les sous-sols, caves, rez-de-chaussée et pièces qui restent longtemps fermées sans aération naturelle."
   }
 ];
 
@@ -243,13 +245,20 @@ function extractRiskSignals(payload: GeorisquesPayload): ExtractedRiskSignal[] {
     }));
 }
 
+function cityPreposition(city: string): string {
+  if (/^le\s/i.test(city)) return `du ${city.slice(3)}`;
+  if (/^les\s/i.test(city)) return `des ${city.slice(4)}`;
+  return `de ${city}`;
+}
+
 function buildTerritoryContext(scope: RiskScope, address: AddressSuggestion) {
   if (scope === "commune") {
-    return `Ce risque est également identifié sur la commune de ${address.city}.`;
+    const prep = cityPreposition(address.city ?? "");
+    return `Ce risque a été identifié sur la commune ${prep}.`;
   }
 
   if (scope === "address") {
-    return "Votre adresse se situe dans une zone de vigilance sur ce point.";
+    return "L'adresse se situe directement dans une zone concernée par ce risque.";
   }
 
   return undefined;

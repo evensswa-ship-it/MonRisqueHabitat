@@ -12,10 +12,12 @@ const CONTENT_WIDTH = PAGE_WIDTH - PAGE_MARGIN * 2;
 const BRAND = rgb(0.06, 0.31, 0.66);
 const BRAND_DEEP = rgb(0.03, 0.21, 0.44);
 const SLATE_900 = rgb(0.06, 0.09, 0.16);
+const SLATE_700 = rgb(0.17, 0.22, 0.31);
 const SLATE_600 = rgb(0.29, 0.35, 0.44);
 const SLATE_400 = rgb(0.58, 0.64, 0.72);
 const LINE = rgb(0.86, 0.89, 0.93);
 const PANEL = rgb(0.97, 0.98, 0.99);
+const WHITE = rgb(1, 1, 1);
 
 function formatAnalysisDate(value: string) {
   return new Intl.DateTimeFormat("fr-FR", {
@@ -36,35 +38,43 @@ function sanitizeFilenamePart(value: string) {
 }
 
 function getPriorityLabel(priority: RiskCategory["priority"]) {
-  if (priority === "high") {
-    return "Élevé";
-  }
-
-  if (priority === "medium") {
-    return "Modéré";
-  }
-
+  if (priority === "high") return "Élevé";
+  if (priority === "medium") return "Modéré";
   return "Faible";
 }
 
 function getPriorityColors(priority: RiskCategory["priority"]) {
   if (priority === "high") {
-    return {
-      fill: rgb(0.99, 0.93, 0.93),
-      text: rgb(0.66, 0.18, 0.18)
-    };
+    return { fill: rgb(0.99, 0.93, 0.93), text: rgb(0.66, 0.18, 0.18), band: rgb(0.86, 0.23, 0.23) };
   }
-
   if (priority === "medium") {
+    return { fill: rgb(1, 0.96, 0.86), text: rgb(0.7, 0.47, 0.12), band: rgb(0.92, 0.6, 0.12) };
+  }
+  return { fill: rgb(0.91, 0.97, 0.93), text: rgb(0.11, 0.48, 0.35), band: rgb(0.13, 0.6, 0.42) };
+}
+
+function getOverallRiskColors(level: "low" | "medium" | "high") {
+  if (level === "high") {
     return {
-      fill: rgb(1, 0.96, 0.86),
-      text: rgb(0.7, 0.47, 0.12)
+      bg: rgb(1, 0.94, 0.94),
+      border: rgb(0.98, 0.84, 0.84),
+      label: rgb(0.66, 0.18, 0.18),
+      band: rgb(0.86, 0.23, 0.23)
     };
   }
-
+  if (level === "medium") {
+    return {
+      bg: rgb(1, 0.97, 0.9),
+      border: rgb(0.98, 0.93, 0.77),
+      label: rgb(0.7, 0.47, 0.12),
+      band: rgb(0.92, 0.6, 0.12)
+    };
+  }
   return {
-    fill: rgb(0.91, 0.97, 0.93),
-    text: rgb(0.11, 0.48, 0.35)
+    bg: rgb(0.93, 0.99, 0.95),
+    border: rgb(0.82, 0.96, 0.88),
+    label: rgb(0.11, 0.48, 0.35),
+    band: rgb(0.13, 0.6, 0.42)
   };
 }
 
@@ -84,12 +94,10 @@ function wrapText(text: string, font: Awaited<ReturnType<PDFDocument["embedFont"
 
     for (const word of words.slice(1)) {
       const candidate = `${currentLine} ${word}`;
-
       if (font.widthOfTextAtSize(candidate, size) <= maxWidth) {
         currentLine = candidate;
         continue;
       }
-
       lines.push(currentLine);
       currentLine = word;
     }
@@ -106,41 +114,47 @@ async function loadLogo(pdf: PDFDocument) {
     ? path.join(process.cwd(), "public", configuredPath)
     : path.join(process.cwd(), configuredPath);
 
-  if (!existsSync(normalizedPath)) {
-    return null;
-  }
+  if (!existsSync(normalizedPath)) return null;
 
   const bytes = readFileSync(normalizedPath);
   const extension = path.extname(normalizedPath).toLowerCase();
 
-  if (extension === ".png") {
-    return pdf.embedPng(bytes);
-  }
-
-  if (extension === ".jpg" || extension === ".jpeg") {
-    return pdf.embedJpg(bytes);
-  }
-
+  if (extension === ".png") return pdf.embedPng(bytes);
+  if (extension === ".jpg" || extension === ".jpeg") return pdf.embedJpg(bytes);
   return null;
 }
 
-function buildFooter(page: ReturnType<PDFDocument["addPage"]>, pageNumber: number) {
+function buildFooter(
+  page: ReturnType<PDFDocument["addPage"]>,
+  pageNumber: number,
+  headingFont: Awaited<ReturnType<PDFDocument["embedFont"]>>,
+  bodyFont: Awaited<ReturnType<PDFDocument["embedFont"]>>
+) {
   page.drawLine({
-    start: { x: PAGE_MARGIN, y: 36 },
-    end: { x: PAGE_WIDTH - PAGE_MARGIN, y: 36 },
-    thickness: 1,
+    start: { x: PAGE_MARGIN, y: 38 },
+    end: { x: PAGE_WIDTH - PAGE_MARGIN, y: 38 },
+    thickness: 0.5,
     color: LINE
   });
-  page.drawText("Mon Risque Habitat — by AGS & Co", {
+  page.drawText("Mon Risque Habitat", {
     x: PAGE_MARGIN,
-    y: 20,
-    size: 9,
+    y: 22,
+    size: 8,
+    font: headingFont,
+    color: SLATE_600
+  });
+  page.drawText("by AGS & Co", {
+    x: PAGE_MARGIN + 112,
+    y: 22,
+    size: 8,
+    font: bodyFont,
     color: SLATE_400
   });
-  page.drawText(`Page ${pageNumber}`, {
-    x: PAGE_WIDTH - PAGE_MARGIN - 30,
-    y: 20,
-    size: 9,
+  page.drawText(`${pageNumber}`, {
+    x: PAGE_WIDTH - PAGE_MARGIN - 8,
+    y: 22,
+    size: 8,
+    font: bodyFont,
     color: SLATE_400
   });
 }
@@ -155,18 +169,9 @@ function drawParagraph(
   size = 11,
   color = SLATE_600,
   lineHeight = 16
-) {
+): number {
   const lines = wrapText(text, font, size, maxWidth);
-
-  page.drawText(lines.join("\n"), {
-    x,
-    y,
-    font,
-    size,
-    color,
-    lineHeight
-  });
-
+  page.drawText(lines.join("\n"), { x, y, font, size, color, lineHeight });
   return y - lines.length * lineHeight;
 }
 
@@ -178,14 +183,14 @@ function drawSectionCard(
   y: number,
   width: number,
   titleFont: Awaited<ReturnType<PDFDocument["embedFont"]>>,
-  bodyFont: Awaited<ReturnType<PDFDocument["embedFont"]>>
-) {
-  const titleSize = 10;
-  const bodySize = 11;
-  const bodyLineHeight = 16;
+  bodyFont: Awaited<ReturnType<PDFDocument["embedFont"]>>,
+  gap = 14
+): number {
+  const bodySize = 10.5;
+  const bodyLineHeight = 15;
   const contentWidth = width - 28;
   const textLines = wrapText(text, bodyFont, bodySize, contentWidth);
-  const cardHeight = 24 + textLines.length * bodyLineHeight + 22;
+  const cardHeight = 26 + textLines.length * bodyLineHeight + 18;
 
   page.drawRectangle({
     x,
@@ -194,25 +199,25 @@ function drawSectionCard(
     height: cardHeight,
     color: PANEL,
     borderColor: LINE,
-    borderWidth: 1
+    borderWidth: 0.5
   });
-  page.drawText(label, {
+  page.drawText(label.toUpperCase(), {
     x: x + 14,
-    y: y - 18,
+    y: y - 17,
     font: titleFont,
-    size: titleSize,
+    size: 7.5,
     color: SLATE_400
   });
   page.drawText(textLines.join("\n"), {
     x: x + 14,
-    y: y - 40,
+    y: y - 34,
     font: bodyFont,
     size: bodySize,
-    color: SLATE_600,
+    color: SLATE_700,
     lineHeight: bodyLineHeight
   });
 
-  return y - cardHeight - 12;
+  return y - cardHeight - gap;
 }
 
 function drawRiskBlock(
@@ -223,66 +228,69 @@ function drawRiskBlock(
 ) {
   const tone = getPriorityColors(risk.priority);
 
+  // Colored top band
+  page.drawRectangle({
+    x: 0,
+    y: PAGE_HEIGHT - 6,
+    width: PAGE_WIDTH,
+    height: 6,
+    color: tone.band
+  });
+
+  let cursorY = PAGE_HEIGHT - PAGE_MARGIN - 10;
+
+  // Priority badge
   page.drawRectangle({
     x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - PAGE_MARGIN - 32,
-    width: 92,
-    height: 24,
-    color: tone.fill
+    y: cursorY - 22,
+    width: 80,
+    height: 22,
+    color: tone.fill,
+    borderColor: tone.text,
+    borderWidth: 0.5
   });
-  page.drawText(getPriorityLabel(risk.priority), {
-    x: PAGE_MARGIN + 14,
-    y: PAGE_HEIGHT - PAGE_MARGIN - 16,
-    size: 10,
+  page.drawText(getPriorityLabel(risk.priority).toUpperCase(), {
+    x: PAGE_MARGIN + 12,
+    y: cursorY - 14,
+    size: 8,
     font: titleFont,
     color: tone.text
   });
+  cursorY -= 38;
+
+  // Risk title
   page.drawText(risk.label, {
     x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - PAGE_MARGIN - 64,
-    size: 22,
+    y: cursorY,
+    size: 26,
     font: titleFont,
     color: SLATE_900
   });
+  cursorY -= 28;
+
+  // Decision
   page.drawText(risk.decision, {
     x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - PAGE_MARGIN - 88,
+    y: cursorY,
     size: 11,
-    font: bodyFont,
-    color: BRAND
+    font: titleFont,
+    color: tone.band
   });
+  cursorY -= 24;
 
-  let cursorY = PAGE_HEIGHT - PAGE_MARGIN - 116;
-  cursorY = drawSectionCard(
-    page,
-    "Ce que cela signifie",
-    [risk.summary, risk.territoryContext].filter(Boolean).join(" "),
-    PAGE_MARGIN,
-    cursorY,
-    CONTENT_WIDTH,
-    titleFont,
-    bodyFont
-  );
-  cursorY = drawSectionCard(
-    page,
-    "Ce que vous pouvez faire",
-    risk.recommendation,
-    PAGE_MARGIN,
-    cursorY,
-    CONTENT_WIDTH,
-    titleFont,
-    bodyFont
-  );
-  drawSectionCard(
-    page,
-    "Ce qu'il faut surveiller",
-    risk.watch,
-    PAGE_MARGIN,
-    cursorY,
-    CONTENT_WIDTH,
-    titleFont,
-    bodyFont
-  );
+  // Separator
+  page.drawLine({
+    start: { x: PAGE_MARGIN, y: cursorY },
+    end: { x: PAGE_WIDTH - PAGE_MARGIN, y: cursorY },
+    thickness: 0.5,
+    color: LINE
+  });
+  cursorY -= 18;
+
+  const summaryText = [risk.summary, risk.territoryContext].filter(Boolean).join(" ");
+  cursorY = drawSectionCard(page, "Synthèse", summaryText, PAGE_MARGIN, cursorY, CONTENT_WIDTH, titleFont, bodyFont);
+  cursorY = drawSectionCard(page, "Ce que vous pouvez faire", risk.recommendation, PAGE_MARGIN, cursorY, CONTENT_WIDTH, titleFont, bodyFont);
+  drawSectionCard(page, "Points à surveiller", risk.watch, PAGE_MARGIN, cursorY, CONTENT_WIDTH, titleFont, bodyFont);
 }
 
 function drawRecommendationPage(
@@ -291,59 +299,52 @@ function drawRecommendationPage(
   titleFont: Awaited<ReturnType<PDFDocument["embedFont"]>>,
   bodyFont: Awaited<ReturnType<PDFDocument["embedFont"]>>
 ) {
-  const CARD_WIDTH = (CONTENT_WIDTH - 16) / 3;
-  let cursorY = PAGE_HEIGHT - PAGE_MARGIN;
+  // Top accent band
+  page.drawRectangle({
+    x: 0,
+    y: PAGE_HEIGHT - 6,
+    width: PAGE_WIDTH,
+    height: 6,
+    color: BRAND
+  });
 
-  // Section label
+  let cursorY = PAGE_HEIGHT - PAGE_MARGIN - 10;
+
   page.drawText("PRIORITÉS", {
     x: PAGE_MARGIN,
     y: cursorY,
-    size: 10,
+    size: 8,
     font: titleFont,
     color: BRAND
   });
   cursorY -= 28;
 
-  // Title
   page.drawText(recommendation.title, {
     x: PAGE_MARGIN,
     y: cursorY,
-    size: 22,
+    size: 24,
     font: titleFont,
     color: SLATE_900
   });
-  cursorY -= 22;
+  cursorY -= 16;
 
-  // Separator line
   page.drawLine({
     start: { x: PAGE_MARGIN, y: cursorY },
     end: { x: PAGE_WIDTH - PAGE_MARGIN, y: cursorY },
-    thickness: 1,
+    thickness: 0.5,
     color: LINE
   });
-  cursorY -= 22;
+  cursorY -= 20;
 
-  // Summary
-  cursorY = drawParagraph(
-    page,
-    recommendation.summary,
-    PAGE_MARGIN,
-    cursorY,
-    CONTENT_WIDTH,
-    bodyFont,
-    12,
-    SLATE_600,
-    18
-  );
+  cursorY = drawParagraph(page, recommendation.summary, PAGE_MARGIN, cursorY, CONTENT_WIDTH, bodyFont, 11, SLATE_600, 17);
   cursorY -= 28;
 
-  // Checklist cards (3 items side by side)
+  const CARD_WIDTH = (CONTENT_WIDTH - 16) / 3;
   recommendation.checklist.forEach((item, index) => {
     const x = PAGE_MARGIN + index * (CARD_WIDTH + 8);
-    const textLines = wrapText(item, bodyFont, 11, CARD_WIDTH - 28);
-    const cardHeight = 36 + textLines.length * 16 + 20;
+    const textLines = wrapText(item, bodyFont, 10.5, CARD_WIDTH - 28);
+    const cardHeight = 38 + textLines.length * 15 + 18;
 
-    // Card background
     page.drawRectangle({
       x,
       y: cursorY - cardHeight,
@@ -351,19 +352,8 @@ function drawRecommendationPage(
       height: cardHeight,
       color: PANEL,
       borderColor: LINE,
-      borderWidth: 1
+      borderWidth: 0.5
     });
-
-    // Action number label
-    page.drawText(`ACTION ${index + 1}`, {
-      x: x + 14,
-      y: cursorY - 18,
-      size: 9,
-      font: titleFont,
-      color: BRAND
-    });
-
-    // Accent bar at top of card
     page.drawRectangle({
       x,
       y: cursorY - 4,
@@ -371,15 +361,20 @@ function drawRecommendationPage(
       height: 4,
       color: BRAND
     });
-
-    // Item text
+    page.drawText(`ACTION ${index + 1}`, {
+      x: x + 14,
+      y: cursorY - 20,
+      size: 7.5,
+      font: titleFont,
+      color: BRAND
+    });
     page.drawText(textLines.join("\n"), {
       x: x + 14,
-      y: cursorY - 40,
+      y: cursorY - 38,
       font: bodyFont,
-      size: 11,
-      color: SLATE_600,
-      lineHeight: 16
+      size: 10.5,
+      color: SLATE_700,
+      lineHeight: 15
     });
   });
 }
@@ -408,28 +403,28 @@ export async function createRiskReportPdf(result: RiskResult) {
   const headingFont = await pdf.embedFont(StandardFonts.HelveticaBold);
   const bodyFont = await pdf.embedFont(StandardFonts.Helvetica);
   const logo = await loadLogo(pdf);
+  const riskColors = getOverallRiskColors(result.overallRisk.level);
+
+  // ── PAGE DE COUVERTURE ──────────────────────────────────────────────────────
 
   const cover = pdf.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
-  cover.drawRectangle({
-    x: 0,
-    y: 0,
-    width: PAGE_WIDTH,
-    height: PAGE_HEIGHT,
-    color: rgb(1, 1, 1)
-  });
+  cover.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT, color: WHITE });
 
+  // Bande colorée en haut
+  cover.drawRectangle({ x: 0, y: PAGE_HEIGHT - 6, width: PAGE_WIDTH, height: 6, color: riskColors.band });
+
+  // Logo
   const LOGO_SIZE = 72;
   if (logo) {
     const dimensions = logo.scale(1);
     const ratio = Math.min(LOGO_SIZE / dimensions.width, LOGO_SIZE / dimensions.height);
-    const width = dimensions.width * ratio;
-    const height = dimensions.height * ratio;
-
+    const w = dimensions.width * ratio;
+    const h = dimensions.height * ratio;
     cover.drawImage(logo, {
-      x: PAGE_WIDTH - PAGE_MARGIN - width,
-      y: PAGE_HEIGHT - PAGE_MARGIN - height,
-      width,
-      height
+      x: PAGE_WIDTH - PAGE_MARGIN - w,
+      y: PAGE_HEIGHT - PAGE_MARGIN - h,
+      width: w,
+      height: h
     });
   } else {
     cover.drawRectangle({
@@ -449,165 +444,184 @@ export async function createRiskReportPdf(result: RiskResult) {
     });
   }
 
+  // En-tête marque
   cover.drawText("Mon Risque Habitat", {
     x: PAGE_MARGIN,
     y: PAGE_HEIGHT - PAGE_MARGIN - 8,
-    size: 20,
+    size: 18,
     font: headingFont,
     color: SLATE_900
   });
   cover.drawText("by AGS & Co", {
     x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - PAGE_MARGIN - 28,
-    size: 10,
+    y: PAGE_HEIGHT - PAGE_MARGIN - 26,
+    size: 9,
     font: bodyFont,
     color: SLATE_400
   });
 
-  cover.drawText("Rapport de synthèse", {
+  // Titre du document
+  cover.drawText("Rapport de synthèse des risques", {
     x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - 172,
-    size: 28,
+    y: PAGE_HEIGHT - 164,
+    size: 26,
     font: headingFont,
     color: SLATE_900
   });
-  cover.drawText("Analyse d'un bien à partir des données Géorisques disponibles.", {
+  cover.drawText("Analyse construite à partir des données officielles Géorisques.", {
     x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - 196,
-    size: 12,
+    y: PAGE_HEIGHT - 190,
+    size: 11,
     font: bodyFont,
     color: SLATE_600
   });
 
+  // Séparateur
+  cover.drawLine({
+    start: { x: PAGE_MARGIN, y: PAGE_HEIGHT - 208 },
+    end: { x: PAGE_WIDTH - PAGE_MARGIN, y: PAGE_HEIGHT - 208 },
+    thickness: 0.5,
+    color: LINE
+  });
+
+  // Bloc adresse + date
   cover.drawRectangle({
     x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - 346,
+    y: PAGE_HEIGHT - 344,
     width: CONTENT_WIDTH,
-    height: 126,
+    height: 118,
     color: PANEL,
     borderColor: LINE,
-    borderWidth: 1
+    borderWidth: 0.5
   });
-  cover.drawText("Adresse analysée", {
+  cover.drawText("ADRESSE ANALYSÉE", {
     x: PAGE_MARGIN + 20,
-    y: PAGE_HEIGHT - 246,
-    size: 10,
+    y: PAGE_HEIGHT - 238,
+    size: 7.5,
     font: headingFont,
     color: SLATE_400
   });
-  drawParagraph(
-    cover,
-    result.address,
-    PAGE_MARGIN + 20,
-    PAGE_HEIGHT - 272,
-    CONTENT_WIDTH - 40,
-    headingFont,
-    18,
-    SLATE_900,
-    22
-  );
-  cover.drawText("Date d'analyse", {
+  drawParagraph(cover, result.address, PAGE_MARGIN + 20, PAGE_HEIGHT - 256, CONTENT_WIDTH - 40, headingFont, 16, SLATE_900, 20);
+  cover.drawText("DATE D'ANALYSE", {
     x: PAGE_MARGIN + 20,
-    y: PAGE_HEIGHT - 316,
-    size: 10,
+    y: PAGE_HEIGHT - 308,
+    size: 7.5,
     font: headingFont,
     color: SLATE_400
   });
   cover.drawText(formatAnalysisDate(result.analyzedAt), {
     x: PAGE_MARGIN + 20,
-    y: PAGE_HEIGHT - 334,
-    size: 11,
+    y: PAGE_HEIGHT - 326,
+    size: 10,
     font: bodyFont,
     color: SLATE_600
   });
 
+  // Bloc niveau de risque global — couleurs adaptées au niveau
   cover.drawRectangle({
     x: PAGE_MARGIN,
-    y: PAGE_HEIGHT - 486,
+    y: PAGE_HEIGHT - 480,
     width: CONTENT_WIDTH,
-    height: 112,
-    color: rgb(0.94, 0.97, 1),
-    borderColor: rgb(0.84, 0.9, 0.98),
-    borderWidth: 1
+    height: 118,
+    color: riskColors.bg,
+    borderColor: riskColors.border,
+    borderWidth: 0.5
+  });
+  cover.drawRectangle({
+    x: PAGE_MARGIN,
+    y: PAGE_HEIGHT - 366,
+    width: CONTENT_WIDTH,
+    height: 4,
+    color: riskColors.band
+  });
+  cover.drawText("NIVEAU DE RISQUE GLOBAL", {
+    x: PAGE_MARGIN + 20,
+    y: PAGE_HEIGHT - 384,
+    size: 7.5,
+    font: headingFont,
+    color: riskColors.label
   });
   cover.drawText(result.overallRisk.label, {
     x: PAGE_MARGIN + 20,
-    y: PAGE_HEIGHT - 404,
+    y: PAGE_HEIGHT - 406,
     size: 20,
     font: headingFont,
-    color: BRAND_DEEP
+    color: riskColors.label
   });
   cover.drawText(result.overallRisk.decision, {
     x: PAGE_MARGIN + 20,
     y: PAGE_HEIGHT - 428,
-    size: 11,
+    size: 10,
     font: headingFont,
-    color: BRAND
+    color: riskColors.band
   });
-  drawParagraph(
-    cover,
-    result.overallRisk.summary,
-    PAGE_MARGIN + 20,
-    PAGE_HEIGHT - 450,
-    CONTENT_WIDTH - 40,
-    bodyFont
-  );
+  drawParagraph(cover, result.overallRisk.summary, PAGE_MARGIN + 20, PAGE_HEIGHT - 448, CONTENT_WIDTH - 40, bodyFont, 10, SLATE_600, 15);
 
-  let summaryY = PAGE_HEIGHT - 540;
-  cover.drawText("Lecture rapide", {
+  // Synthèse rapide
+  let summaryY = PAGE_HEIGHT - 506;
+  cover.drawText("SYNTHÈSE", {
     x: PAGE_MARGIN,
     y: summaryY,
-    size: 11,
+    size: 7.5,
     font: headingFont,
     color: SLATE_400
   });
-  summaryY = drawParagraph(
+  summaryY = drawParagraph(cover, result.overallRisk.takeaway, PAGE_MARGIN, summaryY - 16, CONTENT_WIDTH, bodyFont, 11, SLATE_700, 16);
+  summaryY -= 16;
+
+  // Risques identifiés
+  cover.drawText("RISQUES IDENTIFIÉS", {
+    x: PAGE_MARGIN,
+    y: summaryY,
+    size: 7.5,
+    font: headingFont,
+    color: SLATE_400
+  });
+  drawParagraph(
     cover,
-    result.overallRisk.takeaway,
+    result.categories.map((r) => `${r.label} (${getPriorityLabel(r.priority)})`).join("  ·  "),
     PAGE_MARGIN,
-    summaryY - 20,
-    CONTENT_WIDTH,
-    bodyFont
-  );
-  summaryY = drawParagraph(
-    cover,
-    `Méthode de lecture : ${result.overallRisk.rationale}`,
-    PAGE_MARGIN,
-    summaryY - 10,
+    summaryY - 16,
     CONTENT_WIDTH,
     bodyFont,
     10,
-    SLATE_400,
-    14
+    SLATE_600,
+    15
   );
 
-  cover.drawText("Risques identifiés", {
-    x: PAGE_MARGIN,
-    y: summaryY - 26,
-    size: 11,
-    font: headingFont,
-    color: SLATE_400
+  // Disclaimer en bas de page
+  cover.drawLine({
+    start: { x: PAGE_MARGIN, y: 80 },
+    end: { x: PAGE_WIDTH - PAGE_MARGIN, y: 80 },
+    thickness: 0.5,
+    color: LINE
   });
   drawParagraph(
     cover,
-    result.categories.map((risk) => `${risk.label} (${getPriorityLabel(risk.priority)})`).join(" | "),
+    "Ce rapport est fourni à titre informatif sur la base de données publiques officielles (Géorisques, BRGM, ERRIAL). Il ne remplace pas un état des risques réglementaire ni l'avis d'un professionnel qualifié.",
     PAGE_MARGIN,
-    summaryY - 46,
+    62,
     CONTENT_WIDTH,
-    bodyFont
+    bodyFont,
+    8,
+    SLATE_400,
+    12
   );
-  buildFooter(cover, 1);
+  buildFooter(cover, 1, headingFont, bodyFont);
+
+  // ── PAGES PAR RISQUE ────────────────────────────────────────────────────────
 
   result.categories.forEach((risk, index) => {
     const page = pdf.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
     drawRiskBlock(page, risk, headingFont, bodyFont);
-    buildFooter(page, index + 2);
+    buildFooter(page, index + 2, headingFont, bodyFont);
   });
 
-  // Page de recommandations — dernière page du rapport
+  // ── PAGE DE RECOMMANDATIONS ─────────────────────────────────────────────────
+
   const recoPage = pdf.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
   drawRecommendationPage(recoPage, result.finalRecommendation, headingFont, bodyFont);
-  buildFooter(recoPage, result.categories.length + 2);
+  buildFooter(recoPage, result.categories.length + 2, headingFont, bodyFont);
 
   return pdf.save();
 }
