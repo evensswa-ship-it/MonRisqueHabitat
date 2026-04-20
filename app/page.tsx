@@ -153,7 +153,7 @@ export default function HomePage() {
       </section>
 
       {/* ── COMMENT ÇA MARCHE ────────────────────────────────────────────── */}
-      <section id="fonctionnement" className="shell mt-16 md:mt-24">
+      <section id="fonctionnement" className="shell mt-24 md:mt-32">
         <div className="mb-10 text-center md:mb-14">
           <span className="eyebrow mx-auto">
             <MessageCircleHeart />
@@ -181,7 +181,7 @@ export default function HomePage() {
       </section>
 
       {/* ── WIDGET — ZONE D'ANALYSE ──────────────────────────────────────── */}
-      <section id="analyser" className="shell mt-16 md:mt-24">
+      <section id="analyser" className="shell mt-24 md:mt-32">
         <div className="mb-8 text-center md:mb-12">
           <span className="eyebrow mx-auto">
             <Sparkles />

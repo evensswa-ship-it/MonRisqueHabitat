@@ -20,7 +20,7 @@ export function RiskCard({
           <RiskBadge priority={risk.priority} />
           <div className="min-w-0">
             <h4 className="text-base font-semibold text-slate-950">{risk.label}</h4>
-            <p className="mt-0.5 truncate text-sm text-slate-500">{risk.decision}</p>
+            <p className="mt-0.5 text-sm text-slate-500">{risk.decision}</p>
           </div>
         </div>
         {/* Expand indicator */}
