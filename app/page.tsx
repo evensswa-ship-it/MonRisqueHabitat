@@ -96,7 +96,7 @@ export default function HomePage() {
               <a href="#partenaires" className="transition hover:text-slate-900">Partenaires</a>
             </nav>
             <a href="#analyser" className="cta-primary cta-md hidden md:inline-flex">
-              Tester →
+              Analyser →
             </a>
           </header>
 
@@ -105,28 +105,28 @@ export default function HomePage() {
             <div className="reveal-up">
               <span className="eyebrow mx-auto">
                 <Sparkles />
-                Analyse immobilière en temps réel
+                Diagnostic immobilier gratuit
               </span>
 
-              <h1 className="mx-auto mt-7 max-w-4xl text-balance text-5xl font-semibold tracking-tight text-slate-950 md:text-7xl">
-                Comprenez les risques d'un bien immobilier en quelques secondes.
+              <h1 className="mx-auto mt-7 max-w-3xl text-balance text-5xl font-semibold tracking-tight text-slate-950 md:text-6xl">
+                Votre bien est-il exposé à des risques ?
               </h1>
 
-              <p className="mx-auto mt-6 max-w-2xl text-balance text-lg leading-8 text-slate-600">
-                Entrez une adresse et obtenez une analyse claire, fiable et exploitable — inondation, sol, environnement, proximité industrielle.
+              <p className="mx-auto mt-6 max-w-xl text-balance text-lg leading-8 text-slate-600">
+                Entrez une adresse en France et obtenez en quelques secondes une analyse claire — inondation, sol, environnement, proximité industrielle.
               </p>
 
-              <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+              <div className="mt-9 flex flex-col items-center gap-3">
                 <a href="#analyser" className="cta-primary cta-lg">
-                  Analyser une adresse →
+                  Analyser une adresse gratuitement →
                 </a>
-                <a href="#partenaires" className="cta-secondary cta-lg">
-                  Intégrer dans mon parcours
+                <a href="#partenaires" className="text-sm text-slate-400 transition hover:text-slate-700">
+                  Vous êtes professionnel ? Découvrez l'offre partenaire
                 </a>
               </div>
 
-              <p className="mt-6 text-sm text-slate-400">
-                Données officielles · Aucune inscription requise · Mon Risque Habitat ne vend pas d'assurance
+              <p className="mt-7 text-sm text-slate-400">
+                Gratuit · Aucune inscription · Données officielles · Mon Risque Habitat ne vend pas d'assurance
               </p>
             </div>
           </div>
@@ -178,6 +178,13 @@ export default function HomePage() {
             </article>
           ))}
         </div>
+
+        {/* CTA après les étapes */}
+        <div className="mt-10 text-center md:mt-12">
+          <a href="#analyser" className="cta-primary cta-lg">
+            Lancer mon diagnostic →
+          </a>
+        </div>
       </section>
 
       {/* ── WIDGET — ZONE D'ANALYSE ──────────────────────────────────────── */}
@@ -185,13 +192,13 @@ export default function HomePage() {
         <div className="mb-8 text-center md:mb-12">
           <span className="eyebrow mx-auto">
             <Sparkles />
-            Essayez maintenant
+            Diagnostic gratuit
           </span>
           <h2 className="mx-auto mt-5 max-w-2xl text-balance text-3xl font-semibold text-slate-950 md:text-4xl">
-            Tester avec une adresse réelle.
+            Entrez une adresse, obtenez votre diagnostic.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-slate-500">
-            Saisissez n'importe quelle adresse en France. L'analyse s'effectue en temps réel.
+            Résultat immédiat. Aucune inscription requise.
           </p>
         </div>
         <RiskWidget />
@@ -233,16 +240,16 @@ export default function HomePage() {
       <section className="shell mt-16 md:mt-24">
         <div className="reveal-up rounded-[34px] bg-[linear-gradient(135deg,#08264f_0%,#0f4fa8_52%,#3b82f6_100%)] p-10 text-center text-white shadow-[0_28px_80px_rgba(15,79,168,0.24)] md:p-16">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">
-            Prêt à tester ?
+            Prenez les bonnes décisions
           </p>
           <h2 className="mx-auto mt-5 max-w-2xl text-balance text-3xl font-semibold md:text-4xl">
-            Tester une adresse maintenant.
+            Analysez votre bien avant qu'il soit trop tard.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-8 text-blue-100">
-            Aucune inscription. Résultat immédiat. Données officielles.
+            Gratuit, immédiat, sans inscription. Les données qui changent une décision d'achat.
           </p>
           <a href="#analyser" className="cta-secondary cta-lg mt-8 inline-flex">
-            Analyser une adresse →
+            Lancer le diagnostic →
           </a>
         </div>
       </section>
@@ -255,20 +262,23 @@ export default function HomePage() {
               Espace partenaires
             </p>
             <h2 className="mt-4 text-balance text-3xl font-semibold text-slate-950 md:text-4xl">
-              Parlons de votre projet.
+              Intégrez le diagnostic dans votre parcours client.
             </h2>
             <p className="mt-5 text-base leading-8 text-slate-600">
-              Ce module est pensé pour les assureurs, courtiers, mutuelles, réseaux d'agences et acteurs de l'habitat. Nous vous présentons l'intégration et les options possibles.
+              Conçu pour les assureurs, courtiers, réseaux d'agences et mutuelles. Ajoutez une lecture du risque habitat à chaque devis ou transaction.
             </p>
-            <div className="mt-7 space-y-4 text-sm leading-7 text-slate-600">
+            <div className="mt-7 space-y-4 text-sm leading-7 text-slate-700">
               <div className="panel-card hover-lift rounded-2xl p-5">
-                Un diagnostic simple, orienté vers l'action.
+                <span className="font-semibold text-slate-950">Réduisez les sinistres non anticipés</span>
+                <p className="mt-1 text-slate-500">Vos clients entrent informés, vos contrats sont mieux dimensionnés.</p>
               </div>
               <div className="panel-card hover-lift rounded-2xl p-5">
-                Une intégration rapide dans vos parcours clients ou vos devis.
+                <span className="font-semibold text-slate-950">Intégration en moins d'une journée</span>
+                <p className="mt-1 text-slate-500">API simple, widget embarquable, ou lien direct — selon votre stack.</p>
               </div>
               <div className="panel-card hover-lift rounded-2xl p-5">
-                Une personnalisation adaptée à votre structure.
+                <span className="font-semibold text-slate-950">Marque blanche disponible</span>
+                <p className="mt-1 text-slate-500">Personnalisez l'interface aux couleurs de votre structure.</p>
               </div>
             </div>
           </div>

@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm i *)"
+      "Bash(npm i *)",
+      "Bash(git checkout *)",
+      "mcp__magic__21st_magic_component_refiner"
     ]
   }
 }
