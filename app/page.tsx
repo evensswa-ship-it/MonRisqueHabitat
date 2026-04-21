@@ -190,11 +190,7 @@ export default function HomePage() {
       {/* ── WIDGET — ZONE D'ANALYSE ──────────────────────────────────────── */}
       <section id="analyser" className="shell mt-24 md:mt-32">
         <div className="mb-8 text-center md:mb-12">
-          <span className="eyebrow mx-auto">
-            <Sparkles />
-            Diagnostic gratuit
-          </span>
-          <h2 className="mx-auto mt-5 max-w-2xl text-balance text-3xl font-semibold text-slate-950 md:text-4xl">
+          <h2 className="mx-auto max-w-2xl text-balance text-3xl font-semibold text-slate-950 md:text-4xl">
             Entrez une adresse, obtenez votre diagnostic.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-slate-500">
@@ -217,6 +213,10 @@ export default function HomePage() {
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-8 text-slate-600">
               L'analyse est construite à partir de bases de données publiques reconnues — Géorisques, ERRIAL, BRGM — enrichies d'une lecture orientée vers l'action.
+            </p>
+            <p className="mx-auto mt-5 max-w-xl text-balance rounded-2xl bg-[var(--brand-soft)] px-6 py-4 text-sm leading-7 text-[var(--brand-ink)]">
+              Les données officielles sont complètes, mais leur lecture peut prendre du temps.{" "}
+              MRH propose une synthèse claire et exploitable en quelques secondes.
             </p>
           </div>
           <div className="grid gap-4 md:grid-cols-3 md:gap-6">

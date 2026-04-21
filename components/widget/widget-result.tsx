@@ -2,11 +2,12 @@
 
 import type { CSSProperties } from "react";
 import { useState } from "react";
-import { ArrowRight, Download, RefreshCcw } from "@/components/widget/icons";
+import { ArrowRight, Check, Download, RefreshCcw, Share2 } from "@/components/widget/icons";
 import { LeadCaptureForm } from "@/components/widget/lead-capture-form";
 import { RiskCard } from "@/components/widget/risk-card";
 import { enableNearbyPartners } from "@/lib/feature-flags";
 import { downloadRiskReport } from "@/services/risk-report-service";
+import { getRiskTone } from "@/lib/risk-tone";
 import type { AddressSuggestion } from "@/types/address";
 import type { RiskLevel, RiskResult } from "@/types/risk";
 
@@ -51,10 +52,34 @@ const heroTones: Record<RiskLevel, HeroTone> = {
 export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultProps) {
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadError, setDownloadError] = useState("");
+  const [shareCopied, setShareCopied] = useState(false);
 
   const tone = heroTones[result.overallRisk.level];
   const highCount = result.categories.filter((r) => r.priority === "high").length;
   const mediumCount = result.categories.filter((r) => r.priority === "medium").length;
+
+  async function handleShare() {
+    const shareData = {
+      title: "Mon Risque Habitat",
+      text: `Diagnostic risque pour ${result.address} — ${result.overallRisk.label} · ${result.overallRisk.decision}`,
+      url: window.location.href,
+    };
+    if (typeof navigator.share === "function" && navigator.canShare?.(shareData)) {
+      try {
+        await navigator.share(shareData);
+      } catch {
+        // utilisateur a annulé
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        setShareCopied(true);
+        setTimeout(() => setShareCopied(false), 2000);
+      } catch {
+        // clipboard non disponible
+      }
+    }
+  }
 
   async function handleDownloadReport() {
     setIsDownloading(true);
@@ -128,6 +153,14 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
           >
             Recevoir par email
           </a>
+          <button
+            type="button"
+            onClick={handleShare}
+            className="cta-secondary cta-md inline-flex items-center gap-2"
+          >
+            {shareCopied ? <Check /> : <Share2 />}
+            {shareCopied ? "Lien copié !" : "Partager"}
+          </button>
         </div>
 
         {/* Compteurs */}
@@ -154,59 +187,40 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
         )}
       </div>
 
-      {/* ── BLOC 2 : RISQUES ───────────────────────────────────────────── */}
-      <div className="reveal-up" style={{ "--delay": "80ms" } as CSSProperties}>
-        <div className="mb-6 md:mb-7">
-          <h4 className="text-2xl font-semibold text-slate-950">Points de vigilance</h4>
-          <p className="mt-2 text-sm leading-7 text-slate-500">
-            Voici les principaux risques identifiés pour ce bien. Ouvrez chaque carte pour l'explication et les actions utiles.
-          </p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2 md:gap-5">
-          {result.categories.map((risk, index) => (
-            <div
-              key={risk.id}
-              className="reveal-up"
-              style={{ "--delay": `${100 + index * 80}ms` } as CSSProperties}
-            >
-              <RiskCard risk={risk} defaultOpen={index === 0} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── BLOC 3 : CONTEXTE + DÉCISION ──────────────────────────────── */}
+      {/* ── SCAN RAPIDE ───────────────────────────────────────────────── */}
       <div
-        className="reveal-up rounded-[30px] border border-slate-200 bg-white p-7 shadow-[0_8px_32px_rgba(15,23,42,0.04)] md:p-9"
-        style={{ "--delay": "160ms" } as CSSProperties}
+        className="reveal-up rounded-[28px] border border-slate-200 bg-white px-5 py-4 shadow-[0_8px_32px_rgba(15,23,42,0.04)]"
+        style={{ "--delay": "60ms" } as CSSProperties}
       >
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-          Aide à la décision
+        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+          Vue d'ensemble
         </p>
-        <div className="mt-5 grid gap-4 md:grid-cols-2 md:gap-5">
-          <div className="rounded-[22px] bg-slate-50 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-              Analyse
-            </p>
-            <p className="mt-3 text-sm leading-7 text-slate-700">
-              {result.overallRisk.takeaway}
-            </p>
-          </div>
-          <div className="rounded-[22px] bg-slate-50 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-              Contexte
-            </p>
-            <p className="mt-3 text-sm leading-7 text-slate-600">
-              {result.overallRisk.rationale}
-            </p>
-          </div>
+        <div className="grid grid-cols-2 gap-2 md:flex md:flex-wrap md:gap-2">
+          {result.categories.map((risk, index) => {
+            const scanTone = getRiskTone(risk.priority);
+            const isLastOdd =
+              index === result.categories.length - 1 &&
+              result.categories.length % 2 !== 0;
+            return (
+              <div
+                key={risk.id}
+                className={`flex items-center gap-2.5 rounded-2xl px-3.5 py-2.5 md:rounded-full md:py-2 ${scanTone.badge}${isLastOdd ? " col-span-2 md:col-auto" : ""}`}
+              >
+                <span className={`h-2 w-2 shrink-0 rounded-full ${scanTone.dot}`} />
+                <span className="min-w-0 flex-1 truncate text-xs font-semibold text-slate-700 md:flex-none">
+                  {risk.label}
+                </span>
+                <span className="shrink-0 text-xs font-bold">{scanTone.label}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* Priorités */}
+      {/* ── PRIORITÉS ─────────────────────────────────────────────────── */}
       <div
         className="reveal-up rounded-[30px] border border-slate-200 bg-white p-7 shadow-[0_8px_32px_rgba(15,23,42,0.04)] md:p-8"
-        style={{ "--delay": "200ms" } as CSSProperties}
+        style={{ "--delay": "120ms" } as CSSProperties}
       >
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand)]">
           Priorités
@@ -232,10 +246,59 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
         </div>
       </div>
 
-      {/* Advisor CTA */}
+      {/* ── RISQUES DÉTAIL ────────────────────────────────────────────── */}
+      <div className="reveal-up" style={{ "--delay": "200ms" } as CSSProperties}>
+        <div className="mb-6 md:mb-7">
+          <h4 className="text-2xl font-semibold text-slate-950">Points de vigilance</h4>
+          <p className="mt-2 text-sm leading-7 text-slate-500">
+            Voici les principaux risques identifiés pour ce bien. Ouvrez chaque carte pour l'explication et les actions utiles.
+          </p>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 md:gap-5">
+          {result.categories.map((risk, index) => (
+            <div
+              key={risk.id}
+              className="reveal-up"
+              style={{ "--delay": `${220 + index * 60}ms` } as CSSProperties}
+            >
+              <RiskCard risk={risk} defaultOpen={index === 0} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── CONTEXTE + DÉCISION ───────────────────────────────────────── */}
+      <div
+        className="reveal-up rounded-[30px] border border-slate-200 bg-white p-7 shadow-[0_8px_32px_rgba(15,23,42,0.04)] md:p-9"
+        style={{ "--delay": "300ms" } as CSSProperties}
+      >
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+          Aide à la décision
+        </p>
+        <div className="mt-5 grid gap-4 md:grid-cols-2 md:gap-5">
+          <div className="rounded-[22px] bg-slate-50 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+              Analyse
+            </p>
+            <p className="mt-3 text-sm leading-7 text-slate-700">
+              {result.overallRisk.takeaway}
+            </p>
+          </div>
+          <div className="rounded-[22px] bg-slate-50 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+              Contexte
+            </p>
+            <p className="mt-3 text-sm leading-7 text-slate-600">
+              {result.overallRisk.rationale}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* ── ADVISOR CTA ───────────────────────────────────────────────── */}
       <div
         className="reveal-up rounded-[30px] bg-[var(--brand-deep)] p-7 text-white md:p-8"
-        style={{ "--delay": "240ms" } as CSSProperties}
+        style={{ "--delay": "360ms" } as CSSProperties}
       >
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">
           Besoin d'aide ?
@@ -267,7 +330,7 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
       {enableNearbyPartners && (
         <div
           className="reveal-up rounded-[24px] border border-dashed border-slate-200 bg-white p-6 md:p-7"
-          style={{ "--delay": "280ms" } as CSSProperties}
+          style={{ "--delay": "400ms" } as CSSProperties}
         >
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
             Partenaires à proximité
@@ -281,7 +344,7 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
       {/* Note */}
       <div
         className="reveal-up rounded-[22px] border border-slate-200 bg-slate-50/80 px-6 py-5"
-        style={{ "--delay": "300ms" } as CSSProperties}
+        style={{ "--delay": "440ms" } as CSSProperties}
       >
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
           Note

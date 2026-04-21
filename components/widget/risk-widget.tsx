@@ -141,33 +141,24 @@ export function RiskWidget() {
   return (
     <section className="glass-panel rounded-[36px] p-6 md:p-8">
       <div className="rounded-[30px] border border-slate-200 bg-white p-7 md:p-10">
-        <div className="flex flex-wrap items-start justify-between gap-5">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--brand)]">
-              Analyse immobilière
-            </p>
-            <h2 className="mt-4 max-w-2xl text-balance text-3xl font-semibold text-slate-950 md:text-4xl">
-              Analysez un bien en quelques secondes.
-            </h2>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600">
-              Un diagnostic clair pour mieux se projeter avant un achat ou une décision. Mon Risque Habitat ne vend pas d'assurance.
-            </p>
-          </div>
+        <div className="flex justify-end">
           <div className="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-600">
             Adresse en France
           </div>
         </div>
 
-        <div className="mt-7 flex flex-wrap gap-2.5">
-          {steps.map((step) => (
-            <div
-              key={step.id}
-              className={`step-pill ${currentStep >= step.id ? "step-active" : "step-inactive"}`}
-            >
-              {step.label}
-            </div>
-          ))}
-        </div>
+        {view !== "result" && (
+          <div className="mt-7 flex flex-wrap gap-2.5">
+            {steps.map((step) => (
+              <div
+                key={step.id}
+                className={`step-pill ${currentStep >= step.id ? "step-active" : "step-inactive"}`}
+              >
+                {step.label}
+              </div>
+            ))}
+          </div>
+        )}
 
         <WidgetForm
           isLoading={view === "loading"}

@@ -221,6 +221,43 @@ export function Palette(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function Share2(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+      className={withClassName(props, "h-4 w-4")}
+    >
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98" />
+    </svg>
+  );
+}
+
+export function Check(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+      className={withClassName(props, "h-4 w-4")}
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
 export function Database(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
