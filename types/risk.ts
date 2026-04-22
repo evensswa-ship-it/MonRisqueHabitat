@@ -35,6 +35,56 @@ export type FinalRecommendation = {
   checklist: string[];
 };
 
+// ── V2 Scoring types ──────────────────────────────────────────────────────────
+
+export type CatNatLevel = "none" | "old" | "moderate" | "significant";
+
+export type CatNatSummary = {
+  count: number;
+  lastYear?: number;
+  dominantPeril?: string;
+  sentence: string;
+};
+
+export type CatNatFactor = {
+  available: boolean;
+  count?: number;
+  lastYear?: number;
+  dominantPeril?: string;
+  level: CatNatLevel;
+  modifier: number;
+  label: string;
+  sentence?: string;
+};
+
+export type ScoredFactor = {
+  id: string;
+  label: string;
+  priority: RiskPriority;
+  score: number;
+  weight: number;
+  explanation: string;
+  actionHint: string;
+};
+
+export type Priority = {
+  rank: number;
+  action: string;
+  context: string;
+};
+
+export type ScoringResult = {
+  globalScore: number;
+  globalLevel: RiskLevel;
+  factors: ScoredFactor[];
+  catnatFactor: CatNatFactor;
+  summary: string;
+  recommendation: string;
+  priorities: Priority[];
+};
+
+// ── Root result ───────────────────────────────────────────────────────────────
+
 export type RiskResult = {
   address: string;
   analyzedAt: string;
@@ -42,6 +92,8 @@ export type RiskResult = {
   categories: RiskCategory[];
   finalRecommendation: FinalRecommendation;
   advisorCta: AdvisorCta;
+  catnat?: CatNatSummary;
+  scoring?: ScoringResult;
 };
 
 export type RiskTone = {

@@ -25,7 +25,7 @@ const benefits = [
   {
     Icon: ShieldCheck,
     title: "Fiable",
-    text: "Analyse construite sur des sources officielles : Géorisques, BRGM, ERRIAL.",
+    text: "Analyse construite sur des sources officielles : Géorisques, BRGM, ERRIAL, GASPAR (data.gouv.fr).",
   },
 ];
 

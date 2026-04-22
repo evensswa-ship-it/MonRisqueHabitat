@@ -544,6 +544,17 @@ export async function createRiskReportPdf(result: RiskResult) {
   y = drawScanBar(cover, result.categories, PAGE_MARGIN, y, CONTENT_WIDTH, headingFont, bodyFont);
   y -= 18;
 
+  // ── CatNat
+  if (result.catnat) {
+    drawLabel(cover, "Catastrophes naturelles reconnues", PAGE_MARGIN, y, headingFont);
+    const catnatLines = wrapText(result.catnat.sentence, bodyFont, 9.5, CONTENT_WIDTH);
+    cover.drawText(catnatLines.join("\n"), {
+      x: PAGE_MARGIN, y: y - 14,
+      font: bodyFont, size: 9.5, color: SLATE_600, lineHeight: 14,
+    });
+    y -= 14 + catnatLines.length * 14 + 10;
+  }
+
   // ── Takeaway
   drawLabel(cover, "Synthèse", PAGE_MARGIN, y, headingFont);
   y = drawParagraph(cover, result.overallRisk.takeaway, PAGE_MARGIN, y - 14, CONTENT_WIDTH, bodyFont, 10.5, SLATE_700, 15);
@@ -560,7 +571,7 @@ export async function createRiskReportPdf(result: RiskResult) {
   });
   drawParagraph(
     cover,
-    "Ce rapport est fourni à titre informatif sur la base de données publiques officielles (Géorisques, BRGM, ERRIAL). " +
+    "Ce rapport est fourni à titre informatif sur la base de données publiques officielles (Géorisques, BRGM, ERRIAL, GASPAR via data.gouv.fr). " +
     "Il ne remplace pas un état des risques réglementaire ni l'avis d'un professionnel qualifié.",
     PAGE_MARGIN, 66, CONTENT_WIDTH, bodyFont, 8, SLATE_400, 12,
   );

@@ -136,6 +136,13 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
           {result.overallRisk.summary}
         </p>
 
+        {/* CatNat */}
+        {result.catnat && (
+          <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-500">
+            {result.catnat.sentence}
+          </p>
+        )}
+
         {/* CTAs */}
         <div className="mt-7 flex flex-wrap gap-3">
           <button
@@ -232,17 +239,23 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
           {result.finalRecommendation.summary}
         </p>
         <div className="mt-6 grid gap-3 md:grid-cols-3 md:gap-4">
-          {result.finalRecommendation.checklist.map((item, index) => (
-            <div
-              key={item}
-              className="rounded-[20px] border border-slate-200 bg-slate-50 px-5 py-5"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-                Action {index + 1}
-              </p>
-              <p className="mt-3 text-sm leading-6 text-slate-700">{item}</p>
-            </div>
-          ))}
+          {result.finalRecommendation.checklist.map((item, index) => {
+            const priorityContext = result.scoring?.priorities[index]?.context;
+            return (
+              <div
+                key={item}
+                className="rounded-[20px] border border-slate-200 bg-slate-50 px-5 py-5"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                  Action {index + 1}
+                </p>
+                <p className="mt-3 text-sm leading-6 text-slate-700">{item}</p>
+                {priorityContext && (
+                  <p className="mt-2 text-xs leading-5 text-slate-400">{priorityContext}</p>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -350,7 +363,7 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
           Note
         </p>
         <p className="mt-2 text-sm leading-7 text-slate-500">
-          Ce diagnostic est fourni à titre informatif, sur la base de données publiques officielles (Géorisques, BRGM, ERRIAL). Il ne remplace pas un état des risques réglementaire ni l'avis d'un professionnel qualifié. Mon Risque Habitat ne vend pas d'assurance.
+          Ce diagnostic est fourni à titre informatif, sur la base de données publiques officielles (Géorisques, BRGM, ERRIAL, GASPAR via data.gouv.fr). Il ne remplace pas un état des risques réglementaire ni l'avis d'un professionnel qualifié. Mon Risque Habitat ne vend pas d'assurance.
         </p>
       </div>
 

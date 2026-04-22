@@ -261,7 +261,7 @@ export default function MentionsLegalesPage() {
               </p>
               <p className="mt-3 text-sm leading-7 text-slate-500">
                 Ce diagnostic est fourni à titre informatif, sur la base de données publiques
-                officielles (Géorisques, BRGM, ERRIAL). Il ne remplace pas un état des risques
+                officielles (Géorisques, BRGM, ERRIAL, GASPAR via data.gouv.fr). Il ne remplace pas un état des risques
                 réglementaire ni l'avis d'un professionnel qualifié. Mon Risque Habitat ne vend
                 pas d'assurance.
               </p>
