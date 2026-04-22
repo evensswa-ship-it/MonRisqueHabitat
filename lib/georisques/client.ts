@@ -2,11 +2,12 @@ import "server-only";
 
 import type { AddressSuggestion } from "@/types/address";
 import type { RiskCategory, RiskPriority, RiskResult } from "@/types/risk";
-import { buildOverallRisk } from "@/lib/risk-scoring";
+import { computeV2Scoring, deriveOverallRisk } from "@/lib/risk-scoring";
 import {
   applyTerritoryContextToResult,
   getTerritoryContext
 } from "@/lib/territory-context";
+import { getCatNatSummary } from "@/lib/georisques/catnat";
 
 type RiskScope = "commune" | "address" | "unknown";
 
@@ -298,25 +299,6 @@ function matchRisksToCategories(
   return categories;
 }
 
-function buildFinalRecommendation(categories: RiskCategory[]) {
-  const checklist = categories.slice(0, 3).map((risk) => risk.recommendation);
-
-  return {
-    title: "Les priorités à retenir",
-    summary:
-      categories.length > 0
-        ? "Concentrez-vous sur les gestes simples qui réduisent l'exposition aux principaux risques."
-        : "Conservez de bons réflexes d'entretien et de prévention au quotidien.",
-    checklist:
-      checklist.length > 0
-        ? checklist
-        : [
-            "Surveiller régulièrement l'état du logement",
-            "Entretenir les évacuations et les abords",
-            "Anticiper les épisodes météo sensibles"
-          ]
-  };
-}
 
 export async function getGeorisquesRiskResult(
   address: AddressSuggestion
@@ -326,6 +308,7 @@ export async function getGeorisquesRiskResult(
   }
 
   const territoryContextPromise = getTerritoryContext(address);
+  const catNatPromise = getCatNatSummary(address).catch(() => undefined);
 
   const baseUrl = buildGeorisquesRiskUrl();
   baseUrl.searchParams.set("latitude", String(address.coordinates.lat));
@@ -402,21 +385,39 @@ export async function getGeorisquesRiskResult(
     riskLabels
   });
 
+  const [territoryContext, catnat] = await Promise.all([
+    territoryContextPromise,
+    catNatPromise,
+  ]);
+
+  const scoring = computeV2Scoring(categories, catnat);
+
+  console.info("[Georisques] V2 scoring computed", {
+    address: buildAddressLogContext(address),
+    globalScore: scoring.globalScore,
+    globalLevel: scoring.globalLevel,
+    catnatLevel: scoring.catnatFactor.level,
+  });
+
   const result = {
     address: address.label,
     analyzedAt: new Date().toISOString(),
-    overallRisk: buildOverallRisk(categories),
+    overallRisk: deriveOverallRisk(scoring),
     categories,
-    finalRecommendation: buildFinalRecommendation(categories),
+    finalRecommendation: {
+      title: "Les priorités à retenir",
+      summary: scoring.summary,
+      checklist: scoring.priorities.map((p) => p.action),
+    },
     advisorCta: {
       title: "Professionnels : demandez une démo.",
       text:
         "Nous vous présentons l'intégration et les options adaptées à votre structure.",
       label: "Demander une démo"
-    }
+    },
+    catnat,
+    scoring,
   };
-
-  const territoryContext = await territoryContextPromise;
 
   return applyTerritoryContextToResult(result, territoryContext);
 }
