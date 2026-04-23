@@ -102,7 +102,7 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
 
       {/* ── BLOC 1 : HERO ──────────────────────────────────────────────── */}
       <div
-        className={`reveal-up rounded-[32px] p-7 ring-1 md:p-10 ${tone.bg} ${tone.ring}`}
+        className={`reveal-up rounded-[24px] p-6 ring-1 md:p-8 ${tone.bg} ${tone.ring}`}
       >
         {/* Adresse + date */}
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -119,7 +119,7 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
         {/* Niveau de risque — dominant */}
         <div className="mt-7 flex items-center gap-4">
           <span className={`h-3.5 w-3.5 shrink-0 rounded-full ${tone.dot}`} />
-          <h3 className={`text-5xl font-semibold tracking-tight md:text-6xl ${tone.label}`}>
+          <h3 className={`text-4xl font-semibold tracking-tight md:text-6xl ${tone.label}`}>
             {result.overallRisk.label}
           </h3>
         </div>
@@ -144,7 +144,7 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
         )}
 
         {/* CTAs */}
-        <div className="mt-7 flex flex-wrap gap-3">
+        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:flex lg:flex-wrap">
           <button
             type="button"
             onClick={handleDownloadReport}
@@ -196,7 +196,7 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
 
       {/* ── SCAN RAPIDE ───────────────────────────────────────────────── */}
       <div
-        className="reveal-up rounded-[28px] border border-slate-200 bg-white px-5 py-4 shadow-[0_8px_32px_rgba(15,23,42,0.04)]"
+        className="panel-card reveal-up px-5 py-4"
         style={{ "--delay": "60ms" } as CSSProperties}
       >
         <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
@@ -226,7 +226,7 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
 
       {/* ── PRIORITÉS ─────────────────────────────────────────────────── */}
       <div
-        className="reveal-up rounded-[30px] border border-slate-200 bg-white p-7 shadow-[0_8px_32px_rgba(15,23,42,0.04)] md:p-8"
+        className="panel-card reveal-up p-6 md:p-8"
         style={{ "--delay": "120ms" } as CSSProperties}
       >
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand)]">
@@ -244,7 +244,7 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
             return (
               <div
                 key={item}
-                className="rounded-[20px] border border-slate-200 bg-slate-50 px-5 py-5"
+                className="rounded-[18px] border border-slate-200 bg-slate-50 px-5 py-5"
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
                   Action {index + 1}
@@ -282,14 +282,14 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
 
       {/* ── CONTEXTE + DÉCISION ───────────────────────────────────────── */}
       <div
-        className="reveal-up rounded-[30px] border border-slate-200 bg-white p-7 shadow-[0_8px_32px_rgba(15,23,42,0.04)] md:p-9"
+        className="panel-card reveal-up p-6 md:p-8"
         style={{ "--delay": "300ms" } as CSSProperties}
       >
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
           Aide à la décision
         </p>
         <div className="mt-5 grid gap-4 md:grid-cols-2 md:gap-5">
-          <div className="rounded-[22px] bg-slate-50 p-5">
+          <div className="rounded-[18px] bg-slate-50 p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
               Analyse
             </p>
@@ -297,7 +297,7 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
               {result.overallRisk.takeaway}
             </p>
           </div>
-          <div className="rounded-[22px] bg-slate-50 p-5">
+          <div className="rounded-[18px] bg-slate-50 p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
               Contexte
             </p>
@@ -310,7 +310,7 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
 
       {/* ── ADVISOR CTA ───────────────────────────────────────────────── */}
       <div
-        className="reveal-up rounded-[30px] bg-[var(--brand-deep)] p-7 text-white md:p-8"
+        className="reveal-up rounded-[24px] bg-[var(--brand-deep)] p-6 text-white md:p-8"
         style={{ "--delay": "360ms" } as CSSProperties}
       >
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">
@@ -356,7 +356,7 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
 
       {/* Note */}
       <div
-        className="reveal-up rounded-[22px] border border-slate-200 bg-slate-50/80 px-6 py-5"
+        className="reveal-up rounded-[20px] border border-slate-200 bg-slate-50/80 px-5 py-5"
         style={{ "--delay": "440ms" } as CSSProperties}
       >
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">

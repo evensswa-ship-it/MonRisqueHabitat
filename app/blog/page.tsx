@@ -12,7 +12,7 @@ export default function BlogPage() {
   const posts = getAllPosts();
 
   return (
-    <div className="shell py-16">
+    <div className="shell py-12 md:py-16">
       <header className="mb-4">
         <Link href="/" aria-label="Accueil Mon Risque Habitat">
           <MrhLogo className="h-8 w-auto" />
@@ -29,10 +29,10 @@ export default function BlogPage() {
         </p>
       </div>
 
-      <ul className="mt-12 space-y-4">
+      <ul className="mt-12 grid gap-4 md:grid-cols-2">
         {posts.map((post) => (
           <li key={post.slug}>
-            <Link href={`/blog/${post.slug}`} className="panel-card block hover:shadow-md transition-shadow">
+            <Link href={`/blog/${post.slug}`} className="panel-card block h-full p-6 transition-shadow hover:shadow-md">
               <h2 className="font-serif text-lg font-semibold text-[var(--brand-ink)]">
                 {post.title}
               </h2>

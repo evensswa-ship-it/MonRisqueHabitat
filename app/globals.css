@@ -51,7 +51,13 @@ input {
 
 .shell {
   margin: 0 auto;
-  width: min(1200px, calc(100% - 32px));
+  width: min(1200px, calc(100% - 24px));
+}
+
+@media (min-width: 640px) {
+  .shell {
+    width: min(1200px, calc(100% - 48px));
+  }
 }
 
 .glass-panel {
@@ -59,12 +65,14 @@ input {
   background: rgba(255, 255, 255, 0.86);
   box-shadow: var(--shadow);
   backdrop-filter: blur(12px);
+  border-radius: 28px;
 }
 
 .panel-card {
   border: 1px solid rgba(148, 163, 184, 0.16);
   background: rgba(255, 255, 255, 0.96);
   box-shadow: var(--shadow-card);
+  border-radius: 20px;
 }
 
 .section-stack {

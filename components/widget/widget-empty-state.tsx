@@ -6,7 +6,7 @@ const previewItems = [
 
 export function WidgetEmptyState() {
   return (
-    <div className="rounded-[28px] border border-dashed border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fbff_100%)] p-6 md:p-8 reveal-up">
+    <div className="reveal-up rounded-[24px] border border-dashed border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fbff_100%)] p-5 md:p-7">
       <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">
         Ce que vous obtenez
       </p>
@@ -20,7 +20,7 @@ export function WidgetEmptyState() {
         {previewItems.map((item) => (
           <div
             key={item.label}
-            className="rounded-2xl border border-slate-200 bg-white/90 p-4"
+            className="rounded-[18px] border border-slate-200 bg-white/90 p-4"
           >
             <p className="text-sm font-semibold text-slate-800">{item.label}</p>
             <p className="mt-1.5 text-xs leading-5 text-slate-500">{item.sub}</p>

@@ -71,12 +71,12 @@ export function WidgetForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="mt-7 rounded-[28px] border border-slate-200 bg-slate-50/70 p-5 md:p-6"
+      className="mt-6 border-t border-slate-200 pt-6"
     >
       <label htmlFor="address" className="text-sm font-semibold text-slate-700">
         Adresse du bien à analyser
       </label>
-      <div className="mt-4 flex flex-col gap-4 md:flex-row md:items-start">
+      <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-start">
         <div className="relative flex-1">
           <Search className="pointer-events-none absolute left-4 top-4 text-slate-400" />
           <input
@@ -121,14 +121,14 @@ export function WidgetForm({
         <button
           type="submit"
           disabled={isLoading || !selectedAddress}
-          className="cta-primary cta-lg disabled:cursor-not-allowed disabled:opacity-60"
+          className="cta-primary cta-lg w-full disabled:cursor-not-allowed disabled:opacity-60 lg:w-auto"
         >
           {isLoading ? "Analyse en cours…" : "Voir le diagnostic"}
         </button>
       </div>
 
       {selectedAddress && (
-        <div className="animate-fade-in mt-5 rounded-[22px] border border-emerald-200 bg-emerald-50/70 p-5">
+        <div className="animate-fade-in mt-5 rounded-[20px] border border-emerald-200 bg-emerald-50/70 p-5">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">
             Adresse confirmée
           </p>

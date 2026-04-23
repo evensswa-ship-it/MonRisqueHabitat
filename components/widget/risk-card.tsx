@@ -12,7 +12,7 @@ export function RiskCard({
   return (
     <details
       open={defaultOpen}
-      className="group rounded-[26px] border border-slate-200 bg-white shadow-[0_4px_16px_rgba(15,23,42,0.04)] transition-all hover:border-slate-300 hover:shadow-[0_8px_28px_rgba(15,23,42,0.08)]"
+      className="group rounded-[20px] border border-slate-200 bg-white shadow-[0_4px_16px_rgba(15,23,42,0.04)] transition-all hover:border-slate-300 hover:shadow-[0_8px_28px_rgba(15,23,42,0.08)]"
     >
       <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 md:p-6">
         {/* Left: badge + title + decision */}
@@ -29,7 +29,7 @@ export function RiskCard({
 
       {/* Expanded content */}
       <div className="animate-fade-in grid gap-3 border-t border-slate-100 px-5 pb-5 pt-4 text-sm leading-7 text-slate-600 md:px-6 md:pb-6">
-        <div className="rounded-[18px] bg-slate-50 p-4">
+        <div className="rounded-[16px] bg-slate-50 p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
             Ce que cela signifie
           </p>
@@ -40,13 +40,13 @@ export function RiskCard({
             </p>
           )}
         </div>
-        <div className="rounded-[18px] bg-white p-4 ring-1 ring-slate-100">
+        <div className="rounded-[16px] bg-white p-4 ring-1 ring-slate-100">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
             Ce que vous pouvez faire
           </p>
           <p className="mt-2.5 text-slate-700">{risk.recommendation}</p>
         </div>
-        <div className="rounded-[18px] bg-slate-50 p-4">
+        <div className="rounded-[16px] bg-slate-50 p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
             Ce qu'il faut surveiller
           </p>

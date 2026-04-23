@@ -139,58 +139,64 @@ export function RiskWidget() {
   }
 
   return (
-    <section className="glass-panel rounded-[36px] p-6 md:p-8">
-      <div className="rounded-[30px] border border-slate-200 bg-white p-7 md:p-10">
-        <div className="flex justify-end">
-          <div className="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-600">
-            Adresse en France
-          </div>
+    <section className="glass-panel mx-auto max-w-5xl p-5 text-left md:p-7">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--brand)]">
+            Diagnostic express
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold text-slate-950 md:text-3xl">
+            Analysez une adresse en France
+          </h2>
         </div>
+        <div className="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-600">
+          Données officielles
+        </div>
+      </div>
 
-        {view !== "result" && (
-          <div className="mt-7 flex flex-wrap gap-2.5">
-            {steps.map((step) => (
-              <div
-                key={step.id}
-                className={`step-pill ${currentStep >= step.id ? "step-active" : "step-inactive"}`}
-              >
-                {step.label}
-              </div>
-            ))}
+      {view !== "result" && (
+        <div className="mt-6 flex flex-wrap gap-2.5">
+          {steps.map((step) => (
+            <div
+              key={step.id}
+              className={`step-pill ${currentStep >= step.id ? "step-active" : "step-inactive"}`}
+            >
+              {step.label}
+            </div>
+          ))}
+        </div>
+      )}
+
+      <WidgetForm
+        isLoading={view === "loading"}
+        query={query}
+        selectedAddress={selectedAddress}
+        suggestions={suggestions}
+        searchState={searchState}
+        onQueryChange={handleQueryChange}
+        onSuggestionSelect={handleSelectAddress}
+        onSubmit={handleSubmit}
+      />
+
+      <div className="mt-6">
+        {view === "idle" && <WidgetEmptyState />}
+        {view === "loading" && (
+          <div className="reveal-up">
+            <WidgetLoading />
           </div>
         )}
-
-        <WidgetForm
-          isLoading={view === "loading"}
-          query={query}
-          selectedAddress={selectedAddress}
-          suggestions={suggestions}
-          searchState={searchState}
-          onQueryChange={handleQueryChange}
-          onSuggestionSelect={handleSelectAddress}
-          onSubmit={handleSubmit}
-        />
-
-        <div className="mt-8">
-          {view === "idle" && <WidgetEmptyState />}
-          {view === "loading" && (
-            <div className="reveal-up">
-              <WidgetLoading />
-            </div>
-          )}
-          {view === "result" && result && selectedAddress && (
-            <WidgetResult
-              selectedAddress={selectedAddress}
-              result={result}
-              onReset={handleReset}
-            />
-          )}
-          {view === "error" && (
-            <div className="reveal-up">
-              <WidgetError message={error} onReset={handleReset} />
-            </div>
-          )}
-        </div>
+        {view === "result" && result && selectedAddress && (
+          <WidgetResult
+            selectedAddress={selectedAddress}
+            result={result}
+            onReset={handleReset}
+          />
+        )}
+        {view === "error" && (
+          <div className="reveal-up">
+            <WidgetError message={error} onReset={handleReset} />
+          </div>
+        )}
       </div>
     </section>
   );

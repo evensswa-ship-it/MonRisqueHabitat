@@ -125,7 +125,7 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
   }
 
   return (
-    <div className="rounded-[28px] border border-slate-200 bg-white p-7 shadow-[0_18px_50px_rgba(15,23,42,0.04)] md:p-8">
+    <div className="panel-card p-6 md:p-8">
       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--brand)]">
         Garder une trace
       </p>
@@ -163,7 +163,7 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
       </div>
 
       {status === "success" ? (
-        <div className="mt-6 rounded-[22px] border border-emerald-200 bg-emerald-50 p-5">
+        <div className="mt-6 rounded-[20px] border border-emerald-200 bg-emerald-50 p-5">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700">
             Demande envoyée
           </p>
@@ -252,7 +252,7 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
             </label>
           </div>
 
-          <label className="flex items-start gap-3 rounded-[20px] border border-slate-200 bg-slate-50 px-4 py-4">
+          <label className="flex items-start gap-3 rounded-[18px] border border-slate-200 bg-slate-50 px-4 py-4">
             <input
               type="checkbox"
               checked={values.consent}
@@ -267,7 +267,7 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
           </label>
 
           {(errorMessage || validationMessage) && (
-            <div className="rounded-[20px] border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+            <div className="rounded-[18px] border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
               {errorMessage || validationMessage}
             </div>
           )}
