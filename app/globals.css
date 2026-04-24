@@ -69,10 +69,11 @@ input {
 }
 
 .panel-card {
-  border: 1px solid rgba(148, 163, 184, 0.16);
+  border: 1px solid rgba(148, 163, 184, 0.22);
   background: rgba(255, 255, 255, 0.96);
   box-shadow: var(--shadow-card);
   border-radius: 20px;
+  transition: box-shadow 180ms ease, border-color 180ms ease;
 }
 
 .section-stack {
@@ -231,6 +232,8 @@ input {
 .cta-primary:hover {
   background: var(--brand-deep);
   color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 24px 52px rgba(8, 38, 79, 0.30);
 }
 
 .cta-secondary {
@@ -243,6 +246,7 @@ input {
   border-color: rgba(8, 38, 79, 0.34);
   background: #f8fafc;
   color: #020617;
+  transform: translateY(-1px);
 }
 
 .cta-lg {

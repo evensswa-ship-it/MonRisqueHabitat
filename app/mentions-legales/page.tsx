@@ -24,17 +24,35 @@ const sections = [
     id: "editeur",
     title: "Éditeur",
     content: (
-      <div className="space-y-1">
-        <p><strong>AGS &amp; Co</strong></p>
-        <p>
-          Contact :{" "}
+      <div className="space-y-1 text-sm leading-7 text-slate-600">
+        <p><strong className="text-slate-900">AGS &amp; Co</strong></p>
+        <p>Représentant : <strong className="text-slate-900">Evens Augustin</strong></p>
+        <p>59 rue de Ponthieu, Bureau 326</p>
+        <p>75008 Paris — France</p>
+        <p className="pt-1">
+          Tél. :{" "}
           <a
-            href="mailto:monrisquehabitat@agsandco.fr"
+            href="tel:+33749213505"
             className="text-[var(--brand)] underline-offset-4 hover:underline"
           >
-            monrisquehabitat@agsandco.fr
+            +33 7 49 21 35 05
           </a>
         </p>
+        <p>
+          Email :{" "}
+          <a
+            href="mailto:evensswa@gmail.com"
+            className="text-[var(--brand)] underline-offset-4 hover:underline"
+          >
+            evensswa@gmail.com
+          </a>
+        </p>
+        <div className="pt-2 space-y-1 text-slate-500">
+          <p>N° SIRET : <span className="font-mono">91206657800028</span></p>
+          <p>N° TVA intracommunautaire : <span className="font-mono">FR78912066578</span></p>
+          <p>Code NAF : 70.22Z</p>
+        </div>
+        <p className="pt-1">Directeur de la publication : <strong className="text-slate-900">Evens Augustin</strong></p>
       </div>
     )
   },
@@ -212,7 +230,7 @@ export default function MentionsLegalesPage() {
             Mentions légales
           </h1>
           <p className="mt-4 text-base leading-7 text-slate-500">
-            Dernière mise à jour : avril 2025
+            Dernière mise à jour : avril 2026
           </p>
         </div>
       </div>

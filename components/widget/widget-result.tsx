@@ -3,6 +3,7 @@
 import type { CSSProperties } from "react";
 import { useState } from "react";
 import { ArrowRight, Check, Download, RefreshCcw, Share2 } from "@/components/widget/icons";
+import { GuidedRiskAssistant } from "@/components/widget/guided-risk-assistant";
 import { LeadCaptureForm } from "@/components/widget/lead-capture-form";
 import { RiskCard } from "@/components/widget/risk-card";
 import { enableNearbyPartners } from "@/lib/feature-flags";
@@ -223,6 +224,9 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
           })}
         </div>
       </div>
+
+      {/* ── COMPRENDRE CE RÉSULTAT ───────────────────────────────────── */}
+      <GuidedRiskAssistant result={result} />
 
       {/* ── PRIORITÉS ─────────────────────────────────────────────────── */}
       <div

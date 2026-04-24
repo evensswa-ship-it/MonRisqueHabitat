@@ -102,7 +102,7 @@ export default function HomePage() {
                 <p className="text-sm text-slate-400">
                   Basé sur des données publiques officielles (Géorisques, IGN, BRGM) · Gratuit · Sans inscription
                 </p>
-                <a href="#partenaires" className="text-sm text-slate-400 transition hover:text-slate-700">
+                <a href="#partenaires" className="text-sm text-slate-400 underline-offset-4 transition hover:text-slate-700 hover:underline">
                   Vous êtes professionnel ? Découvrez l'offre partenaire
                 </a>
               </div>
@@ -273,6 +273,7 @@ export default function HomePage() {
             <p className="mt-4 max-w-sm leading-6 text-slate-500">
               Une synthèse claire des risques immobiliers pour les professionnels de l'immobilier et de l'assurance.
             </p>
+            <p className="mt-3 text-xs text-slate-400">© 2026 AGS & Co — Tous droits réservés</p>
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-3">
             {footerLinks.map(({ label, href }) => (

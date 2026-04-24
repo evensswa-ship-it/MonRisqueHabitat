@@ -40,8 +40,8 @@ export function RiskCard({
             </p>
           )}
         </div>
-        <div className="rounded-[16px] bg-white p-4 ring-1 ring-slate-100">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+        <div className="rounded-[16px] border border-slate-100 border-l-2 border-l-[var(--brand-soft)] bg-white p-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand)]">
             Ce que vous pouvez faire
           </p>
           <p className="mt-2.5 text-slate-700">{risk.recommendation}</p>
