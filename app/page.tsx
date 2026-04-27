@@ -7,6 +7,7 @@ import {
   ShieldCheck,
 } from "@/components/widget/icons";
 import { MrhLogo } from "@/components/brand/mrh-logo";
+import { MobileMenu } from "@/components/nav/mobile-menu";
 
 // ─── Données statiques ────────────────────────────────────────────────────────
 
@@ -81,6 +82,7 @@ export default function HomePage() {
             <a href="#analyser" className="cta-primary cta-md hidden md:inline-flex">
               Analyser →
             </a>
+            <MobileMenu />
           </header>
 
           {/* ── HERO ──────────────────────────────────────────────────────── */}
