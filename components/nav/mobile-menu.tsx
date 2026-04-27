@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { MrhLogo } from "@/components/brand/mrh-logo";
 
 const NAV_LINKS = [
@@ -47,6 +48,9 @@ function ChevronRight() {
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
 
   // Escape key
   useEffect(() => {
@@ -84,79 +88,82 @@ export function MobileMenu() {
         <BurgerIcon />
       </button>
 
-      {/* ── Full-screen overlay ──────────────────────────────────────────── */}
-      <div
-        id="mobile-nav"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Menu de navigation"
-        aria-hidden={!open}
-        className={`fixed inset-0 z-50 flex flex-col bg-white transition-[opacity,visibility] duration-250 md:hidden ${
-          open ? "visible opacity-100" : "invisible opacity-0"
-        }`}
-      >
-        {/* Header */}
-        <div className="flex shrink-0 items-center justify-between border-b border-slate-100 px-5 py-4">
-          <a href="/" onClick={close} className="flex items-center gap-3">
-            <MrhLogo size={40} className="rounded-2xl" />
-            <div>
-              <p className="text-sm font-semibold text-slate-900">Mon Risque Habitat</p>
-              <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-400">
-                by AGS &amp; Co
+      {/* ── Full-screen overlay — portaled to body to escape backdrop-filter stacking context ── */}
+      {mounted && createPortal(
+        <div
+          id="mobile-nav"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu de navigation"
+          aria-hidden={!open}
+          className={`fixed inset-0 z-50 flex flex-col bg-white transition-[opacity,visibility] duration-250 md:hidden ${
+            open ? "visible opacity-100" : "invisible opacity-0"
+          }`}
+        >
+          {/* Header */}
+          <div className="flex shrink-0 items-center justify-between border-b border-slate-100 px-5 py-4">
+            <a href="/" onClick={close} className="flex items-center gap-3">
+              <MrhLogo size={40} className="rounded-2xl" />
+              <div>
+                <p className="text-sm font-semibold text-slate-900">Mon Risque Habitat</p>
+                <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-slate-400">
+                  by AGS &amp; Co
+                </p>
+              </div>
+            </a>
+            <button
+              type="button"
+              onClick={close}
+              aria-label="Fermer le menu"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:bg-slate-50"
+            >
+              <CloseIcon />
+            </button>
+          </div>
+
+          {/* Nav links */}
+          <nav className="flex flex-1 flex-col overflow-y-auto px-5 pt-4">
+            <ul className="divide-y divide-slate-100">
+              {NAV_LINKS.map(({ label, href }) => (
+                <li key={href}>
+                  <a
+                    href={href}
+                    onClick={close}
+                    className="flex items-center justify-between py-5 text-xl font-semibold text-slate-900 transition hover:text-[var(--brand)]"
+                  >
+                    {label}
+                    <span className="text-slate-300">
+                      <ChevronRight />
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            {/* CTAs */}
+            <div className="mt-auto space-y-3 pb-8 pt-8">
+              <a
+                href="#analyser"
+                onClick={close}
+                className="cta-primary cta-lg flex w-full justify-center"
+              >
+                Analyser une adresse →
+              </a>
+              <a
+                href="#partenaires"
+                onClick={close}
+                className="cta-secondary cta-lg flex w-full justify-center"
+              >
+                Demander une démo partenaire
+              </a>
+              <p className="pt-2 text-center text-xs text-slate-400">
+                Données officielles · Gratuit · Sans inscription
               </p>
             </div>
-          </a>
-          <button
-            type="button"
-            onClick={close}
-            aria-label="Fermer le menu"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition hover:bg-slate-50"
-          >
-            <CloseIcon />
-          </button>
-        </div>
-
-        {/* Nav links */}
-        <nav className="flex flex-1 flex-col overflow-y-auto px-5 pt-4">
-          <ul className="divide-y divide-slate-100">
-            {NAV_LINKS.map(({ label, href }) => (
-              <li key={href}>
-                <a
-                  href={href}
-                  onClick={close}
-                  className="flex items-center justify-between py-5 text-xl font-semibold text-slate-900 transition hover:text-[var(--brand)]"
-                >
-                  {label}
-                  <span className="text-slate-300">
-                    <ChevronRight />
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          {/* CTAs */}
-          <div className="mt-auto space-y-3 pb-8 pt-8">
-            <a
-              href="#analyser"
-              onClick={close}
-              className="cta-primary cta-lg flex w-full justify-center"
-            >
-              Analyser une adresse →
-            </a>
-            <a
-              href="#partenaires"
-              onClick={close}
-              className="cta-secondary cta-lg flex w-full justify-center"
-            >
-              Demander une démo partenaire
-            </a>
-            <p className="pt-2 text-center text-xs text-slate-400">
-              Données officielles · Gratuit · Sans inscription
-            </p>
-          </div>
-        </nav>
-      </div>
+          </nav>
+        </div>,
+        document.body
+      )}
     </>
   );
 }
