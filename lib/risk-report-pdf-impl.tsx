@@ -346,7 +346,7 @@ function CoverPage({ result, logoPath }: { result: RiskResult; logoPath: string 
       <View style={{ height: 3, backgroundColor: tone.band }} />
 
       {/* Body */}
-      <View style={{ flex: 1, paddingHorizontal: MARGIN, paddingTop: 22 }}>
+      <View style={{ paddingHorizontal: MARGIN, paddingTop: 20 }}>
         {/* Title block */}
         <Text style={S.eyebrowBrand}>Analyse immobilière</Text>
         <Text style={{
@@ -453,22 +453,25 @@ function CoverPage({ result, logoPath }: { result: RiskResult; logoPath: string 
           </Text>
         </View>
 
-        {/* Disclaimer — pushed to bottom */}
-        <View style={{
-          marginTop: "auto",
-          paddingTop: 12,
-          borderTopWidth: 0.5,
-          borderTopColor: C.slate200,
-          borderTopStyle: "solid",
-        }}>
-          <Text style={{ fontSize: 7.5, color: C.slate400, lineHeight: 1.6 }}>
-            {
-              "Ce rapport est fourni à titre informatif sur la base de données publiques officielles " +
-              "(Géorisques, BRGM, ERRIAL, GASPAR via data.gouv.fr). " +
-              "Il ne remplace pas un état des risques réglementaire ni l'avis d'un professionnel qualifié."
-            }
-          </Text>
-        </View>
+      </View>
+
+      {/* Disclaimer */}
+      <View style={{
+        marginTop: 16,
+        paddingHorizontal: MARGIN,
+        paddingTop: 10,
+        paddingBottom: 8,
+        borderTopWidth: 0.5,
+        borderTopColor: C.slate200,
+        borderTopStyle: "solid",
+      }}>
+        <Text style={{ fontSize: 7.5, color: C.slate400, lineHeight: 1.6 }}>
+          {
+            "Ce rapport est fourni à titre informatif sur la base de données publiques officielles " +
+            "(Géorisques, BRGM, ERRIAL, GASPAR via data.gouv.fr). " +
+            "Il ne remplace pas un état des risques réglementaire ni l'avis d'un professionnel qualifié."
+          }
+        </Text>
       </View>
 
       <Footer page={1} />

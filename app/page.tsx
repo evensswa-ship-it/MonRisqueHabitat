@@ -8,6 +8,7 @@ import {
 } from "@/components/widget/icons";
 import { MrhLogo } from "@/components/brand/mrh-logo";
 import { MobileMenu } from "@/components/nav/mobile-menu";
+import { WaitlistNavButton } from "@/components/waitlist/waitlist-nav-button";
 
 // ─── Données statiques ────────────────────────────────────────────────────────
 
@@ -79,9 +80,12 @@ export default function HomePage() {
               <a href="#fonctionnement" className="transition hover:text-slate-900">Fonctionnement</a>
               <a href="#partenaires" className="transition hover:text-slate-900">Partenaires</a>
             </nav>
-            <a href="#analyser" className="cta-primary cta-md hidden md:inline-flex">
-              Analyser →
-            </a>
+            <div className="hidden items-center gap-3 md:flex">
+              <WaitlistNavButton />
+              <a href="#analyser" className="cta-primary cta-md">
+                Analyser →
+              </a>
+            </div>
             <MobileMenu />
           </header>
 

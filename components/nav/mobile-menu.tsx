@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { MrhLogo } from "@/components/brand/mrh-logo";
+import { WaitlistModal } from "@/components/waitlist/waitlist-modal";
 
 const NAV_LINKS = [
   { label: "Analyser un bien", href: "#analyser" },
@@ -46,9 +47,19 @@ function ChevronRight() {
   );
 }
 
+function LockIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <rect x="2" y="7" width="12" height="8" rx="2.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M4.5 7V5.5a3.5 3.5 0 0 1 7 0V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -138,6 +149,24 @@ export function MobileMenu() {
                   </a>
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={() => { close(); setWaitlistOpen(true); }}
+                  className="flex w-full items-center justify-between py-5 text-xl font-semibold text-[var(--brand)] transition"
+                >
+                  <span className="flex items-center gap-3">
+                    <LockIcon />
+                    Assistant IA
+                    <span className="rounded-full bg-[var(--brand-soft)] px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-[0.08em]">
+                      Bientôt
+                    </span>
+                  </span>
+                  <span className="text-slate-300">
+                    <ChevronRight />
+                  </span>
+                </button>
+              </li>
             </ul>
 
             {/* CTAs */}
@@ -164,6 +193,8 @@ export function MobileMenu() {
         </div>,
         document.body
       )}
+
+      <WaitlistModal open={waitlistOpen} onClose={() => setWaitlistOpen(false)} />
     </>
   );
 }

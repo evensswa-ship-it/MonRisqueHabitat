@@ -240,3 +240,34 @@ export async function sendUserRiskReportEmail(
 export function getLeadUserType(project?: LeadProjectType) {
   return mapLeadProjectToUserType(project);
 }
+
+export async function sendWaitlistNotification(input: {
+  email: string;
+  profession: string;
+  message?: string;
+}) {
+  const resend = getResendClient();
+  const config = getEmailConfig();
+
+  const rows = [
+    { label: "Email", value: input.email },
+    { label: "Métier", value: input.profession },
+    { label: "Message", value: input.message ?? "" },
+  ];
+
+  const title = "Nouvelle inscription waitlist — Assistant Conseil";
+  const intro =
+    "Un professionnel vient de s'inscrire sur la waitlist pour l'Assistant Conseil & Conformité.";
+
+  const response = await resend.emails.send({
+    from: config.from,
+    to: config.to,
+    replyTo: config.replyTo,
+    subject: "Waitlist — Assistant Conseil & Conformité",
+    html: buildEmailShell(title, intro, rows),
+    text: buildTextBody(title, intro, rows),
+  });
+
+  assertResendSuccess(response);
+  return response;
+}
