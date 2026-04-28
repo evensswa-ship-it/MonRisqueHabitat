@@ -96,7 +96,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Rejoindre la waitlist Assistant Conseil"
+      aria-label="Rejoindre la waitlist Assistant conseil habitation"
       aria-hidden={!open}
       className={`fixed inset-0 z-[60] flex items-center justify-center p-4 transition-[opacity,visibility] duration-250 ${
         open ? "visible opacity-100" : "invisible opacity-0"
@@ -117,7 +117,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
           <div>
             <span className="eyebrow">Accès prioritaire</span>
             <h2 className="mt-3 text-2xl font-semibold text-slate-950">
-              Assistant Conseil & Conformité
+              Assistant conseil habitation
             </h2>
           </div>
           <button
@@ -133,12 +133,12 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
         {/* Description */}
         <div className="panel-card mb-6 p-5 text-sm leading-7 text-slate-600 space-y-2">
           <p>
-            Générez des <strong className="text-slate-900">notes d'aide au conseil</strong> en
-            1 clic à partir de vos données — risques MRH et produits d'assurance.
+            Structurez votre <strong className="text-slate-900">discours client</strong> à partir
+            des données de risque MRH — synthèse, points de vigilance, angle d'approche.
           </p>
           <p>
-            Pré-remplissez vos documents DDA (IPID, fiches clients) et justifiez vos
-            recommandations avec des analyses claires et conformes.
+            L'assistant produit une note de travail que vous relisez et adaptez. Aucun document
+            réglementaire, aucune recommandation contractuelle.
           </p>
           <p className="font-semibold text-[var(--brand)]">
             Disponible prochainement — inscrivez-vous pour un accès prioritaire.
@@ -152,7 +152,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
               Inscription confirmée
             </p>
             <p className="mt-2 text-sm leading-7 text-slate-700">
-              Merci ! Vous serez parmi les premiers à accéder à l'Assistant Conseil & Conformité.
+              Merci ! Vous serez parmi les premiers à accéder à l'Assistant conseil habitation.
             </p>
           </div>
         ) : (
@@ -229,21 +229,20 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
               </p>
             </div>
             <div>
-              <p className="mb-1 font-semibold text-slate-900">Adéquation produit / risques</p>
+              <p className="mb-1 font-semibold text-slate-900">Points de vigilance</p>
               <p className="italic text-slate-400">
-                [Ici s'afficheront vos produits et garanties proposés au client]
+                [Points clés à expliquer à votre client — garanties, exclusions à surveiller]
               </p>
             </div>
             <div>
-              <p className="mb-1 font-semibold text-slate-900">Recommandations</p>
+              <p className="mb-1 font-semibold text-slate-900">Angle de discours</p>
               <p className="italic text-slate-400">
-                [Ici s'afficheront les recommandations personnalisées en fonction des risques et
-                du produit]
+                [Formulation d'introduction pour aborder les risques avec votre client]
               </p>
             </div>
             <p className="border-t border-slate-200 pt-3 text-xs text-slate-400">
-              Exemple généré à partir de données fictives. La version finale utilisera vos données
-              réelles.
+              Aperçu illustratif. La note générée reste un support de travail à valider par le
+              professionnel.
             </p>
           </div>
         </div>

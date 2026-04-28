@@ -6,7 +6,8 @@ import { ArrowRight, Check, Download, RefreshCcw, Share2 } from "@/components/wi
 import { GuidedRiskAssistant } from "@/components/widget/guided-risk-assistant";
 import { LeadCaptureForm } from "@/components/widget/lead-capture-form";
 import { RiskCard } from "@/components/widget/risk-card";
-import { enableNearbyPartners } from "@/lib/feature-flags";
+import { enableNearbyPartners, enableAdvicePanel } from "@/lib/feature-flags";
+import { AdvicePanel } from "@/components/widget/advice-panel";
 import { downloadRiskReport } from "@/services/risk-report-service";
 import { getRiskTone } from "@/lib/risk-tone";
 import type { AddressSuggestion } from "@/types/address";
@@ -262,6 +263,9 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
           })}
         </div>
       </div>
+
+      {/* ── CONSEILLA ─────────────────────────────────────────────────── */}
+      {enableAdvicePanel && <AdvicePanel result={result} />}
 
       {/* ── RISQUES DÉTAIL ────────────────────────────────────────────── */}
       <div className="reveal-up" style={{ "--delay": "200ms" } as CSSProperties}>
