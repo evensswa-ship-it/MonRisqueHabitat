@@ -61,7 +61,7 @@ function buildSentence(count: number, peril?: string, year?: number): string {
       ? "1 arrêté de catastrophe naturelle reconnu"
       : `${count} arrêtés de catastrophe naturelle reconnus`;
   const perilPart = peril ? `, principalement pour ${peril}` : "";
-  const yearPart = year ? ` — dernière reconnaissance en ${year}` : "";
+  const yearPart = year ? `. Dernière reconnaissance en ${year}` : "";
   return `${base}${perilPart} sur cette commune${yearPart}.`;
 }
 

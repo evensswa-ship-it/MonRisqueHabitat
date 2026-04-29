@@ -32,7 +32,7 @@ const USAGE_OPTIONS = [
 
 function formatForCopy(a: AdviceContent): string {
   const lines = [
-    "NOTE DE CONSEIL — Support de travail à valider",
+    "NOTE DE CONSEIL. Support de travail à valider",
     "",
     "SYNTHÈSE RISQUE",
     a.synthese_risque,
@@ -50,7 +50,7 @@ function formatForCopy(a: AdviceContent): string {
   }
   lines.push("---");
   lines.push(
-    "Support généré par Mon Risque Habitat · Conseilla. À relire et adapter avant tout usage."
+        "Support généré par Mon Risque Habitat · Conseilla. A relire et adapter avant tout usage."
   );
   return lines.join("\n");
 }
@@ -105,7 +105,7 @@ function StaticPreview() {
             Synthèse risque
           </p>
           <p className="text-sm leading-6 text-slate-600">
-            Ce bien présente un risque inondation élevé, confirmé par l'historique CatNat de la
+            Cette adresse présente un risque inondation élevé, confirmé par l'historique CatNat de la
             commune. Le risque mouvement de terrain est identifié comme modéré.
           </p>
         </div>
@@ -131,7 +131,7 @@ function StaticPreview() {
             Angle de discours
           </p>
           <p className="text-sm leading-6 text-slate-600">
-            Ce bien a fait l'objet d'une analyse complète des risques naturels. Il convient
+            Cette adresse a fait l'objet d'une analyse complète des risques naturels. Il convient
             d'aborder clairement la question de l'exposition avant toute décision.
           </p>
         </div>
@@ -470,8 +470,8 @@ export function AdvicePanel({ result }: AdvicePanelProps) {
         Conseilla
       </h4>
       <p className="mt-2 max-w-lg text-sm leading-7 text-slate-600">
-        Structurez votre discours client à partir de cette analyse. La note est un support de
-        travail — à relire avant tout usage.
+        Structurez votre discours client à partir de cette analyse. Conseilla génère une note de travail pour logements, locaux professionnels et espaces mixtes.
+        travail à relire avant tout usage.
       </p>
 
       {/* Aperçu — mobile uniquement (colonne unique) */}

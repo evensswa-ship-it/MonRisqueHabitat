@@ -23,9 +23,9 @@ export function WaitlistNavButton() {
         className="hidden items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-sm font-medium text-slate-600 shadow-sm transition hover:border-[var(--brand)] hover:text-[var(--brand)] md:flex"
       >
         <LockIcon />
-        Notes de conseil
+        Conseilla
         <span className="rounded-full bg-[var(--brand-soft)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em] text-[var(--brand)]">
-          Bientôt
+          IA bientôt
         </span>
       </button>
 

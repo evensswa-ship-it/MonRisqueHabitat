@@ -96,7 +96,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Rejoindre la waitlist Assistant conseil habitation"
+      aria-label="Rejoindre la waitlist Conseilla"
       aria-hidden={!open}
       className={`fixed inset-0 z-[60] flex items-center justify-center p-4 transition-[opacity,visibility] duration-250 ${
         open ? "visible opacity-100" : "invisible opacity-0"
@@ -115,10 +115,13 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
         {/* Header */}
         <div className="mb-6 flex items-start justify-between gap-4">
           <div>
-            <span className="eyebrow">Accès prioritaire</span>
-            <h2 className="mt-3 text-2xl font-semibold text-slate-950">
-              Assistant conseil habitation
+            <span className="eyebrow">Assistant IA de conseil</span>
+            <h2 className="mt-3 text-3xl font-semibold text-slate-950">
+              Conseilla
             </h2>
+            <p className="mt-2 text-sm leading-6 text-slate-500">
+              La note de conseil générée à partir du diagnostic MRH.
+            </p>
           </div>
           <button
             type="button"
@@ -134,14 +137,14 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
         <div className="panel-card mb-6 p-5 text-sm leading-7 text-slate-600 space-y-2">
           <p>
             Structurez votre <strong className="text-slate-900">discours client</strong> à partir
-            des données de risque MRH — synthèse, points de vigilance, angle d'approche.
+            des données de risque MRH : synthèse, points de vigilance, angle d'approche pour un logement, un local professionnel ou un espace mixte.
           </p>
           <p>
-            L'assistant produit une note de travail que vous relisez et adaptez. Aucun document
+            Conseilla produit une note de travail que vous relisez et adaptez. Aucun document
             réglementaire, aucune recommandation contractuelle.
           </p>
           <p className="font-semibold text-[var(--brand)]">
-            Disponible prochainement — inscrivez-vous pour un accès prioritaire.
+            Disponible prochainement. Inscrivez-vous pour un accès prioritaire.
           </p>
         </div>
 
@@ -152,7 +155,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
               Inscription confirmée
             </p>
             <p className="mt-2 text-sm leading-7 text-slate-700">
-              Merci ! Vous serez parmi les premiers à accéder à l'Assistant conseil habitation.
+              Merci ! Vous serez parmi les premiers à accéder à Conseilla.
             </p>
           </div>
         ) : (
@@ -215,13 +218,13 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
         {/* Static preview */}
         <div className="border-t border-slate-200/80 pt-5">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">
-            Aperçu — exemple de sortie générée
+            Aperçu de sortie générée
           </p>
           <div className="space-y-4 rounded-[20px] border border-slate-200 bg-[var(--background)] p-5 text-sm leading-7">
             <div>
               <p className="mb-1 font-semibold text-slate-900">Synthèse des risques</p>
               <p className="text-slate-600">
-                Le bien situé au{" "}
+                L'adresse située au{" "}
                 <span className="font-medium text-slate-800">[ADRESSE]</span> présente les
                 risques suivants : <strong>inondation (niveau 3)</strong>,{" "}
                 <strong>séisme (niveau 2)</strong>. Ces risques sont identifiés via les bases
@@ -231,7 +234,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
             <div>
               <p className="mb-1 font-semibold text-slate-900">Points de vigilance</p>
               <p className="italic text-slate-400">
-                [Points clés à expliquer à votre client — garanties, exclusions à surveiller]
+                [Points clés à expliquer à votre client : garanties et exclusions à surveiller]
               </p>
             </div>
             <div>

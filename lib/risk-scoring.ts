@@ -16,6 +16,9 @@ import type {
 // ── Category weights ──────────────────────────────────────────────────────────
 // Each weight reflects the typical financial and structural impact of the risk.
 // flood > fire > ground-movement > clay ≈ storm > seismic > radon
+// Environmental datasets: icpe ≈ fire, pollution > cavites.
+// ppri and promethee are lower because the underlying hazard is already scored
+// by flood/fire from GASPAR — they enrich rather than duplicate.
 const CATEGORY_WEIGHTS: Record<string, number> = {
   flood:             1.4,
   fire:              1.3,
@@ -24,6 +27,11 @@ const CATEGORY_WEIGHTS: Record<string, number> = {
   storm:             1.0,
   seismic:           0.9,
   radon:             0.8,
+  icpe:              1.3,
+  pollution:         1.1,
+  cavites:           1.0,
+  ppri:              0.6,
+  promethee:         0.5,
 };
 
 // ── Priority → base score (0–100) ─────────────────────────────────────────────
@@ -36,7 +44,7 @@ const PRIORITY_BASE: Record<RiskPriority, number> = {
 // ── Per-factor human-readable data ────────────────────────────────────────────
 const FACTOR_EXPLANATIONS: Record<string, Partial<Record<RiskPriority, string>>> = {
   flood: {
-    high:   "L'adresse est exposée à un risque d'inondation significatif — montées d'eau ou ruissellement lors de fortes pluies.",
+    high:   "L'adresse est exposée à un risque d'inondation significatif, avec montées d'eau ou ruissellement possibles lors de fortes pluies.",
     medium: "Un risque d'inondation est identifié sur ce secteur, à apprécier selon la configuration exacte du bien.",
     low:    "Le secteur présente une exposition modérée au risque d'inondation.",
   },
@@ -46,7 +54,7 @@ const FACTOR_EXPLANATIONS: Record<string, Partial<Record<RiskPriority, string>>>
     low:    "Le secteur présente une faible exposition au risque d'incendie.",
   },
   "ground-movement": {
-    high:   "Le terrain présente une instabilité notable — glissements ou affaissements possibles, notamment en terrain pentu.",
+    high:   "Le terrain présente une instabilité notable, avec glissements ou affaissements possibles, notamment en terrain pentu.",
     medium: "Un risque de mouvement de terrain est identifié, à évaluer selon la topographie et les aménagements.",
     low:    "Le sol peut présenter une légère instabilité dans certaines configurations.",
   },
@@ -57,7 +65,7 @@ const FACTOR_EXPLANATIONS: Record<string, Partial<Record<RiskPriority, string>>>
   },
   storm: {
     high:   "Ce secteur est exposé à des épisodes de vents forts ou d'orages pouvant fragiliser toiture et extérieurs.",
-    medium: "Un risque tempête est identifié — un entretien régulier des éléments exposés est recommandé.",
+    medium: "Un risque tempête est identifié. Un entretien régulier des éléments exposés est recommandé.",
     low:    "Le secteur présente une faible exposition au risque tempête.",
   },
   seismic: {
@@ -67,8 +75,33 @@ const FACTOR_EXPLANATIONS: Record<string, Partial<Record<RiskPriority, string>>>
   },
   radon: {
     high:   "Une concentration en radon potentiellement élevée est possible dans les sous-sols de ce secteur.",
-    medium: "Le radon est présent dans ce secteur — la ventilation des espaces confinés est recommandée.",
+    medium: "Le radon est présent dans ce secteur. La ventilation des espaces confinés est recommandée.",
     low:    "Un potentiel radon modéré est identifié, sans urgence particulière.",
+  },
+  ppri: {
+    high:   "Le bien est classé en zone rouge du PPRI. Les contraintes réglementaires et assurantielles sont significatives.",
+    medium: "Le bien est soumis à un Plan de Prévention des Risques inondation. Des prescriptions s'appliquent.",
+    low:    "Le bien est concerné par un zonage PPR à faible exposition réglementaire.",
+  },
+  icpe: {
+    high:   "Un site SEVESO seuil haut est présent dans le périmètre. Le risque d'accident industriel majeur doit être intégré.",
+    medium: "Des installations classées, dont un site SEVESO seuil bas, sont recensées à proximité du bien.",
+    low:    "Des établissements industriels classés ICPE sont présents dans le secteur, sans risque technologique majeur immédiat.",
+  },
+  pollution: {
+    high:   "Un site de pollution des sols confirmée (BASOL) est recensé à proximité. Une investigation de sol est recommandée.",
+    medium: "Des activités industrielles passées (BASIAS) sont référencées dans le secteur. Une vérification est conseillée avant acquisition.",
+    low:    "Un historique d'activité industrielle est recensé à proximité, sans pollution confirmée à ce stade.",
+  },
+  cavites: {
+    high:   "Des cavités souterraines sont recensées très proches du bien. Une étude géotechnique est impérative avant tout projet.",
+    medium: "Des cavités souterraines sont présentes à proximité. Une vérification spécialisée avant travaux est recommandée.",
+    low:    "Des cavités sont recensées dans le secteur, sans impact immédiat identifié sur la stabilité du bien.",
+  },
+  promethee: {
+    high:   "La commune présente un historique significatif d'incendies de forêt selon la base PROMÉTHÉE. Le signal structurel est fort.",
+    medium: "Des incendies de forêt ont été recensés sur la commune dans la base PROMÉTHÉE.",
+    low:    "Un historique d'incendies est disponible sur la commune, sans fréquence préoccupante.",
   },
 };
 
@@ -77,9 +110,14 @@ const FACTOR_ACTION_HINTS: Record<string, string> = {
   fire:              "Confirmer le respect des obligations de débroussaillement et l'accessibilité des secours.",
   "ground-movement": "Inspecter les murs de soutènement et les abords pour tout signe d'affaissement ou de décalage.",
   clay:              "Observer les façades et l'intérieur pour des fissures en diagonale ou des décollements de revêtement.",
-  storm:             "Vérifier l'état de la toiture, des gouttières et des volets — idéalement avant l'automne.",
+  storm:             "Vérifier l'état de la toiture, des gouttières et des volets, idéalement avant l'automne.",
   seismic:           "S'assurer de la conformité aux normes parasismiques pour tout projet de travaux structurels.",
-  radon:             "Assurer une bonne ventilation des sous-sols et caves — un test de mesure simple est disponible.",
+  radon:             "Assurer une bonne ventilation des sous-sols et caves. Un test de mesure simple est disponible.",
+  ppri:              "Consulter le règlement du PPRI en mairie et vérifier le classement de zone avant toute acquisition ou projet de travaux.",
+  icpe:              "Vérifier le Plan de Prévention des Risques Technologiques (PPRT) de la commune et les servitudes applicables au bien.",
+  pollution:         "Demander les fiches BASIAS et BASOL sur Géorisques et envisager une étude de sol avant toute acquisition.",
+  cavites:           "Consulter l'historique géotechnique du terrain et prévoir une étude de sol spécialisée si des travaux sont envisagés.",
+  promethee:         "Vérifier les obligations légales de débroussaillement (OLD) et s'assurer de l'accessibilité du bien pour les secours.",
 };
 
 // ── CatNat classification ─────────────────────────────────────────────────────
@@ -254,7 +292,7 @@ export function buildRationale(scoring: ScoringResult): string {
 function buildRecommendation(level: RiskLevel): string {
   if (level === "high") return "Vigilance renforcée recommandée avant tout engagement";
   if (level === "medium") return "Point d'attention avant décision d'achat ou de mise en location";
-  return "Exposition limitée — vérifications d'usage suffisantes";
+  return "Exposition limitée. Vérifications d'usage suffisantes";
 }
 
 // ── Priorities ────────────────────────────────────────────────────────────────

@@ -8,6 +8,13 @@ import {
   getTerritoryContext
 } from "@/lib/territory-context";
 import { getCatNatSummary } from "@/lib/georisques/catnat";
+import {
+  fetchCavites,
+  fetchICPE,
+  fetchPollution,
+  fetchPPRI,
+  fetchPromethee,
+} from "@/lib/georisques/environmental";
 
 type RiskScope = "commune" | "address" | "unknown";
 
@@ -86,7 +93,7 @@ const RISK_CATALOG: RiskCatalogItem[] = [
     keywords: ["mouvement", "glissement", "eboulement", "terrain"],
     decision: "Point d'attention sur le terrain",
     summary:
-      "Le terrain autour du bien peut présenter une certaine instabilité — glissements, affaissements — surtout si le sol est en pente ou a été remblayé.",
+      "Le terrain autour du bien peut présenter une certaine instabilité, avec glissements ou affaissements possibles, surtout si le sol est en pente ou a été remblayé.",
     recommendation:
       "Vérifiez si le terrain est en pente, s'il existe des murs de soutènement et s'il y a des signes d'affaissement visibles. En cas de doute, faites passer un professionnel.",
     watch:
@@ -114,7 +121,7 @@ const RISK_CATALOG: RiskCatalogItem[] = [
     summary:
       "Le bien peut être exposé à des vents forts ou des orages qui fragilisent la toiture et les éléments en extérieur.",
     recommendation:
-      "Vérifiez régulièrement l'état de la toiture, des gouttières et des volets — idéalement avant l'automne. Sécurisez ce qui peut s'envoler en cas de vent fort.",
+      "Vérifiez régulièrement l'état de la toiture, des gouttières et des volets, idéalement avant l'automne. Sécurisez ce qui peut s'envoler en cas de vent fort.",
     watch:
       "Les tuiles descellées, gouttières obstruées, volets mal fixés, antennes, clôtures et mobilier de jardin."
   },
@@ -127,7 +134,7 @@ const RISK_CATALOG: RiskCatalogItem[] = [
     summary:
       "L'environnement proche du bien peut être exposé au risque de feu de forêt, notamment en période sèche ou de vent fort.",
     recommendation:
-      "Vérifiez qu'un débroussaillement est effectué autour du bien — c'est une obligation légale dans certaines zones. Assurez-vous que les accès restent dégagés.",
+      "Vérifiez qu'un débroussaillement est effectué autour du bien. C'est une obligation légale dans certaines zones. Assurez-vous que les accès restent dégagés.",
     watch:
       "La végétation contre le bien, les zones boisées à proximité immédiate, les accès pour les secours et les obligations locales de débroussaillement."
   },
@@ -385,35 +392,48 @@ export async function getGeorisquesRiskResult(
     riskLabels
   });
 
-  const [territoryContext, catnat] = await Promise.all([
-    territoryContextPromise,
-    catNatPromise,
-  ]);
+  const { lat, lon } = address.coordinates;
+  const [territoryContext, catnat, ppri, pollution, cavites, icpe, promethee] =
+    await Promise.all([
+      territoryContextPromise,
+      catNatPromise,
+      fetchPPRI(lat, lon).catch(() => null),
+      fetchPollution(lat, lon).catch(() => null),
+      fetchCavites(lat, lon).catch(() => null),
+      fetchICPE(lat, lon).catch(() => null),
+      fetchPromethee(address.cityCode).catch(() => null),
+    ]);
 
-  const scoring = computeV2Scoring(categories, catnat);
+  const envCategories = [ppri, pollution, cavites, icpe, promethee].filter(
+    (c): c is NonNullable<typeof c> => c !== null
+  );
+  const allCategories = [...categories, ...envCategories];
+
+  const scoring = computeV2Scoring(allCategories, catnat);
 
   console.info("[Georisques] V2 scoring computed", {
     address: buildAddressLogContext(address),
     globalScore: scoring.globalScore,
     globalLevel: scoring.globalLevel,
     catnatLevel: scoring.catnatFactor.level,
+    envCategories: envCategories.map((c) => c.id),
   });
 
   const result = {
     address: address.label,
     analyzedAt: new Date().toISOString(),
     overallRisk: deriveOverallRisk(scoring),
-    categories,
+    categories: allCategories,
     finalRecommendation: {
       title: "Les priorités à retenir",
       summary: scoring.summary,
       checklist: scoring.priorities.map((p) => p.action),
     },
     advisorCta: {
-      title: "Professionnels : demandez une démo.",
+      title: "Professionnels : échangeons sur vos parcours risque.",
       text:
-        "Nous vous présentons l'intégration et les options adaptées à votre structure.",
-      label: "Demander une démo"
+        "Nous qualifions avec vous les cas d'usage, les contraintes de conseil, les pièces à tracer et le bon format de pilote.",
+      label: "Demander un échange"
     },
     catnat,
     scoring,

@@ -1,4 +1,5 @@
 import { ChevronRight } from "@/components/widget/icons";
+import { getProfessionalReading } from "@/lib/risk-professional-wording";
 import { RiskBadge } from "@/components/widget/risk-badge";
 import type { RiskCategory } from "@/types/risk";
 
@@ -9,6 +10,8 @@ export function RiskCard({
   risk: RiskCategory;
   defaultOpen?: boolean;
 }) {
+  const reading = getProfessionalReading(risk);
+
   return (
     <details
       open={defaultOpen}
@@ -29,6 +32,12 @@ export function RiskCard({
 
       {/* Expanded content */}
       <div className="animate-fade-in grid gap-3 border-t border-slate-100 px-5 pb-5 pt-4 text-sm leading-7 text-slate-600 md:px-6 md:pb-6">
+        <div className="rounded-[16px] border border-slate-100 bg-white p-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+            Source exploitée
+          </p>
+          <p className="mt-2.5 text-sm leading-6 text-slate-700">{reading.source}</p>
+        </div>
         <div className="rounded-[16px] bg-slate-50 p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
             Ce que cela signifie
@@ -42,15 +51,23 @@ export function RiskCard({
         </div>
         <div className="rounded-[16px] border border-slate-100 border-l-2 border-l-[var(--brand-soft)] bg-white p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand)]">
+            Lecture métier
+          </p>
+          <p className="mt-2.5 text-slate-700">{reading.impact}</p>
+        </div>
+        <div className="rounded-[16px] border border-slate-100 border-l-2 border-l-[var(--brand-soft)] bg-white p-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--brand)]">
             Ce que vous pouvez faire
           </p>
           <p className="mt-2.5 text-slate-700">{risk.recommendation}</p>
+          <p className="mt-3 text-slate-600">{reading.fileAction}</p>
         </div>
         <div className="rounded-[16px] bg-slate-50 p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
             Ce qu'il faut surveiller
           </p>
           <p className="mt-2.5 text-slate-700">{risk.watch}</p>
+          <p className="mt-3 text-slate-600">{reading.underwritingPoint}</p>
         </div>
       </div>
     </details>

@@ -1,4 +1,5 @@
 import type { RiskResult } from "@/types/risk";
+import { getProfessionalReading } from "@/lib/risk-professional-wording";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -38,7 +39,12 @@ export type RiskAdvice = {
 type AnonymizedInput = {
   globalLevel: string;
   globalScore: number;
-  risks: Array<{ label: string; priority: string }>;
+  risks: Array<{
+    label: string;
+    priority: string;
+    source: string;
+    professionalPoint: string;
+  }>;
   catnat?: { count: number; lastYear?: number; dominantPeril?: string };
   clientContext: ClientContext;
 };
@@ -47,10 +53,15 @@ function anonymize(result: RiskResult, clientContext: ClientContext): Anonymized
   return {
     globalLevel: result.overallRisk.label,
     globalScore: result.overallRisk.score,
-    risks: result.categories.map((c) => ({
-      label: c.label,
-      priority: c.priority === "high" ? "Élevé" : c.priority === "medium" ? "Modéré" : "Faible",
-    })),
+    risks: result.categories.map((c) => {
+      const reading = getProfessionalReading(c);
+      return {
+        label: c.label,
+        priority: c.priority === "high" ? "Élevé" : c.priority === "medium" ? "Modéré" : "Faible",
+        source: reading.source,
+        professionalPoint: reading.underwritingPoint,
+      };
+    }),
     catnat: result.catnat
       ? {
           count: result.catnat.count,
@@ -66,7 +77,7 @@ function anonymize(result: RiskResult, clientContext: ClientContext): Anonymized
 
 function buildPrompt(data: AnonymizedInput): string {
   const riskLines = data.risks
-    .map((r) => `  - ${r.label} : ${r.priority}`)
+    .map((r) => `  - ${r.label} : ${r.priority}. Source : ${r.source}. Point métier : ${r.professionalPoint}`)
     .join("\n");
 
   const catnatLine = data.catnat
@@ -83,7 +94,7 @@ function buildPrompt(data: AnonymizedInput): string {
     .filter(Boolean)
     .join("\n");
 
-  return `Tu es un outil d'aide à la rédaction pour un professionnel de l'assurance habitation.
+  return `Tu es Conseilla, un assistant d'aide à la rédaction pour un professionnel de l'assurance, du courtage ou de l'immobilier.
 
 À partir des données de risque ci-dessous, produis une note de conseil structurée.
 
@@ -107,9 +118,9 @@ ${clientLines || "Non renseigné"}
 - Aucune recommandation contractuelle ni produit commercial nommé
 - Aucun montant, tarif ou prime d'assurance
 - Aucun document réglementaire (IPID, DIPA, fiche conseil DDA)
-- Aucune adresse précise du bien
+- Aucune adresse précise du lieu analysé
 - Français, ton professionnel et factuel
-- La synthèse commence par : "Ce bien présente"`;
+- La synthèse commence par : "Cette adresse présente"`;
 }
 
 // ── Parsing ───────────────────────────────────────────────────────────────────
@@ -141,7 +152,7 @@ function parseContent(raw: string): { content: AdviceContent; warnings: string[]
     };
   } catch {
     warnings.push(
-      "Format de réponse inattendu — vérifiez l'intégralité du contenu avant utilisation."
+      "Format de réponse inattendu. Vérifiez l'intégralité du contenu avant utilisation."
     );
     return {
       content: {

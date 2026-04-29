@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(slug);
   if (!post) return {};
   return {
-    title: `${post.title} — Mon Risque Habitat`,
+    title: `${post.title} | Mon Risque Habitat`,
     description: post.description,
   };
 }
@@ -57,7 +57,7 @@ export default async function BlogPostPage({ params }: Props) {
             Analysez les risques d&apos;un bien en quelques secondes
           </h2>
           <p className="mt-3 max-w-lg text-base leading-7 text-slate-500">
-            Entrez une adresse et obtenez une synthèse claire — inondation, sol, environnement, et plus encore.
+            Entrez une adresse et obtenez une synthèse claire sur l'inondation, le sol, l'environnement et plus encore.
           </p>
           <a href="/#analyser" className="cta-primary cta-md mt-6 inline-flex">
             Analyser une adresse →

@@ -74,7 +74,7 @@ function buildTextBody(title: string, intro: string, rows: Array<{ label: string
       lines.push(`${row.label}: ${row.value}`);
     });
 
-  lines.push("", "Mon Risque Habitat — by AGS & Co");
+  lines.push("", "Mon Risque Habitat by AGS & Co");
 
   return lines.join("\n");
 }
@@ -223,7 +223,7 @@ export async function sendUserRiskReportEmail(
       "",
       "Le rapport PDF est joint à cet e-mail.",
       "",
-      "Mon Risque Habitat — by AGS & Co"
+      "Mon Risque Habitat by AGS & Co"
     ].join("\n"),
     attachments: [
       {
@@ -255,7 +255,7 @@ export async function sendWaitlistNotification(input: {
     { label: "Message", value: input.message ?? "" },
   ];
 
-  const title = "Nouvelle inscription waitlist — Assistant Conseil";
+  const title = "Nouvelle inscription waitlist. Assistant Conseil";
   const intro =
     "Un professionnel vient de s'inscrire sur la waitlist pour l'Assistant Conseil & Conformité.";
 
@@ -263,7 +263,7 @@ export async function sendWaitlistNotification(input: {
     from: config.from,
     to: config.to,
     replyTo: config.replyTo,
-    subject: "Waitlist — Assistant Conseil & Conformité",
+    subject: "Waitlist. Assistant Conseil & Conformité",
     html: buildEmailShell(title, intro, rows),
     text: buildTextBody(title, intro, rows),
   });

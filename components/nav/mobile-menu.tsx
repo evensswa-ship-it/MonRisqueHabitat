@@ -157,9 +157,9 @@ export function MobileMenu() {
                 >
                   <span className="flex items-center gap-3">
                     <LockIcon />
-                    Assistant IA
+                    Conseilla
                     <span className="rounded-full bg-[var(--brand-soft)] px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-[0.08em]">
-                      Bientôt
+                      IA bientôt
                     </span>
                   </span>
                   <span className="text-slate-300">
@@ -183,7 +183,7 @@ export function MobileMenu() {
                 onClick={close}
                 className="cta-secondary cta-lg flex w-full justify-center"
               >
-                Demander une démo partenaire
+                Demander un échange partenaire
               </a>
               <p className="pt-2 text-center text-xs text-slate-400">
                 Données officielles · Gratuit · Sans inscription

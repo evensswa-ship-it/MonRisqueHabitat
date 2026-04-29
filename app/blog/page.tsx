@@ -4,7 +4,7 @@ import { getAllPosts } from "@/lib/blog";
 import { MrhLogo } from "@/components/brand/mrh-logo";
 
 export const metadata: Metadata = {
-  title: "Blog — Mon Risque Habitat",
+  title: "Blog | Mon Risque Habitat",
   description: "Conseils et guides sur les risques naturels en immobilier : inondation, argiles, séisme, radon. Tout ce qu'il faut savoir avant d'acheter.",
 };
 

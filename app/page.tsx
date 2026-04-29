@@ -16,7 +16,7 @@ const useCases = [
   {
     label: "Avant un mandat",
     title: "Préparez votre rendez-vous vendeur",
-    text: "Vérifiez les risques d'un bien avant votre premier contact. Arrivez informé et anticipez les objections.",
+    text: "Vérifiez les risques d'une adresse avant votre premier contact. Habitat, local commercial ou espace mixte : arrivez informé et anticipez les objections.",
   },
   {
     label: "Avant un devis",
@@ -93,11 +93,11 @@ export default function HomePage() {
           <div className="mt-4 pb-8 pt-4 text-center md:mt-10 md:pb-14 md:pt-6">
             <div className="reveal-up">
               <h1 className="mx-auto max-w-3xl text-balance text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">
-                Analysez les risques immobiliers. Expliquez-les à votre client.
+                Analysez les risques d'un lieu de vie ou de travail. Expliquez-les à votre client.
               </h1>
 
               <p className="mx-auto mt-4 max-w-xl text-balance text-lg leading-8 text-slate-600">
-                Entrez une adresse et obtenez en quelques secondes une synthèse claire — inondation, sol, environnement, proximité industrielle.
+                Entrez une adresse et obtenez en quelques secondes une synthèse claire sur l'inondation, le sol, l'environnement et la proximité industrielle.
               </p>
 
               <div className="mt-8">
@@ -189,7 +189,7 @@ export default function HomePage() {
             </h2>
             </div>
             <p className="max-w-2xl text-base leading-8 text-slate-600 md:justify-self-end">
-              L'analyse est construite à partir de bases de données publiques reconnues — Géorisques, ERRIAL, BRGM. Les mêmes données que les professionnels consultent, présentées différemment.
+              L'analyse est construite à partir de bases de données publiques reconnues comme Géorisques, ERRIAL et BRGM. Les mêmes données que les professionnels consultent, présentées différemment.
             </p>
           </div>
           <div className="grid gap-4 md:grid-cols-3 md:gap-6">
@@ -213,13 +213,13 @@ export default function HomePage() {
       <section className="shell mt-16 md:mt-24">
         <div className="reveal-up rounded-[28px] bg-[var(--brand-ink)] p-8 text-left text-white shadow-[0_28px_80px_rgba(8,38,79,0.22)] md:p-12">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">
-            Pour les professionnels de l'immobilier et de l'assurance
+            Pour les assureurs, courtiers et professionnels de l'immobilier
           </p>
           <h2 className="mt-5 max-w-2xl text-balance text-3xl font-semibold md:text-4xl">
-            Ajoutez l'analyse de risque à chaque transaction.
+            Ajoutez une lecture risque à chaque dossier.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-8 text-blue-100">
-            Gratuit, immédiat, sans inscription. Pour l'intégrer à votre workflow, découvrez l'offre partenaire.
+            Gratuit, immédiat, sans inscription. Pour structurer un usage professionnel, découvrez l'espace partenaire.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <a href="#analyser" className="cta-secondary cta-lg inline-flex">
@@ -240,23 +240,23 @@ export default function HomePage() {
               Espace partenaires
             </p>
             <h2 className="mt-4 text-balance text-3xl font-semibold text-slate-950 md:text-4xl">
-              Intégrez le diagnostic dans votre parcours client.
+              Construisons une lecture risque adaptée à vos parcours.
             </h2>
             <p className="mt-5 text-base leading-8 text-slate-600">
-              Pour les agences, courtiers, assureurs et réseaux immobiliers. Ajoutez une analyse de risque à chaque dossier — sans changer votre outil actuel.
+              MRH s'adresse aux assureurs, courtiers, agents immobiliers et réseaux qui veulent mieux qualifier une adresse avant conseil, devis, mandat ou souscription. Habitat, local commercial, bureau ou espace mixte : l'objectif n'est pas un raccordement gadget, mais un pilote métier cadré avec vos équipes.
             </p>
             <div className="mt-7 divide-y divide-slate-200/80 border-y border-slate-200/80 text-sm leading-7 text-slate-700">
               <div className="py-4">
-                <span className="font-semibold text-slate-950">Réduisez les sinistres non anticipés</span>
-                <p className="mt-1 text-slate-500">Vos clients entrent informés, vos contrats sont mieux dimensionnés.</p>
+                <span className="font-semibold text-slate-950">Qualifier le risque avant le conseil</span>
+                <p className="mt-1 text-slate-500">Aider les équipes à repérer les points qui peuvent changer la discussion client, le dossier ou les pièces à demander.</p>
               </div>
               <div className="py-4">
-                <span className="font-semibold text-slate-950">Intégration en une semaine</span>
-                <p className="mt-1 text-slate-500">API simple, widget embarquable, ou lien direct — selon votre stack.</p>
+                <span className="font-semibold text-slate-950">Pilote encadré avec vos cas réels</span>
+                <p className="mt-1 text-slate-500">On commence par vos parcours, vos métiers et vos contraintes de souscription avant de parler API, widget ou marque blanche.</p>
               </div>
               <div className="py-4">
-                <span className="font-semibold text-slate-950">Marque blanche disponible</span>
-                <p className="mt-1 text-slate-500">Personnalisez l'interface aux couleurs de votre structure.</p>
+                <span className="font-semibold text-slate-950">Ambition, exigence assurantielle</span>
+                <p className="mt-1 text-slate-500">Un produit en construction, pensé pour devenir un outil fiable dans les mains d'agents, courtiers, directions et souscripteurs.</p>
               </div>
             </div>
           </div>
@@ -277,9 +277,9 @@ export default function HomePage() {
               </div>
             </div>
             <p className="mt-4 max-w-sm leading-6 text-slate-500">
-              Une synthèse claire des risques immobiliers pour les professionnels de l'immobilier et de l'assurance.
+              Une synthèse claire des risques d'adresse pour les assureurs, courtiers et professionnels de l'immobilier.
             </p>
-            <p className="mt-3 text-xs text-slate-400">© 2026 AGS & Co — Tous droits réservés</p>
+            <p className="mt-3 text-xs text-slate-400">© 2026 AGS & Co. Tous droits réservés</p>
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-3">
             {footerLinks.map(({ label, href }) => (

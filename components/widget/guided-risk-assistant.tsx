@@ -37,6 +37,16 @@ const RISK_ACTIONS: Record<string, string> = {
     "Prendre connaissance du potentiel radon de la zone et des mesures de prévention recommandées.",
   storm:
     "Évaluer l'exposition aux risques météo dans le cadre de la tarification assurance.",
+  ppri:
+    "Récupérer le règlement PPRI et qualifier le zonage, car il peut conditionner travaux, revente et acceptabilité du dossier.",
+  pollution:
+    "Identifier la fiche SSP concernée, car CASIAS, BASOL ou SIS ne portent pas le même niveau d'alerte.",
+  cavites:
+    "Demander les éléments géotechniques disponibles, car la proximité d'une cavité peut peser sur la stabilité du bâti.",
+  icpe:
+    "Qualifier l'installation classée la plus proche, car statut SEVESO, distance et PPRT éventuel changent la lecture du risque.",
+  promethee:
+    "Vérifier les obligations de débroussaillement et l'accès secours, car l'historique incendie renforce la lecture prévention.",
 };
 
 function buildStaticFallback(result: RiskResult): InsightData {
@@ -47,9 +57,9 @@ function buildStaticFallback(result: RiskResult): InsightData {
   // meaning
   let meaning =
     level === "low"
-      ? "L'analyse ne fait pas ressortir de facteur de risque majeur pour cette adresse. Le profil est globalement favorable — ce n'est pas une garantie absolue, mais c'est un signal positif pour la suite du dossier."
+      ? "L'analyse ne fait pas ressortir de facteur de risque majeur pour cette adresse. Le profil est globalement favorable. Ce n'est pas une garantie absolue, mais c'est un signal positif pour la suite du dossier."
       : level === "medium"
-        ? "L'analyse identifie des facteurs qui méritent attention avant toute décision. Ce niveau est courant — il n'interdit pas le projet, mais appelle à une vérification ciblée avant engagement."
+        ? "L'analyse identifie des facteurs qui méritent attention avant toute décision. Ce niveau est courant. Il n'interdit pas le projet, mais appelle à une vérification ciblée avant engagement."
         : "L'analyse identifie au moins un facteur de risque significatif sur cette adresse. Ces données s'imposent à la lecture avant tout engagement, qu'il s'agisse d'un achat, d'une location ou d'une souscription.";
 
   if (highs.length === 1) {
@@ -77,7 +87,7 @@ function buildStaticFallback(result: RiskResult): InsightData {
 
   if (result.catnat && result.catnat.count > 0) {
     checklist.push(
-      `Historique CatNat : ${result.catnat.count} arrêté${result.catnat.count > 1 ? "s" : ""} reconnu${result.catnat.count > 1 ? "s" : ""} — à mentionner dans le dossier.`,
+      `Historique CatNat : ${result.catnat.count} arrêté${result.catnat.count > 1 ? "s" : ""} reconnu${result.catnat.count > 1 ? "s" : ""}. A mentionner dans le dossier.`,
     );
   }
   if (highs.length > 0 || (result.catnat && result.catnat.count > 2)) {
@@ -94,15 +104,15 @@ function buildStaticFallback(result: RiskResult): InsightData {
   // script
   const riskMentioned =
     highs.length > 0
-      ? ` — notamment sur le risque ${highs[0].label.toLowerCase()}`
+      ? `, notamment sur le risque ${highs[0].label.toLowerCase()}`
       : "";
 
   const script =
     level === "low"
-      ? "«J'ai fait une analyse complète des risques sur ce bien à partir des données officielles. Il n'y a pas de point d'alerte particulier — le profil est globalement sain. Je vous remets ce rapport pour que vous ayez une lecture claire du contexte avant de vous décider.»"
+      ? "«J'ai fait une analyse complète des risques sur ce bien à partir des données officielles. Il n'y a pas de point d'alerte particulier. Le profil est globalement sain. Je vous remets ce rapport pour que vous ayez une lecture claire du contexte avant de vous décider.»"
       : level === "medium"
-        ? "«Avant de finaliser quoi que ce soit, j'ai voulu vérifier le profil de risque de ce bien. Il y a quelques éléments à regarder de plus près — c'est courant, la majorité des biens présentent des risques modérés sur au moins un facteur. L'essentiel, c'est d'en avoir connaissance maintenant, pas après la signature.»"
-        : `«L'analyse fait ressortir un risque élevé sur ce bien${riskMentioned}. Je vous en parle maintenant, en toute transparence, pour que vous preniez votre décision avec les bonnes informations en main. Ce n'est pas forcément un frein — mais c'est un point qu'on doit regarder ensemble avant d'aller plus loin.»`;
+        ? "«Avant de finaliser quoi que ce soit, j'ai voulu vérifier le profil de risque de ce bien. Il y a quelques éléments à regarder de plus près. C'est courant, la majorité des biens présentent des risques modérés sur au moins un facteur. L'essentiel, c'est d'en avoir connaissance maintenant, pas après la signature.»"
+        : `«L'analyse fait ressortir un risque élevé sur ce bien${riskMentioned}. Je vous en parle maintenant, en toute transparence, pour que vous preniez votre décision avec les bonnes informations en main. Ce n'est pas forcément un frein, mais c'est un point qu'on doit regarder ensemble avant d'aller plus loin.»`;
 
   return { meaning, checklist, script };
 }

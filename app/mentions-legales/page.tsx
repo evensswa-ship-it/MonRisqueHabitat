@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { MrhLogo } from "@/components/brand/mrh-logo";
 
 export const metadata: Metadata = {
-  title: "Mentions légales — Mon Risque Habitat",
+  title: "Mentions légales | Mon Risque Habitat",
   description:
     "Mentions légales du service Mon Risque Habitat, édité par AGS & Co."
 };
@@ -28,7 +28,7 @@ const sections = [
         <p><strong className="text-slate-900">AGS &amp; Co</strong></p>
         <p>Représentant : <strong className="text-slate-900">Evens Augustin</strong></p>
         <p>59 rue de Ponthieu, Bureau 326</p>
-        <p>75008 Paris — France</p>
+        <p>75008 Paris, France</p>
         <p className="pt-1">
           Tél. :{" "}
           <a
@@ -62,7 +62,7 @@ const sections = [
     content: (
       <p>
         Ce site est hébergé par <strong>Vercel Inc.</strong>, 340 Pine Street,
-        Suite 701, San Francisco, CA 94104, États-Unis —{" "}
+        Suite 701, San Francisco, CA 94104, États-Unis.{" "}
         <span className="text-slate-500">vercel.com</span>
       </p>
     )
@@ -133,7 +133,7 @@ const sections = [
             <div key={name} className="flex items-start gap-3">
               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--brand)]" />
               <p>
-                <strong>{name}</strong> — {desc}
+                <strong>{name}</strong>. {desc}
               </p>
             </div>
           ))}

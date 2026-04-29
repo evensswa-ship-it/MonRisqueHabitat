@@ -9,6 +9,7 @@ import { RiskCard } from "@/components/widget/risk-card";
 import { enableNearbyPartners, enableAdvicePanel } from "@/lib/feature-flags";
 import { AdvicePanel } from "@/components/widget/advice-panel";
 import { downloadRiskReport } from "@/services/risk-report-service";
+import { buildDeskSummary } from "@/lib/risk-professional-wording";
 import { getRiskTone } from "@/lib/risk-tone";
 import type { AddressSuggestion } from "@/types/address";
 import type { RiskLevel, RiskResult } from "@/types/risk";
@@ -59,11 +60,12 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
   const tone = heroTones[result.overallRisk.level];
   const highCount = result.categories.filter((r) => r.priority === "high").length;
   const mediumCount = result.categories.filter((r) => r.priority === "medium").length;
+  const deskSummary = buildDeskSummary(result);
 
   async function handleShare() {
     const shareData = {
       title: "Mon Risque Habitat",
-      text: `Diagnostic risque pour ${result.address} — ${result.overallRisk.label} · ${result.overallRisk.decision}`,
+      text: `Diagnostic risque pour ${result.address}. ${result.overallRisk.label}. ${result.overallRisk.decision}`,
       url: window.location.href,
     };
     if (typeof navigator.share === "function" && navigator.canShare?.(shareData)) {
@@ -264,6 +266,44 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
         </div>
       </div>
 
+      {/* ── LECTURE MÉTIER ────────────────────────────────────────────── */}
+      <div
+        className="panel-card reveal-up p-6 md:p-8"
+        style={{ "--delay": "150ms" } as CSSProperties}
+      >
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--brand)]">
+          Lecture métier
+        </p>
+        <h4 className="mt-3 text-xl font-semibold text-slate-950">
+          Comment exploiter ce résultat en agence et en assurance
+        </h4>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+          Cette lecture ne remplace pas l'analyse du professionnel. Elle traduit les sources
+          publiques en points de dossier : information client, pièces à demander et questions de
+          souscription.
+        </p>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <div className="rounded-[18px] bg-slate-50 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+              Agent immobilier
+            </p>
+            <p className="mt-3 text-sm leading-7 text-slate-700">{deskSummary.agency}</p>
+          </div>
+          <div className="rounded-[18px] bg-slate-50 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+              Courtier / conseiller
+            </p>
+            <p className="mt-3 text-sm leading-7 text-slate-700">{deskSummary.broker}</p>
+          </div>
+          <div className="rounded-[18px] bg-slate-50 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+              Direction / souscription
+            </p>
+            <p className="mt-3 text-sm leading-7 text-slate-700">{deskSummary.underwriting}</p>
+          </div>
+        </div>
+      </div>
+
       {/* ── CONSEILLA ─────────────────────────────────────────────────── */}
       {enableAdvicePanel && <AdvicePanel result={result} />}
 
@@ -357,7 +397,7 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
             Partenaires à proximité
           </p>
           <p className="mt-3 text-sm leading-7 text-slate-600">
-            Fonctionnalité en préparation : afficher des partenaires et agences autour de l'adresse analysée.
+            Fonctionnalité en préparation : qualifier les relais utiles autour de l'adresse analysée, avec une logique métier plutôt qu'un simple annuaire.
           </p>
         </div>
       )}

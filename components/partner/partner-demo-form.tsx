@@ -129,13 +129,13 @@ export function PartnerDemoForm() {
   return (
     <div className="panel-card reveal-up p-6 md:p-8">
       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--brand)]">
-        Demande de démo
+        Échange partenaire
       </p>
       <h3 className="mt-3 text-2xl font-semibold text-slate-950">
-        Parlons de votre projet.
+        Parlons de votre parcours risque.
       </h3>
       <p className="mt-4 text-sm leading-8 text-slate-600">
-        Ce formulaire est réservé aux professionnels. Nous revenons vers vous sous 48 heures pour organiser un échange.
+        Ce formulaire est réservé aux professionnels de l'assurance, du courtage et de l'immobilier. Nous revenons vers vous pour comprendre vos dossiers habitation, locaux professionnels ou espaces mixtes, vos contraintes métier et le bon format de pilote.
       </p>
 
       {status === "success" ? (
@@ -144,7 +144,7 @@ export function PartnerDemoForm() {
             Demande envoyée
           </p>
           <p className="mt-2 text-sm leading-7 text-slate-700">
-            Merci. Nous revenons vers vous rapidement pour organiser la démo.
+            Merci. Nous revenons vers vous rapidement pour organiser un échange métier.
           </p>
         </div>
       ) : (
@@ -230,7 +230,7 @@ export function PartnerDemoForm() {
                 setValues((current) => ({ ...current, message: event.target.value }))
               }
               className="mt-2 min-h-[120px] w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[var(--brand)] focus:ring-4 focus:ring-blue-100"
-              placeholder="Votre cas d'usage, vos parcours actuels, votre calendrier..."
+              placeholder="Votre cas d'usage, vos parcours de souscription ou de conseil, vos contraintes métier..."
             />
           </label>
 
@@ -245,10 +245,10 @@ export function PartnerDemoForm() {
             disabled={status === "submitting"}
             className="cta-primary cta-lg disabled:cursor-wait disabled:opacity-70"
           >
-            {status === "submitting" ? "Envoi en cours..." : "Envoyer ma demande"}
+            {status === "submitting" ? "Envoi en cours..." : "Demander un échange"}
           </button>
           <p className="text-xs leading-6 text-slate-400">
-            Pas de démarchage. Pas d'abonnement. Un échange sur votre projet.
+            Pas de promesse de déploiement express. Un échange sérieux sur votre usage, vos équipes et vos critères de décision.
           </p>
         </form>
       )}

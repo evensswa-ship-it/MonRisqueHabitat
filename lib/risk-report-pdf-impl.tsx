@@ -628,8 +628,8 @@ function RiskReportDocument({ result, logoPath }: { result: RiskResult; logoPath
       title={`Mon Risque Habitat | ${result.address}`}
       author="AGS & Co"
       subject="Synthèse de risque habitat"
-      creator="Mon Risque Habitat — by AGS & Co"
-      producer="Mon Risque Habitat — by AGS & Co"
+      creator="Mon Risque Habitat by AGS & Co"
+      producer="Mon Risque Habitat by AGS & Co"
     >
       <CoverPage result={result} logoPath={logoPath} />
       {result.categories.map((cat, i) => (

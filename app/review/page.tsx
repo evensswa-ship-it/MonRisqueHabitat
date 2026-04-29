@@ -80,10 +80,10 @@ export default async function ReviewPage() {
                         </td>
                         <td className="px-4 py-4 text-slate-700">{lead.email}</td>
                         <td className="px-4 py-4 text-slate-600">
-                          {lead.phone || "—"}
+                          {lead.phone || "Non renseigné"}
                         </td>
                         <td className="px-4 py-4 text-slate-600">
-                          {lead.project || "—"}
+                          {lead.project || "Non renseigné"}
                         </td>
                         <td className="px-4 py-4 text-slate-700">
                           <div>{lead.selectedAddress.line1}</div>

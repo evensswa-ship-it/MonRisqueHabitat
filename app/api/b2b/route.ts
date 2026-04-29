@@ -72,13 +72,13 @@ export async function POST(request: Request) {
         message:
           storageError instanceof Error
             ? storageError.message
-            : "Impossible d'enregistrer la demande de démo."
+            : "Impossible d'enregistrer la demande d'échange."
       });
     }
 
     return NextResponse.json(
       {
-        message: "Votre demande de démo a bien été envoyée.",
+        message: "Votre demande d'échange a bien été envoyée.",
         partnerRequest
       },
       { status: 201 }
@@ -98,7 +98,7 @@ export async function POST(request: Request) {
         message:
           error instanceof Error
             ? error.message
-            : "Impossible d'envoyer la demande de démo."
+            : "Impossible d'envoyer la demande d'échange."
       },
       { status: 502 }
     );
