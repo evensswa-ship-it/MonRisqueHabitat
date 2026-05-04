@@ -14,9 +14,9 @@ import { WaitlistNavButton } from "@/components/waitlist/waitlist-nav-button";
 
 const useCases = [
   {
-    label: "Avant un mandat",
-    title: "Préparez votre rendez-vous vendeur",
-    text: "Vérifiez les risques d'une adresse avant votre premier contact. Habitat, local commercial ou espace mixte : arrivez informé et anticipez les objections.",
+    label: "Avant la souscription",
+    title: "Préparez votre entretien client",
+    text: "Vérifiez le profil de risque d'un bien avant d'ouvrir un dossier. Habitation, local professionnel ou usage mixte : arrivez informé et anticipez les questions de souscription.",
   },
   {
     label: "Avant un devis",
@@ -27,6 +27,11 @@ const useCases = [
     label: "Face à votre client",
     title: "Expliquez les risques simplement",
     text: "Montrez une synthèse lisible et compréhensible. Vos clients entrent dans la transaction informés.",
+  },
+  {
+    label: "Après le RDV",
+    title: "Structurez votre devoir de conseil en 30 secondes",
+    text: "L'analyse risque devient la base de votre DDA. Générez le compte rendu interne archivable et l'email client prêt à envoyer, sans ressaisie.",
   },
 ];
 
@@ -93,11 +98,11 @@ export default function HomePage() {
           <div className="mt-4 pb-8 pt-4 text-center md:mt-10 md:pb-14 md:pt-6">
             <div className="reveal-up">
               <h1 className="mx-auto max-w-3xl text-balance text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">
-                Analysez les risques d'un lieu de vie ou de travail. Expliquez-les à votre client.
+                Analysez les risques d'un lieu de vie ou de travail. Expliquez-les à votre client et sécurisez votre devoir de conseil.
               </h1>
 
               <p className="mx-auto mt-4 max-w-xl text-balance text-lg leading-8 text-slate-600">
-                Entrez une adresse et obtenez en quelques secondes une synthèse claire sur l'inondation, le sol, l'environnement et la proximité industrielle.
+                Entrez une adresse et obtenez en quelques secondes une synthèse claire des risques. Puis structurez votre devoir de conseil et envoyez le récapitulatif à votre client.
               </p>
 
               <div className="mt-8">
@@ -133,10 +138,10 @@ export default function HomePage() {
             <div>
               <span className="eyebrow">Ce que fait MRH</span>
               <h2 className="mt-4 text-2xl font-semibold text-slate-950">
-                Une synthèse exploitable en quelques secondes.
+                De l'analyse au devoir de conseil, en quelques secondes.
               </h2>
               <p className="mt-4 text-sm leading-7 text-slate-600">
-                MRH croise les mêmes sources officielles et produit une note claire par facteur de risque. Un niveau global, les points d'attention, une lecture que vous pouvez partager.
+                MRH croise les sources officielles et produit une note claire par facteur de risque. Après le rendez-vous, le conseiller génère son compte rendu DDA — trace écrite conforme, email client prêt à envoyer, document archivable.
               </p>
             </div>
           </div>
@@ -151,7 +156,7 @@ export default function HomePage() {
             Cas d'usage
           </span>
           <h2 className="mx-auto mt-5 max-w-2xl text-balance text-3xl font-semibold text-slate-950 md:text-4xl">
-            Utilisé à chaque étape d'une transaction.
+            De la préparation du dossier à la trace écrite conforme.
           </h2>
         </div>
         <div className="grid gap-5 md:gap-6 md:grid-cols-3">
@@ -213,13 +218,13 @@ export default function HomePage() {
       <section className="shell mt-16 md:mt-24">
         <div className="reveal-up rounded-[28px] bg-[var(--brand-ink)] p-8 text-left text-white shadow-[0_28px_80px_rgba(8,38,79,0.22)] md:p-12">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">
-            Pour les assureurs, courtiers et professionnels de l'immobilier
+            Pour les courtiers en assurance et les agents généraux
           </p>
           <h2 className="mt-5 max-w-2xl text-balance text-3xl font-semibold md:text-4xl">
-            Ajoutez une lecture risque à chaque dossier.
+            Analyse risque, conseil structuré, trace écrite — en un seul outil.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-8 text-blue-100">
-            Gratuit, immédiat, sans inscription. Pour structurer un usage professionnel, découvrez l'espace partenaire.
+            Gratuit, immédiat, sans inscription. Pour structurer un usage professionnel avec votre équipe, découvrez l'espace partenaire.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <a href="#analyser" className="cta-secondary cta-lg inline-flex">
@@ -243,7 +248,7 @@ export default function HomePage() {
               Construisons une lecture risque adaptée à vos parcours.
             </h2>
             <p className="mt-5 text-base leading-8 text-slate-600">
-              MRH s'adresse aux assureurs, courtiers, agents immobiliers et réseaux qui veulent mieux qualifier une adresse avant conseil, devis, mandat ou souscription. Habitat, local commercial, bureau ou espace mixte : l'objectif n'est pas un raccordement gadget, mais un pilote métier cadré avec vos équipes.
+              MRH s'adresse aux compagnies, courtiers, agents généraux et réseaux qui veulent mieux qualifier un risque avant conseil, devis ou souscription. Habitation, local professionnel, bureau ou espace mixte : l'objectif n'est pas un raccordement gadget, mais un pilote métier cadré avec vos équipes.
             </p>
             <div className="mt-7 divide-y divide-slate-200/80 border-y border-slate-200/80 text-sm leading-7 text-slate-700">
               <div className="py-4">
@@ -251,12 +256,12 @@ export default function HomePage() {
                 <p className="mt-1 text-slate-500">Aider les équipes à repérer les points qui peuvent changer la discussion client, le dossier ou les pièces à demander.</p>
               </div>
               <div className="py-4">
-                <span className="font-semibold text-slate-950">Pilote encadré avec vos cas réels</span>
-                <p className="mt-1 text-slate-500">On commence par vos parcours, vos métiers et vos contraintes de souscription avant de parler API, widget ou marque blanche.</p>
+                <span className="font-semibold text-slate-950">Structurer le devoir de conseil après le RDV</span>
+                <p className="mt-1 text-slate-500">Le compte rendu DDA, l'email client et la trace archivable générés en 30 secondes à partir de l'analyse. Moins de ressaisie, moins de risque juridique.</p>
               </div>
               <div className="py-4">
-                <span className="font-semibold text-slate-950">Ambition, exigence assurantielle</span>
-                <p className="mt-1 text-slate-500">Un produit en construction, pensé pour devenir un outil fiable dans les mains d'agents, courtiers, directions et souscripteurs.</p>
+                <span className="font-semibold text-slate-950">Pilote encadré avec vos cas réels</span>
+                <p className="mt-1 text-slate-500">On commence par vos parcours, vos métiers et vos contraintes de souscription avant de parler API, widget ou marque blanche.</p>
               </div>
             </div>
           </div>
@@ -277,7 +282,7 @@ export default function HomePage() {
               </div>
             </div>
             <p className="mt-4 max-w-sm leading-6 text-slate-500">
-              Une synthèse claire des risques d'adresse pour les assureurs, courtiers et professionnels de l'immobilier.
+              Une synthèse claire des risques d'adresse pour les courtiers en assurance, les agents généraux et les directions de souscription.
             </p>
             <p className="mt-3 text-xs text-slate-400">© 2026 AGS & Co. Tous droits réservés</p>
           </div>

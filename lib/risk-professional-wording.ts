@@ -8,7 +8,7 @@ type ProfessionalReading = {
 };
 
 type DeskSummary = {
-  agency: string;
+  advisor: string;
   broker: string;
   underwriting: string;
 };
@@ -16,40 +16,40 @@ type DeskSummary = {
 const DEFAULT_READING: ProfessionalReading = {
   source: "Données publiques officielles",
   impact:
-    "Signal à replacer dans le contexte du bien, de son usage et de son historique d'entretien.",
+    "Signal à replacer dans le contexte du bien assuré, de son usage et de son historique de sinistres.",
   fileAction:
-    "Conserver le diagnostic dans le dossier et demander les éléments complémentaires si le risque influence la décision.",
+    "Conserver le diagnostic dans le dossier de souscription et demander les éléments complémentaires si le risque influence les conditions de couverture.",
   underwritingPoint:
-    "Tracer le point de vigilance dans l'analyse afin de justifier la lecture du risque.",
+    "Tracer le point de vigilance dans l'analyse du dossier afin de justifier la lecture du risque et les garanties recommandées.",
 };
 
 const READINGS: Record<string, ProfessionalReading> = {
   flood: {
     source: "Géorisques / GASPAR",
     impact:
-      "Risque naturel déclaré à l'échelle communale. Pour l'agent, c'est un sujet de transparence acquéreur; pour l'assureur, un signal sur les franchises CatNat et la sinistralité potentielle.",
+      "Risque naturel déclaré à l'échelle communale. Signal structurant sur les franchises CatNat, la sinistralité potentielle et les conditions de mise en jeu des garanties.",
     fileAction:
-      "Demander l'historique des sinistres, vérifier caves, rez-de-chaussée, évacuations et conserver l'information dans le dossier de vente ou de souscription.",
+      "Demander l'historique des sinistres déclarés, qualifier les aménagements à risque (cave, rez-de-chaussée, évacuations) et conserver l'information dans le dossier de souscription.",
     underwritingPoint:
-      "Questionner les antécédents d'inondation et la présence de mesures de prévention déjà en place.",
+      "Questionner les antécédents d'inondation et l'existence de mesures de prévention déjà en place avant de valider les conditions de couverture.",
   },
   ppri: {
     source: "Géorisques WMS / zonage réglementaire PPR inondation",
     impact:
-      "Zonage réglementaire localisé. C'est le signal le plus structurant pour qualifier la constructibilité, les travaux possibles et le niveau de vigilance avant engagement.",
+      "Zonage réglementaire localisé. Signal le plus structurant pour qualifier le niveau de couverture CatNat recommandé et les conditions de souscription applicables.",
     fileAction:
-      "Récupérer le règlement PPRI, identifier la couleur de zone et vérifier les prescriptions applicables au bâti existant.",
+      "Récupérer le règlement PPRI, identifier la couleur de zone et vérifier les prescriptions applicables au bâti assuré.",
     underwritingPoint:
-      "Tracer le classement PPRI et demander si des obligations de mise en conformité ou de prévention s'appliquent au bien.",
+      "Tracer le classement PPRI dans le dossier et vérifier si des obligations de mise en conformité ou de prévention s'appliquent au bien.",
   },
   pollution: {
     source: "Géorisques SSP / CASIAS, BASOL, SIS",
     impact:
-      "Historique industriel ou pollution documentée à proximité. En immobilier, cela peut peser sur la valeur, la négociation et les projets de travaux; en assurance, c'est un signal de responsabilité environnementale à qualifier.",
+      "Historique industriel ou pollution documentée à proximité. Signal de responsabilité environnementale à qualifier : l'impact assurantielle varie selon le statut du site.",
     fileAction:
-      "Identifier la fiche du site, sa distance, son statut et demander une étude de sol si le projet implique terrassement, jardin, extension ou changement d'usage.",
+      "Identifier la fiche du site, sa distance, son statut et demander une étude de sol si le projet implique terrassement, extension ou changement d'usage.",
     underwritingPoint:
-      "Vérifier si le risque relève d'un simple historique d'activité ou d'un site nécessitant action publique, car la portée assurantielle n'est pas la même.",
+      "Distinguer simple historique d'activité et site nécessitant une action publique — la portée assurantielle n'est pas la même.",
   },
   cavites: {
     source: "Géorisques / BDCAVITE",
@@ -145,21 +145,21 @@ export function buildDeskSummary(result: RiskResult): DeskSummary {
   const icpe = result.categories.find((risk) => risk.id === "icpe");
   const dominant = high[0] ?? result.categories[0];
 
-  const agency = regulated
-    ? "Mettre le zonage PPRI au centre de l'échange: il peut conditionner travaux, revente et négociation."
+  const advisor = regulated
+    ? "Ouvrir l'entretien sur le PPRI : c'est le signal le plus structurant pour les garanties catastrophe naturelle et les conditions de souscription."
     : dominant
-      ? `Présenter d'abord ${dominant.label.toLowerCase()} comme point de lecture du bien, puis rattacher les autres signaux aux vérifications terrain.`
-      : "Présenter le dossier comme favorable, tout en conservant les éléments de preuve dans le dossier client.";
+      ? `Aborder en priorité le risque ${dominant.label.toLowerCase()} avec le client : c'est le point qui peut orienter le choix du contrat et le niveau de couverture à recommander.`
+      : "Profil de risque lisible. Orienter l'entretien sur les besoins client et la complétude des garanties plutôt que sur les risques naturels.";
 
   const broker = pollution
-    ? "Qualifier l'origine du signal pollution: simple ancien site industriel, site BASOL ou SIS n'ont pas la même portée pour le conseil."
+    ? "Qualifier l'origine du signal pollution avant de parler couverture : simple historique d'activité ou site BASOL/SIS n'ont pas la même portée assurantielle."
     : icpe
-      ? "Qualifier le voisinage industriel avant de parler garanties: statut SEVESO, distance et PPRT éventuel font la différence."
-      : "Transformer les risques visibles en questions de souscription: sinistres passés, prévention existante, travaux prévus.";
+      ? "Qualifier le voisinage industriel avant d'aborder les garanties : statut SEVESO, distance et PPRT éventuel changent l'analyse de risque technologique."
+      : "Transformer les risques identifiés en questions de souscription : sinistres passés, mesures de prévention existantes, travaux prévus, franchise acceptée.";
 
   const underwriting = high.length > 0
-    ? "Prioriser les pièces justificatives sur les risques élevés avant validation: règlement, historique sinistre, photos, diagnostics ou études disponibles."
-    : "Dossier plutôt lisible: tracer les signaux modérés et demander uniquement les pièces qui changent réellement l'appréciation du risque.";
+    ? "Prioriser les pièces justificatives sur les risques élevés avant validation du dossier : règlement PPRI, historique de sinistres, diagnostics ou études disponibles."
+    : "Dossier globalement lisible. Tracer les signaux modérés et ne demander que les pièces qui modifient réellement l'appréciation du risque.";
 
-  return { agency, broker, underwriting };
+  return { advisor, broker, underwriting };
 }

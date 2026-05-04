@@ -3,11 +3,10 @@
 import type { CSSProperties } from "react";
 import { useState } from "react";
 import { ArrowRight, Check, Download, RefreshCcw, Share2 } from "@/components/widget/icons";
-import { GuidedRiskAssistant } from "@/components/widget/guided-risk-assistant";
 import { LeadCaptureForm } from "@/components/widget/lead-capture-form";
 import { RiskCard } from "@/components/widget/risk-card";
-import { enableNearbyPartners, enableAdvicePanel } from "@/lib/feature-flags";
-import { AdvicePanel } from "@/components/widget/advice-panel";
+import { enableNearbyPartners } from "@/lib/feature-flags";
+import { AdvisoryPanel } from "@/components/advisory/advisory-panel";
 import { downloadRiskReport } from "@/services/risk-report-service";
 import { buildDeskSummary } from "@/lib/risk-professional-wording";
 import { getRiskTone } from "@/lib/risk-tone";
@@ -228,9 +227,6 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
         </div>
       </div>
 
-      {/* ── COMPRENDRE CE RÉSULTAT ───────────────────────────────────── */}
-      <GuidedRiskAssistant result={result} />
-
       {/* ── PRIORITÉS ─────────────────────────────────────────────────── */}
       <div
         className="panel-card reveal-up p-6 md:p-8"
@@ -275,19 +271,19 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
           Lecture métier
         </p>
         <h4 className="mt-3 text-xl font-semibold text-slate-950">
-          Comment exploiter ce résultat en agence et en assurance
+          Comment exploiter ce résultat en conseil assurance
         </h4>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
           Cette lecture ne remplace pas l'analyse du professionnel. Elle traduit les sources
-          publiques en points de dossier : information client, pièces à demander et questions de
-          souscription.
+          publiques en points de dossier : angle d'entretien client, questions de souscription et
+          pièces justificatives à demander.
         </p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           <div className="rounded-[18px] bg-slate-50 p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-              Agent immobilier
+              Entretien client
             </p>
-            <p className="mt-3 text-sm leading-7 text-slate-700">{deskSummary.agency}</p>
+            <p className="mt-3 text-sm leading-7 text-slate-700">{deskSummary.advisor}</p>
           </div>
           <div className="rounded-[18px] bg-slate-50 p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
@@ -303,9 +299,6 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
           </div>
         </div>
       </div>
-
-      {/* ── CONSEILLA ─────────────────────────────────────────────────── */}
-      {enableAdvicePanel && <AdvicePanel result={result} />}
 
       {/* ── RISQUES DÉTAIL ────────────────────────────────────────────── */}
       <div className="reveal-up" style={{ "--delay": "200ms" } as CSSProperties}>
@@ -386,6 +379,9 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
           </button>
         </div>
       </div>
+
+      {/* ── COMPTE RENDU DDA ─────────────────────────────────────────── */}
+      <AdvisoryPanel result={result} />
 
       {/* Partenaires à proximité (feature flag) */}
       {enableNearbyPartners && (
