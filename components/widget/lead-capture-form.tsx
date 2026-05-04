@@ -25,10 +25,10 @@ const initialValues: LeadFormValues = {
 
 const projectOptions: Array<{ value: LeadProjectType; label: string }> = [
   { value: "", label: "Choisir un sujet" },
-  { value: "proteger-mon-logement", label: "Mieux protéger mon logement" },
-  { value: "preparer-un-devis", label: "Préparer un devis" },
-  { value: "etre-accompagne", label: "Être accompagné" },
-  { value: "equiper-un-parcours-client", label: "Équiper un parcours client" }
+  { value: "archiver-synthese-dda", label: "Archiver une synthèse DDA" },
+  { value: "preparer-entretien-client", label: "Préparer un entretien client" },
+  { value: "qualifier-avant-devis", label: "Qualifier un risque avant devis" },
+  { value: "equiper-parcours-courtage", label: "Équiper un parcours courtage" }
 ];
 
 function isValidEmail(value: string) {
@@ -39,9 +39,6 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
   const [values, setValues] = useState<LeadFormValues>(initialValues);
   const [status, setStatus] = useState<LeadFormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
-  const [requestType, setRequestType] = useState<LeadRequestType>("report_email");
-  const [lastSubmittedType, setLastSubmittedType] =
-    useState<LeadRequestType>("report_email");
   const [lastSubmittedEmail, setLastSubmittedEmail] = useState("");
 
   const validationMessage = useMemo(() => {
@@ -83,7 +80,6 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
 
     setStatus("submitting");
     setErrorMessage("");
-    setLastSubmittedType(requestType);
     setLastSubmittedEmail(values.email.trim());
 
     try {
@@ -97,7 +93,7 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
           email: values.email,
           phone: values.phone,
           project: values.project,
-          requestType,
+          requestType: "report_email" satisfies LeadRequestType,
           consent: values.consent,
           selectedAddress,
           riskSummaryLabel: result.overallRisk.label,
@@ -130,37 +126,11 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
         Garder une trace
       </p>
       <h4 className="mt-3 text-2xl font-semibold text-slate-950">
-        Conservez votre diagnostic.
+        Recevez l'analyse et préparez la synthèse DDA.
       </h4>
       <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-500">
-        Recevez ce rapport par e-mail ou demandez à être rappelé. Mon Risque Habitat ne vend pas d'assurance.
+        Recevez le rapport par e-mail pour l'archiver, le relire avec votre client ou préparer votre compte rendu post-RDV. Mon Risque Habitat ne vend pas d'assurance.
       </p>
-
-      {/* Toggle */}
-      <div className="mt-6 flex gap-1.5 rounded-[18px] border border-slate-200 bg-slate-50 p-1.5">
-        <button
-          type="button"
-          onClick={() => setRequestType("report_email")}
-          className={`flex-1 rounded-[12px] py-2.5 text-sm font-semibold transition-all duration-150 ${
-            requestType === "report_email"
-              ? "bg-white text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.08)]"
-              : "text-slate-500 hover:text-slate-700"
-          }`}
-        >
-          Recevoir par e-mail
-        </button>
-        <button
-          type="button"
-          onClick={() => setRequestType("callback")}
-          className={`flex-1 rounded-[12px] py-2.5 text-sm font-semibold transition-all duration-150 ${
-            requestType === "callback"
-              ? "bg-white text-slate-900 shadow-[0_2px_8px_rgba(15,23,42,0.08)]"
-              : "text-slate-500 hover:text-slate-700"
-          }`}
-        >
-          Être rappelé
-        </button>
-      </div>
 
       {status === "success" ? (
         <div className="mt-6 rounded-[20px] border border-emerald-200 bg-emerald-50 p-5">
@@ -168,17 +138,8 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
             Demande envoyée
           </p>
           <p className="mt-2 text-sm leading-7 text-slate-700">
-            {lastSubmittedType === "report_email" ? (
-              <>
-                Votre rapport a été envoyé à <strong>{lastSubmittedEmail}</strong> pour{" "}
-                <strong>{selectedAddress.label}</strong>.
-              </>
-            ) : (
-              <>
-                Votre demande de rappel a bien été enregistrée pour{" "}
-                <strong>{selectedAddress.label}</strong>.
-              </>
-            )}
+            Votre rapport a été envoyé à <strong>{lastSubmittedEmail}</strong> pour{" "}
+            <strong>{selectedAddress.label}</strong>.
           </p>
         </div>
       ) : (
@@ -215,7 +176,7 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
             <label className="block">
               <span className="text-sm font-semibold text-slate-700">
                 Téléphone
-                <span className="ml-1 font-normal text-slate-400">(optionnel)</span>
+                <span className="ml-1 font-normal text-slate-400">(optionnel, si vous souhaitez être recontacté)</span>
               </span>
               <input
                 type="tel"
@@ -262,7 +223,7 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
               className="mt-1 h-4 w-4 rounded border-slate-300 text-[var(--brand)] focus:ring-[var(--brand)]"
             />
             <span className="text-sm leading-7 text-slate-600">
-              J'accepte d'être contacté au sujet de cette demande.
+              J'accepte le traitement de cette demande et, si j'ai laissé un téléphone, d'être recontacté à ce sujet.
             </span>
           </label>
 
@@ -279,9 +240,7 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
           >
             {status === "submitting"
               ? "Envoi en cours…"
-              : requestType === "report_email"
-              ? "Recevoir mon diagnostic"
-              : "Demander un rappel"}
+              : "Recevoir l'analyse par e-mail"}
           </button>
         </form>
       )}

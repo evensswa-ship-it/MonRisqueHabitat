@@ -2,10 +2,10 @@ import type { AddressSuggestion } from "@/types/address";
 
 export type LeadProjectType =
   | ""
-  | "proteger-mon-logement"
-  | "preparer-un-devis"
-  | "etre-accompagne"
-  | "equiper-un-parcours-client";
+  | "archiver-synthese-dda"
+  | "preparer-entretien-client"
+  | "qualifier-avant-devis"
+  | "equiper-parcours-courtage";
 
 export type LeadRequestType = "report_email" | "callback";
 

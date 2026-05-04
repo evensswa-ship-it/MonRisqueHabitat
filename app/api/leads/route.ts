@@ -15,10 +15,10 @@ function isValidEmail(value: string) {
 function isValidProject(value: unknown): value is LeadProjectType {
   return (
     value === "" ||
-    value === "proteger-mon-logement" ||
-    value === "preparer-un-devis" ||
-    value === "etre-accompagne" ||
-    value === "equiper-un-parcours-client"
+    value === "archiver-synthese-dda" ||
+    value === "preparer-entretien-client" ||
+    value === "qualifier-avant-devis" ||
+    value === "equiper-parcours-courtage"
   );
 }
 

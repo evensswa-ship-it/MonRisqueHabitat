@@ -45,11 +45,57 @@ export default async function BlogPostPage({ params }: Props) {
           {post.title}
         </h1>
         <p className="mt-3 max-w-2xl text-base leading-7 text-slate-500">{post.description}</p>
+        <div className="mt-4 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+          {post.category && <span>{post.category}</span>}
+          {post.updatedAt && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>Mis à jour le {new Date(post.updatedAt).toLocaleDateString("fr-FR")}</span>
+            </>
+          )}
+        </div>
 
         <div
           className="blog-content mt-10 max-w-2xl"
           dangerouslySetInnerHTML={{ __html: html }}
         />
+
+        {(post.related.length > 0 || post.sources.length > 0) && (
+          <aside className="mt-12 grid max-w-2xl gap-4 md:grid-cols-2">
+            {post.related.length > 0 && (
+              <div className="rounded-[20px] border border-slate-200 bg-slate-50 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--brand)]">
+                  À lire aussi
+                </p>
+                <ul className="mt-3 space-y-2 text-sm leading-6">
+                  {post.related.map((link) => (
+                    <li key={link.href}>
+                      <Link href={link.href} className="text-slate-600 underline-offset-4 hover:text-[var(--brand)] hover:underline">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {post.sources.length > 0 && (
+              <div className="rounded-[20px] border border-blue-100 bg-blue-50/50 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--brand)]">
+                  Sources officielles
+                </p>
+                <ul className="mt-3 space-y-2 text-sm leading-6">
+                  {post.sources.map((link) => (
+                    <li key={link.href}>
+                      <a href={link.href} className="text-slate-600 underline-offset-4 hover:text-[var(--brand)] hover:underline">
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </aside>
+        )}
 
         <div className="mt-16 max-w-2xl rounded-[24px] border border-blue-100 bg-[var(--brand-soft)] px-6 py-8 md:px-8 md:py-10">
           <p className="eyebrow mb-3 text-[var(--brand)]">Mon Risque Habitat</p>
@@ -57,7 +103,7 @@ export default async function BlogPostPage({ params }: Props) {
             Analysez les risques d&apos;un bien en quelques secondes
           </h2>
           <p className="mt-3 max-w-lg text-base leading-7 text-slate-500">
-            Entrez une adresse et obtenez une synthèse claire sur l'inondation, le sol, l'environnement et plus encore.
+            Entrez une adresse, obtenez une analyse de risques exploitable, puis structurez une synthèse DDA prête à relire.
           </p>
           <a href="/#analyser" className="cta-primary cta-md mt-6 inline-flex">
             Analyser une adresse →

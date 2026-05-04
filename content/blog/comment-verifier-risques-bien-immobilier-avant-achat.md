@@ -1,90 +1,61 @@
 ---
-title: "Comment vérifier les risques d'un bien immobilier avant achat"
-description: "Zones inondables, argiles, séisme, radon… Voici la méthode concrète pour vérifier les risques d'un bien immobilier avant de signer."
-slug: "comment-verifier-risques-bien-immobilier-avant-achat"
+title: "Géorisques : transformer les données publiques en synthèse DDA"
+description: "Géorisques donne la donnée. Le courtier doit produire une lecture assurance exploitable dans son devoir de conseil."
+slug: "georisques-synthese-dda-courtier"
+category: "Analyse de risques"
+updatedAt: "2026-05-04"
+sources:
+  - label: "Géorisques - portail officiel"
+    href: "https://www.georisques.gouv.fr/"
+  - label: "ACPR - devoir de conseil en assurance"
+    href: "https://acpr.banque-france.fr/fr/actualites/publication-de-la-recommandation-sur-le-devoir-de-conseil-en-assurance"
+related:
+  - label: "Devoir de conseil assurance habitation : les risques prioritaires"
+    href: "/blog/devoir-conseil-assurance-habitation-risques-priorites"
+  - label: "PPRI : ce que le courtier doit tracer"
+    href: "/blog/ppri-courtier-synthese-dda"
+  - label: "Historique CatNat : pourquoi il change la lecture du dossier"
+    href: "/blog/historique-catnat-synthese-dda"
 ---
 
-## Pourquoi les risques naturels sont souvent ignorés à l'achat
+## La donnée officielle n'est pas encore du conseil
 
-Lors d'un achat immobilier, les acheteurs se concentrent naturellement sur la surface, l'état général du bien et le prix au mètre carré. Les risques naturels passent souvent au second plan — jusqu'au premier sinistre.
+Géorisques centralise des informations indispensables : aléas naturels, zonages réglementaires, historique des catastrophes naturelles, risques technologiques, pollution des sols. Pour un courtier, cette donnée est précieuse, mais elle doit être traduite.
 
-Pourtant, un bien situé en zone inondable, sur un sol argileux instable ou dans une commune à fort historique de catastrophes naturelles peut représenter des coûts supplémentaires considérables : primes d'assurance élevées, travaux de mise en protection, voire impossibilité d'assurer le bien à terme.
+Une synthèse DDA ne doit pas afficher une liste brute de risques. Elle doit expliquer ce que ces risques changent dans l'analyse du besoin, la recommandation et les points à vérifier avant souscription.
 
-Vérifier les risques avant d'acheter ne prend pas longtemps. Encore faut-il savoir où regarder et quoi retenir.
+## La méthode en trois étapes
 
-## L'état des risques (ERRIAL) : point de départ obligatoire
+### 1. Identifier les signaux structurants
 
-Le vendeur est légalement tenu de remettre un état des risques et pollutions (ERRIAL) à l'acheteur avant la signature du compromis de vente. Ce document recense les risques naturels, miniers, technologiques et de pollution des sols auxquels le bien est exposé.
+Un risque devient structurant lorsqu'il peut influencer :
 
-Le problème : l'ERRIAL est souvent incompris. Le document liste des codes, des références réglementaires et des zonages qui demandent une lecture experte pour être utiles. Beaucoup d'acheteurs le signent sans en avoir saisi la portée.
+- les garanties à recommander ;
+- les franchises à expliquer ;
+- les exclusions ou limites à vérifier ;
+- les pièces justificatives à demander ;
+- le niveau d'information du client.
 
-Quelques réflexes pour le lire efficacement :
+Un PPRI, un historique CatNat récent ou un sol argileux fort ne se traitent donc pas comme de simples mentions administratives.
 
-- Repérez si le bien est classé en **zone de prescription** dans un Plan de Prévention des Risques (PPR). Cela signifie que des restrictions ou des obligations de travaux peuvent s'appliquer.
-- Notez le type de risque mentionné : inondation, mouvement de terrain, séisme, retrait-gonflement des argiles, radon, technologique.
-- Demandez au vendeur si des sinistres ont été déclarés et indemnisés dans le passé.
+### 2. Contextualiser le risque
 
-## Les sources publiques à consulter directement
+La phrase utile au courtier n'est pas : "risque inondation élevé". Elle ressemble plutôt à :
 
-### Géorisques
+> Le secteur présente un signal inondation à prendre en compte dans l'analyse des garanties catastrophe naturelle et dans l'explication des franchises applicables.
 
-Géorisques est le portail officiel de l'État pour les risques naturels et technologiques en France. En saisissant une adresse, vous obtenez une vue d'ensemble des risques recensés par la commune et, dans certains cas, à l'adresse exacte.
+Cette contextualisation protège la crédibilité du document et évite l'effet anxiogène.
 
-Le site est fiable et exhaustif. En revanche, il demande du temps : la lecture des résultats, des cartes et des documents associés peut prendre entre 15 et 30 minutes pour un non-spécialiste.
+### 3. Tracer l'action de conseil
 
-### Les arrêtés de catastrophe naturelle (CATNAT)
+Chaque risque retenu doit déboucher sur une action :
 
-La base GASPAR, accessible via data.gouv.fr, recense l'ensemble des arrêtés de reconnaissance de catastrophe naturelle depuis les années 1980. Un bien situé dans une commune avec 10 arrêtés d'inondation depuis 1982 n'a pas le même profil de risque qu'un bien dans une commune sans historique.
+- consulter un règlement PPRI ;
+- interroger le client sur les sinistres déclarés ;
+- vérifier l'existence de travaux de prévention ;
+- demander une étude ou un justificatif ;
+- mentionner une limite avant recommandation définitive.
 
-Ce signal est souvent sous-utilisé par les acheteurs.
+## Le bon maillage pour le courtier
 
-### Le plan local d'urbanisme (PLU)
-
-Le PLU de la commune peut contenir des informations précieuses sur les contraintes liées aux risques : zones non constructibles, obligations de surélévation, prescriptions sur les matériaux. Il est consultable en mairie ou sur le site internet de la commune.
-
-## Les risques à vérifier en priorité
-
-Tous les risques n'ont pas le même impact selon la localisation du bien. Voici ceux à ne pas négliger :
-
-### Inondation
-
-C'est le risque le plus fréquent et le plus coûteux en France. Vérifiez si le bien est dans le périmètre d'un PPRI (Plan de Prévention des Risques Inondation). Interrogez le vendeur sur les éventuelles montées d'eau passées. Observez le terrain lors d'une visite après de fortes pluies.
-
-### Retrait-gonflement des argiles
-
-Ce phénomène touche plus de 10 000 communes en France. Il est en progression avec le changement climatique. Il génère des fissures structurelles qui peuvent être très coûteuses à traiter. Vérifiez l'aléa argileux de la commune sur Géorisques.
-
-### Mouvement de terrain
-
-Concerne les zones en pente, les terrains remblayés et certaines régions géologiquement instables. Les signes visibles lors d'une visite : murs de soutènement fissurés, terrain en dénivelé irrégulier, fissures en escalier sur les maçonneries.
-
-### Séisme
-
-Certaines zones de France métropolitaine (Alpes du Sud, Pyrénées, Antilles) sont exposées à une activité sismique notable. Si le bien est dans une zone de sismicité 3, 4 ou 5, vérifiez la conformité parasismique pour tout projet de travaux structurels.
-
-### Radon
-
-Ce gaz naturel radioactif est présent dans certains sous-sols granitiques ou volcaniques (Bretagne, Massif Central, Vosges, Corse). Il s'accumule dans les caves et les pièces peu ventilées. Un test de mesure est simple et peu coûteux.
-
-## Ce que ne dit pas l'ERRIAL
-
-L'état des risques a des limites légales. Il ne couvre pas :
-
-- Les nuisances sonores ou de voisinage
-- Les risques de retrait d'assurabilité liés au changement climatique
-- L'évolution future des zones à risque (révision des PPRI)
-- L'historique informel des sinistres non déclarés
-
-Ce sont des éléments que seule une investigation complémentaire — visite approfondie, enquête de voisinage, consultation mairie — peut révéler.
-
-## La méthode en 5 étapes
-
-1. **Lire l'ERRIAL** fourni par le vendeur, en identifiant les zonages actifs.
-2. **Consulter Géorisques** pour avoir une vue cartographique des risques sur la commune et l'adresse.
-3. **Vérifier le nombre d'arrêtés CATNAT** de la commune via les données publiques.
-4. **Inspecter physiquement le bien** en cherchant les traces visibles de sinistres passés.
-5. **Interroger le vendeur** sur les déclarations de sinistres et les travaux réalisés en conséquence.
-
----
-
-Pour obtenir une lecture rapide et exploitable des risques d'un bien à partir d'une adresse, vous pouvez utiliser Mon Risque Habitat. Le diagnostic complet s'affiche en quelques secondes, à partir des mêmes sources officielles, avec une synthèse orientée vers la décision.
+Pour un dossier exposé, commencez par l'[analyse MRH](/#analyser), puis rattachez vos conclusions aux articles sur [la synthèse DDA](/blog/devoir-conseil-assurance-habitation-risques-priorites) et [le protection gap climatique](/blog/catnat-protection-gap-courtier).

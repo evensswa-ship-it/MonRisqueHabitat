@@ -5,7 +5,7 @@ import { MrhLogo } from "@/components/brand/mrh-logo";
 
 export const metadata: Metadata = {
   title: "Blog | Mon Risque Habitat",
-  description: "Conseils et guides sur les risques naturels en immobilier : inondation, argiles, séisme, radon. Tout ce qu'il faut savoir avant d'acheter.",
+  description: "Guides sur l'analyse de risques habitat pour courtiers et professionnels de l'assurance : inondation, argiles, séisme, radon.",
 };
 
 export default function BlogPage() {
@@ -22,10 +22,10 @@ export default function BlogPage() {
       <div className="mt-12 max-w-2xl">
         <p className="eyebrow">Blog</p>
         <h1 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-[var(--brand-ink)] sm:text-4xl">
-          Risques naturels et immobilier
+          Analyse de risques habitat
         </h1>
         <p className="mt-4 text-base leading-7 text-slate-500">
-          Guides pratiques pour comprendre et anticiper les risques avant un achat immobilier.
+          Guides pratiques pour qualifier les risques, préparer le conseil assurance et structurer une synthèse DDA.
         </p>
       </div>
 
@@ -33,6 +33,11 @@ export default function BlogPage() {
         {posts.map((post) => (
           <li key={post.slug}>
             <Link href={`/blog/${post.slug}`} className="panel-card block h-full p-6 transition-shadow hover:shadow-md">
+              {post.category && (
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--brand)]">
+                  {post.category}
+                </p>
+              )}
               <h2 className="font-serif text-lg font-semibold text-[var(--brand-ink)]">
                 {post.title}
               </h2>

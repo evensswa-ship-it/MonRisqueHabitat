@@ -86,16 +86,20 @@ function assertResendSuccess(response: { error?: { message?: string } | null }) 
 }
 
 function mapLeadProjectToUserType(project?: LeadProjectType) {
-  if (project === "equiper-un-parcours-client") {
-    return "Professionnel";
+  if (project === "archiver-synthese-dda") {
+    return "Synthèse DDA";
   }
 
-  if (project === "preparer-un-devis") {
-    return "Assurance";
+  if (project === "preparer-entretien-client") {
+    return "Entretien client";
   }
 
-  if (project === "proteger-mon-logement" || project === "etre-accompagne") {
-    return "Particulier";
+  if (project === "qualifier-avant-devis") {
+    return "Devis / souscription";
+  }
+
+  if (project === "equiper-parcours-courtage") {
+    return "Parcours courtage";
   }
 
   return "";

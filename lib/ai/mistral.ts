@@ -111,7 +111,7 @@ function buildPrompt(data: AnonymizedInput): string {
 
   return `Tu es Conseilla, un assistant d'aide à la rédaction pour un courtier en assurance ou un agent général d'assurance.
 
-Tu génères uniquement des notes orientées conseil assurance, devoir de conseil (DDA) et traçabilité professionnelle. Tu ne mentionnes jamais les agents immobiliers, les transactions immobilières, la revente de biens ou les commissions immobilières. Ton interlocuteur est exclusivement un professionnel de l'assurance.
+Tu génères uniquement des notes orientées conseil assurance, devoir de conseil (DDA) et traçabilité professionnelle. Ton interlocuteur est exclusivement un courtier en assurance ou un agent général.
 
 À partir des données de risque ci-dessous, produis une note de conseil structurée à destination d'un courtier ou agent général.
 
@@ -132,8 +132,8 @@ ${clientLines || "Non renseigné"}
 }
 
 ## Contraintes absolues
-- Destinataire exclusif : courtier en assurance ou agent général — jamais agent immobilier
-- Aucune mention de revente, mandat immobilier, négociation de prix ou commission
+- Destinataire exclusif : courtier en assurance ou agent général
+- Aucune mention hors parcours assurance, souscription, couverture ou devoir de conseil
 - Aucune recommandation contractuelle ni produit commercial nommé
 - Aucun montant, tarif ou prime d'assurance
 - Aucun document réglementaire reproduit (IPID, DIPA, fiche conseil DDA)
@@ -302,8 +302,10 @@ RÈGLES IMPÉRATIVES :
 - Ne jamais inventer d'informations absentes des données ci-dessous
 - Champ absent → écrire "Non renseigné lors de l'entretien"
 - Aucun montant, tarif, prime ni référence commerciale nominative
-- Aucune mention d'agent immobilier, transaction ou revente immobilière
+- Aucune mention hors parcours assurance, souscription, couverture ou devoir de conseil
 - Les données MRH sont des indicateurs issus de sources publiques, non des certitudes contractuelles
+- L'adresse exacte du bien a bien été analysée par MRH ; elle est seulement masquée dans ce prompt pour confidentialité
+- Ne jamais présenter l'absence d'adresse dans ce prompt comme une limite, une incertitude ou un élément à vérifier
 - Format de sortie : JSON strict uniquement, sans aucun texte en dehors
 
 DONNÉES DE L'ENTRETIEN
@@ -321,7 +323,7 @@ ${ddaBuildClientBlock(input)}
 BIEN ASSURÉ
 ───────────
 Type : ${PROPERTY_TYPE_LABELS[input.propertyType]}
-(Adresse non transmise — données anonymisées)
+Adresse : analysée par MRH et masquée uniquement dans ce prompt pour confidentialité
 
 BESOIN PRINCIPAL
 ────────────────
@@ -398,7 +400,7 @@ function parseDDAContent(raw: string): MistralDDAContent {
   const reco = (parsed["recommandations"] ?? {}) as Record<string, unknown>;
   const mail = (parsed["mail_client"] ?? {}) as Record<string, unknown>;
 
-  return {
+  const content: MistralDDAContent = {
     synthese_client:
       typeof parsed["synthese_client"] === "string"
         ? parsed["synthese_client"]
@@ -429,6 +431,49 @@ function parseDDAContent(raw: string): MistralDDAContent {
       objet:
         typeof mail["objet"] === "string" ? mail["objet"] : "Suite à notre entretien",
       corps: typeof mail["corps"] === "string" ? mail["corps"] : "Non renseigné",
+    },
+  };
+
+  return sanitizeDDAContent(content);
+}
+
+function mentionsMaskedAddressAsLimit(value: string): boolean {
+  const normalized = value
+    .normalize("NFD")
+    .replace(/\p{Mn}/gu, "")
+    .toLowerCase();
+
+  return (
+    normalized.includes("absence de donnees precise") &&
+    normalized.includes("adresse")
+  ) || (
+    normalized.includes("adresse") &&
+    normalized.includes("non transmise")
+  ) || (
+    normalized.includes("localisation exacte") &&
+    normalized.includes("verifier")
+  );
+}
+
+function sanitizeDDAContent(content: MistralDDAContent): MistralDDAContent {
+  return {
+    ...content,
+    devoir_conseil: {
+      ...content.devoir_conseil,
+      limites:
+        content.devoir_conseil.limites &&
+        mentionsMaskedAddressAsLimit(content.devoir_conseil.limites)
+          ? "Non renseigné lors de l'entretien"
+          : content.devoir_conseil.limites,
+    },
+    points_de_vigilance: {
+      risques: content.points_de_vigilance.risques,
+      incertitudes: content.points_de_vigilance.incertitudes.filter(
+        (item) => !mentionsMaskedAddressAsLimit(item)
+      ),
+      a_valider: content.points_de_vigilance.a_valider.filter(
+        (item) => !mentionsMaskedAddressAsLimit(item)
+      ),
     },
   };
 }

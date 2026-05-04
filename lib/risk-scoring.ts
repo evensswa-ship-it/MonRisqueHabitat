@@ -90,7 +90,7 @@ const FACTOR_EXPLANATIONS: Record<string, Partial<Record<RiskPriority, string>>>
   },
   pollution: {
     high:   "Un site de pollution des sols confirmée (BASOL) est recensé à proximité. Une investigation de sol est recommandée.",
-    medium: "Des activités industrielles passées (BASIAS) sont référencées dans le secteur. Une vérification est conseillée avant acquisition.",
+    medium: "Des activités industrielles passées (BASIAS) sont référencées dans le secteur. Une vérification est conseillée avant finalisation du conseil.",
     low:    "Un historique d'activité industrielle est recensé à proximité, sans pollution confirmée à ce stade.",
   },
   cavites: {
@@ -106,16 +106,16 @@ const FACTOR_EXPLANATIONS: Record<string, Partial<Record<RiskPriority, string>>>
 };
 
 const FACTOR_ACTION_HINTS: Record<string, string> = {
-  flood:             "Vérifier l'historique des sinistres auprès du vendeur et l'état des évacuations d'eau.",
+  flood:             "Qualifier l'historique de sinistres déclaré par le client et l'état des évacuations d'eau.",
   fire:              "Confirmer le respect des obligations de débroussaillement et l'accessibilité des secours.",
   "ground-movement": "Inspecter les murs de soutènement et les abords pour tout signe d'affaissement ou de décalage.",
   clay:              "Observer les façades et l'intérieur pour des fissures en diagonale ou des décollements de revêtement.",
   storm:             "Vérifier l'état de la toiture, des gouttières et des volets, idéalement avant l'automne.",
   seismic:           "S'assurer de la conformité aux normes parasismiques pour tout projet de travaux structurels.",
   radon:             "Assurer une bonne ventilation des sous-sols et caves. Un test de mesure simple est disponible.",
-  ppri:              "Consulter le règlement du PPRI en mairie et vérifier le classement de zone avant toute acquisition ou projet de travaux.",
+  ppri:              "Consulter le règlement du PPRI et vérifier le classement de zone avant validation du niveau de couverture.",
   icpe:              "Vérifier le Plan de Prévention des Risques Technologiques (PPRT) de la commune et les servitudes applicables au bien.",
-  pollution:         "Demander les fiches BASIAS et BASOL sur Géorisques et envisager une étude de sol avant toute acquisition.",
+  pollution:         "Demander les fiches BASIAS et BASOL sur Géorisques et qualifier le signal avant finalisation du dossier.",
   cavites:           "Consulter l'historique géotechnique du terrain et prévoir une étude de sol spécialisée si des travaux sont envisagés.",
   promethee:         "Vérifier les obligations légales de débroussaillement (OLD) et s'assurer de l'accessibilité du bien pour les secours.",
 };
@@ -261,11 +261,11 @@ function buildTakeaway(scoring: ScoringResult): string {
       catnatFactor.level !== "none"
         ? "L'historique de sinistres de la commune est un signal supplémentaire à ne pas négliger."
         : "Un professionnel peut vous aider à évaluer l'exposition réelle avant engagement.";
-    return `Vérifiez en priorité les points liés à ${sorted[0].label.toLowerCase()} avant toute décision. ${catnatNote}`;
+    return `Qualifiez en priorité les points liés à ${sorted[0].label.toLowerCase()} avant recommandation finale. ${catnatNote}`;
   }
 
   if (globalLevel === "medium") {
-    return "Gardez ces sujets dans votre grille de décision et complétez les vérifications utiles selon le projet et le budget.";
+    return "Gardez ces sujets dans la grille de conseil et complétez les vérifications utiles selon le besoin client et le niveau de couverture envisagé.";
   }
 
   return "Le bien peut être analysé sereinement, avec les vérifications d'usage habituelles et une surveillance régulière.";
@@ -290,8 +290,8 @@ export function buildRationale(scoring: ScoringResult): string {
 
 // ── Recommendation ────────────────────────────────────────────────────────────
 function buildRecommendation(level: RiskLevel): string {
-  if (level === "high") return "Vigilance renforcée recommandée avant tout engagement";
-  if (level === "medium") return "Point d'attention avant décision d'achat ou de mise en location";
+  if (level === "high") return "Vigilance renforcée avant recommandation";
+  if (level === "medium") return "Point d'attention à tracer dans la synthèse DDA";
   return "Exposition limitée. Vérifications d'usage suffisantes";
 }
 
@@ -311,7 +311,7 @@ function buildPriorities(factors: ScoredFactor[], catnat: CatNatFactor): Priorit
   if (catnat.level === "significant" || catnat.level === "moderate") {
     priorities.push({
       rank: priorities.length + 1,
-      action: "Demander l'historique complet des sinistres à la mairie ou à l'assureur du vendeur.",
+      action: "Qualifier l'historique complet des sinistres avec le client et les éléments disponibles au dossier.",
       context: catnat.sentence ?? catnat.label,
     });
   } else if (priorities.length < 2) {

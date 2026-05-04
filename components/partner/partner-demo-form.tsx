@@ -24,9 +24,10 @@ const orgTypes = [
   { value: "", label: "Sélectionner un type" },
   { value: "assureur", label: "Assureur" },
   { value: "courtier", label: "Courtier" },
+  { value: "agent-general", label: "Agent général" },
   { value: "mutuelle", label: "Mutuelle" },
-  { value: "reseau", label: "Réseau d'agences" },
-  { value: "habitat", label: "Acteur de l'habitat" },
+  { value: "reseau-courtage", label: "Réseau de courtage" },
+  { value: "souscription", label: "Direction souscription" },
   { value: "autre", label: "Autre" }
 ];
 
@@ -132,10 +133,10 @@ export function PartnerDemoForm() {
         Échange partenaire
       </p>
       <h3 className="mt-3 text-2xl font-semibold text-slate-950">
-        Parlons de votre parcours risque.
+        Parlons de votre parcours risque et DDA.
       </h3>
       <p className="mt-4 text-sm leading-8 text-slate-600">
-        Ce formulaire est réservé aux professionnels de l'assurance, du courtage et de l'immobilier. Nous revenons vers vous pour comprendre vos dossiers habitation, locaux professionnels ou espaces mixtes, vos contraintes métier et le bon format de pilote.
+        Ce formulaire est réservé aux professionnels de l'assurance et du courtage. Nous revenons vers vous pour comprendre vos dossiers habitation, locaux professionnels ou espaces mixtes, vos contraintes de conseil et le bon format de pilote.
       </p>
 
       {status === "success" ? (
@@ -230,7 +231,7 @@ export function PartnerDemoForm() {
                 setValues((current) => ({ ...current, message: event.target.value }))
               }
               className="mt-2 min-h-[120px] w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[var(--brand)] focus:ring-4 focus:ring-blue-100"
-              placeholder="Votre cas d'usage, vos parcours de souscription ou de conseil, vos contraintes métier..."
+              placeholder="Votre cas d'usage, vos parcours de souscription ou de conseil DDA, vos contraintes métier..."
             />
           </label>
 

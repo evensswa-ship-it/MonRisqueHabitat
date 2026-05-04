@@ -1,80 +1,47 @@
 ---
-title: "Géorisques immobilier : comment lire les informations utiles"
-description: "Géorisques regroupe toutes les données publiques sur les risques naturels. Voici comment les lire efficacement pour un achat immobilier."
-slug: "georisques-immobilier-comment-lire"
+title: "PPRI : ce que le courtier doit tracer dans sa synthèse DDA"
+description: "Un zonage PPRI ne doit pas rester une donnée brute : il doit être relié aux garanties, franchises et prescriptions applicables."
+slug: "ppri-courtier-synthese-dda"
+category: "Inondation"
+updatedAt: "2026-05-04"
+sources:
+  - label: "Géorisques - portail officiel"
+    href: "https://www.georisques.gouv.fr/"
+  - label: "France Assureurs - inondations et catastrophe naturelle"
+    href: "https://www.franceassureurs.fr/lassurance-protege-finance-et-emploie/lassurance-protege/lassurance-en-pratique-pour-les-particuliers/inondations-lindemnisation-des-dommages-en-cas-de-catastrophe-naturelle/"
+related:
+  - label: "Zone inondable : les points à tracer"
+    href: "/blog/zone-inondable-synthese-dda-courtier"
+  - label: "Géorisques et synthèse DDA"
+    href: "/blog/georisques-synthese-dda-courtier"
+  - label: "Devoir de conseil assurance habitation"
+    href: "/blog/devoir-conseil-assurance-habitation-risques-priorites"
 ---
 
-## Géorisques : un outil officiel, mais pas toujours simple à lire
+## Le PPRI est un signal métier
 
-Géorisques est le portail de référence du ministère de la Transition écologique pour les risques naturels et technologiques en France. Il regroupe des données issues de plusieurs bases publiques : GASPAR, BRGM, ERRIAL, bases sismiques, radon, ICPE, etc.
+Le Plan de Prévention des Risques Inondation est souvent lu comme un document d'urbanisme. Pour un courtier, c'est surtout un signal à relier à l'assurance : garanties CatNat, franchises, prescriptions de prévention et niveau d'information du client.
 
-L'outil est fiable, gratuit et régulièrement mis à jour. Mais pour un acheteur sans formation technique, l'interprétation des résultats peut être déroutante. Cartes superposées, acronymes réglementaires, niveaux d'aléa codifiés... La quantité d'information disponible est précisément ce qui peut la rendre difficile à exploiter.
+Un bien situé en zone réglementée n'appelle pas automatiquement un refus. Il appelle une qualification.
 
-Voici comment lire les informations qui comptent vraiment pour un achat immobilier.
+## Les points à vérifier
 
-## La recherche par adresse : ce que vous obtenez
+Dans une synthèse DDA, le courtier peut tracer :
 
-En saisissant une adresse sur Géorisques, vous accédez à une fiche synthétique qui liste les risques recensés pour le bien. Cette fiche est structurée en deux niveaux :
+- la présence du PPRI ;
+- le type de zone lorsque l'information est disponible ;
+- la nécessité de consulter le règlement ;
+- l'impact possible sur les mesures de prévention ;
+- les garanties à relire avant finalisation.
 
-- **Les risques à l'adresse** : le bien est directement dans une zone réglementée ou cartographiée.
-- **Les risques à la commune** : le risque est identifié sur le territoire communal, sans positionnement précis à la parcelle.
+La formulation doit rester prudente : le PPRI éclaire l'analyse, mais ne remplace pas les conditions particulières du contrat ni la politique de souscription de l'assureur.
 
-Cette distinction est importante. Un risque "à la commune" ne signifie pas que le bien est directement exposé, mais qu'il se trouve dans une zone où le phénomène a été observé ou est possible. À l'inverse, un risque "à l'adresse" indique une exposition plus directe.
+## Exemple de formulation DDA
 
-## Les informations prioritaires à regarder
+> Il a été porté à l'attention du client que le bien est situé dans un secteur concerné par un zonage réglementaire inondation. Le conseiller a indiqué que les garanties catastrophe naturelle, les franchises et les prescriptions locales de prévention devront être vérifiées avant finalisation.
 
-### L'exposition inondation
+Cette phrase est plus utile qu'une simple mention "PPRI : oui".
 
-Vérifiez d'abord si le bien est situé dans le périmètre d'un Plan de Prévention des Risques Inondation (PPRI). Si oui, notez la couleur de zone : rouge (risque fort, constructibilité souvent limitée), bleue (risque modéré, prescriptions possibles), ou blanche (hors zone réglementée).
+## Backlinks utiles
 
-La carte d'aléa affiche également les zones d'inondation potentielle par débordement de cours d'eau, ruissellement, ou remontée de nappe. Ces zones peuvent exister même en l'absence de PPRI approuvé.
-
-### Le retrait-gonflement des argiles (RGA)
-
-Géorisques affiche une carte du potentiel d'aléa RGA par commune et par parcelle. Les niveaux vont de "nul" à "fort". Un aléa fort ou moyen sur une parcelle avec fondations légères mérite attention, notamment sur des maisons individuelles construites avant les normes parasismiques modernes.
-
-Ce risque est sous-estimé. Il représente pourtant le premier poste d'indemnisation des catastrophes naturelles en France après l'inondation.
-
-### Le zonage sismique
-
-La France est découpée en 5 zones de sismicité (0 à 5). Les zones 1 et 2 présentent une sismicité très faible à faible. Les zones 3, 4 et 5 (Alpes du Sud, Pyrénées, Antilles) impliquent des normes de construction spécifiques.
-
-Pour un bien existant, l'information est surtout utile si vous envisagez des travaux structurels importants.
-
-### Le potentiel radon
-
-Géorisques affiche depuis 2019 le potentiel radon par commune, en trois catégories (1 à 3). Une commune en catégorie 3 ne signifie pas automatiquement que le bien est concerné, mais incite à vérifier la ventilation des sous-sols et caves.
-
-## Ce que Géorisques ne dit pas directement
-
-### L'historique de sinistres de la commune
-
-Géorisques n'affiche pas de manière synthétique le nombre d'arrêtés de catastrophe naturelle (CATNAT) obtenus par la commune. Cette information est disponible dans la base GASPAR, consultable séparément sur data.gouv.fr. C'est pourtant un signal précieux : une commune avec 12 arrêtés d'inondation depuis 1990 et un arrêté récent raconte une histoire différente d'une commune sans historique.
-
-### L'état réel du bâti
-
-Les données Géorisques sont à l'échelle de la parcelle ou de la commune. Elles ne disent rien sur l'état réel du bâtiment, ses fondations, son système d'évacuation ou sa capacité à résister aux phénomènes identifiés.
-
-### L'évolution future du risque
-
-Les PPRI sont révisés périodiquement. Une zone classée bleue aujourd'hui peut être reclassée rouge dans 5 ans suite à une révision. Géorisques indique le zonage actuel, pas l'évolution attendue.
-
-## Les erreurs fréquentes en lisant Géorisques
-
-**Confondre absence de PPRI et absence de risque.** Un bien peut être exposé à l'inondation sans être dans le périmètre d'un PPRI approuvé. La réglementation n'est pas exhaustive.
-
-**Ignorer les risques à la commune.** Un risque mentionné "à la commune" peut très bien concerner le bien directement si sa localisation correspond à la zone identifiée.
-
-**S'arrêter à la première page.** La fiche synthétique Géorisques est un résumé. Cliquer sur chaque risque identifié ouvre des fiches détaillées avec cartes et documents réglementaires. Ce niveau de détail est souvent plus informatif.
-
-**Ne pas vérifier les documents disponibles.** Pour chaque risque réglementé, Géorisques propose souvent en téléchargement le règlement du PPR ou la carte d'aléa. Ces documents sont la référence légale.
-
-## Combien de temps faut-il pour analyser un bien sur Géorisques ?
-
-Une lecture superficielle prend 3 à 5 minutes. Une analyse sérieuse — consulter les cartes, lire les niveaux d'aléa, télécharger les documents réglementaires — prend entre 20 et 40 minutes pour un non-spécialiste. Et encore, sans croiser avec les données CATNAT disponibles ailleurs.
-
-Pour les professionnels de l'immobilier qui analysent plusieurs biens par jour, ce temps est rarement disponible.
-
----
-
-Pour obtenir une lecture rapide et exploitable des risques d'un bien à partir d'une adresse, vous pouvez utiliser Mon Risque Habitat. Les données Géorisques et GASPAR sont croisées et restituées en quelques secondes, avec une synthèse orientée vers la décision.
+Pour un dossier inondation, rattachez cet article à [l'analyse Géorisques](/blog/georisques-synthese-dda-courtier), à [l'historique CatNat](/blog/historique-catnat-synthese-dda) et à l'[outil MRH](/#analyser).

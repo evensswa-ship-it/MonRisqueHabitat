@@ -81,7 +81,7 @@ const sections = [
           {[
             "un état des risques et pollutions (ERP) au sens réglementaire",
             "une expertise technique certifiée sur site",
-            "un conseil en assurance ou en investissement immobilier"
+            "un conseil en assurance"
           ].map((item) => (
             <li key={item} className="flex items-start gap-3">
               <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--brand)]" />

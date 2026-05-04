@@ -1,71 +1,49 @@
 ---
-title: "Quels risques peuvent impacter la valeur d'un bien immobilier ?"
-description: "Zone inondable, argiles, sinistres passés… L'exposition aux risques naturels commence à peser sur la valeur des biens. Voici ce qu'on sait réellement."
-slug: "risques-valeur-bien-immobilier"
+title: "Assurabilité des biens exposés : comment en parler sans surpromettre"
+description: "Le courtier doit expliquer les risques d'assurabilité avec prudence : garanties, franchises, prévention et limites du dossier."
+slug: "assurabilite-biens-exposes-courtier"
+category: "Souscription"
+updatedAt: "2026-05-04"
+sources:
+  - label: "EIOPA - climate insurance protection gaps"
+    href: "https://www.eiopa.europa.eu/publications/climate-insurance-protection-gaps-demand-side-challenge_en"
+  - label: "CCR - garantie catastrophes naturelles"
+    href: "https://www.ccr.fr/portail-catastrophes-naturelles/garantie/"
+related:
+  - label: "Protection gap climatique"
+    href: "/blog/catnat-protection-gap-courtier"
+  - label: "PPRI et synthèse DDA"
+    href: "/blog/ppri-courtier-synthese-dda"
+  - label: "Retrait-gonflement des argiles"
+    href: "/blog/retrait-gonflement-argiles-courtier"
 ---
 
-## Le marché immobilier commence à intégrer le risque climatique
+## L'assurabilité devient un sujet de conseil
 
-Pendant longtemps, la valeur d'un bien immobilier en France a été déterminée par des critères classiques : surface, emplacement, état général, accès aux services. L'exposition aux risques naturels était rarement un critère explicite.
+Un bien exposé n'est pas forcément impossible à assurer. Mais certains signaux peuvent modifier la discussion : historique de sinistres, zone réglementée, sécheresse récurrente, proximité industrielle, prévention insuffisante.
 
-C'est en train de changer. Les données de transaction montrent, dans certains secteurs, une décote progressive des biens exposés. Les assureurs durcissent leurs conditions dans les zones à fort historique de sinistres. Et les acheteurs informés posent de plus en plus la question des risques avant de négocier.
+Le courtier doit tenir une ligne claire : informer sans conclure à la place de l'assureur.
 
-Le lien entre risque naturel et valeur immobilière est encore difficile à quantifier précisément. Mais les mécanismes qui le produisent sont identifiables.
+## Ce qu'il faut éviter
 
-## Les risques qui peuvent peser sur la valeur
+Trois formulations sont risquées :
 
-### L'inondation
+- "ce bien sera couvert sans problème" ;
+- "ce risque n'a aucune importance" ;
+- "l'indemnisation sera automatique".
 
-C'est le risque le plus étudié en matière d'impact sur les prix. Plusieurs études françaises et européennes montrent une décote possible de 5 à 20 % pour des biens en zone inondable avérée, notamment en zone rouge de PPRI.
+La bonne formulation relie le risque aux vérifications à faire.
 
-Cette décote n'est pas systématique. Elle dépend de la liquidité du marché local, de la visibilité du risque (un bien ayant déjà subi une inondation est plus facilement identifié), et de la présence ou non d'aménagements de protection efficaces.
+## Ce qu'il faut dire
 
-Dans les zones très exposées ou ayant subi des sinistres récents et médiatisés, l'effet prix est plus marqué. Le marché des biens en zone inondable à Saint-Martin-de-Ré ou dans certaines communes de la Vallée de la Loire en est un exemple.
+Une formulation utile :
 
-### Le retrait-gonflement des argiles
+> Le conseiller a identifié un signal pouvant influencer les conditions de couverture. Il a été porté à l'attention du client que les garanties, franchises et éventuelles exclusions devront être vérifiées dans les documents contractuels avant décision définitive.
 
-L'impact sur les prix est moins documenté que pour l'inondation, mais les coûts potentiels sont élevés. Des travaux de reprise en sous-œuvre (renforcement des fondations) peuvent atteindre 30 000 à 80 000 euros selon la superficie et la gravité des dommages.
+Cette phrase protège la qualité du conseil.
 
-Un bien présentant des fissures visibles liées à l'argile verra sa valeur négociée à la baisse — souvent dans une fourchette correspondant au coût estimé des travaux. Un bien sans fissures apparentes dans une zone à aléa fort ne subit pas nécessairement de décote explicite, sauf si l'acheteur est informé et négocie en conséquence.
+## Le lien avec les actualités européennes
 
-### L'historique de sinistres du bien
+EIOPA insiste sur les écarts de protection climatique et sur les tensions possibles autour de l'assurabilité dans les zones exposées. Pour MRH, c'est un axe éditorial fort : expliquer comment le courtier peut documenter les risques sans transformer son conseil en expertise technique.
 
-Un bien ayant fait l'objet de plusieurs déclarations de sinistre catastrophe naturelle est potentiellement stigmatisé sur le marché. Les acheteurs avertis demandent l'historique des déclarations. Les assureurs peuvent appliquer des conditions spécifiques.
-
-Ce n'est pas la même chose d'acheter un bien dont le propriétaire a déclaré deux dégâts des eaux mineurs et un bien dont les fondations ont été traitées deux fois pour mouvements de terrain.
-
-### Les perspectives d'assurabilité
-
-Un risque émergent, encore peu intégré dans les prix mais de plus en plus discuté : la possibilité que certains biens deviennent difficiles à assurer à terme dans des zones trop exposées au changement climatique.
-
-En France, la garantie CatNat est pour l'instant obligatoire dans tous les contrats. Mais les franchises augmentent, et certains assureurs sortent progressivement de certaines zones à risque très élevé. Ce n'est pas encore un sujet de masse, mais c'est une tendance à surveiller pour les achats dans les zones les plus exposées.
-
-## Ce qui ne produit pas de décote dans la pratique
-
-Tous les risques identifiés sur un bien ne se traduisent pas par une baisse de prix :
-
-**Les risques faibles en zone peu exposée** : un bien classé en aléa RGA moyen dans une région peu concernée n'est pas systématiquement négocié à la baisse. Le risque est noté, pas valorisé négativement.
-
-**Les risques partagés par toute la commune** : si tous les biens d'une commune sont en zone inondable, le marché local s'est adapté. La décote n'apparaît pas clairement dans les transactions locales.
-
-**L'absence d'historique de sinistres visible** : un bien en zone à risque sans dommages constatés ne génère pas nécessairement de peur chez l'acheteur, surtout si le marché est tendu.
-
-## Ce que les professionnels commencent à faire
-
-Les notaires, experts immobiliers et agents aguerris intègrent progressivement les données de risque dans leurs évaluations, notamment dans les zones côtières et fluviales.
-
-L'Institut Paris Region, la Banque de France et plusieurs organismes de recherche ont publié des travaux sur l'impact des risques naturels sur les prix de l'immobilier. Ces études montrent que l'effet est réel, variable selon les contextes, et susceptible de s'amplifier avec la visibilité croissante du changement climatique.
-
-## Pour l'acheteur : intégrer le risque comme facteur de négociation
-
-Identifier un risque significatif avant l'achat ne signifie pas renoncer au bien. Cela peut signifier :
-
-- Négocier le prix en intégrant le coût potentiel des travaux ou des primes d'assurance majorées.
-- Demander des garanties supplémentaires sur l'absence de sinistres passés.
-- Conditionner l'achat à la réalisation d'un diagnostic technique spécifique (géotechnique, humidité).
-
-Un risque identifié et chiffré est un argument de négociation légitime.
-
----
-
-Pour obtenir rapidement une lecture des risques d'un bien et comprendre leur niveau d'exposition avant de négocier, vous pouvez utiliser Mon Risque Habitat. Le diagnostic synthétise les données officielles en quelques secondes.
+Complétez avec [l'analyse de risques MRH](/#analyser) et l'article sur [Solvabilité II et adaptation NatCat](/blog/solvabilite-ii-adaptation-natcat-courtier).

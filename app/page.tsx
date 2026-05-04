@@ -25,8 +25,8 @@ const useCases = [
   },
   {
     label: "Face à votre client",
-    title: "Expliquez les risques simplement",
-    text: "Montrez une synthèse lisible et compréhensible. Vos clients entrent dans la transaction informés.",
+    title: "Appuyez votre conseil sur une lecture claire",
+    text: "Présentez les points de vigilance en langage assurance. Votre client comprend les risques, les garanties à vérifier et la logique de votre recommandation.",
   },
   {
     label: "Après le RDV",
@@ -102,7 +102,7 @@ export default function HomePage() {
               </h1>
 
               <p className="mx-auto mt-4 max-w-xl text-balance text-lg leading-8 text-slate-600">
-                Entrez une adresse et obtenez en quelques secondes une synthèse claire des risques. Puis structurez votre devoir de conseil et envoyez le récapitulatif à votre client.
+                Entrez une adresse et obtenez en quelques secondes une analyse de risques exploitable. Puis générez une synthèse DDA claire, archivable et prête à relire avec votre client.
               </p>
 
               <div className="mt-8">
@@ -132,7 +132,7 @@ export default function HomePage() {
                 Les données sont là. La lecture manque.
               </h2>
               <p className="mt-4 text-sm leading-7 text-slate-600">
-                Géorisques centralise des données fiables sur les risques naturels et technologiques. Mais les consulter prend du temps, les interpréter demande une expertise, et les expliquer à un client dans un rendez-vous est difficile.
+                Géorisques centralise des données fiables sur les risques naturels et technologiques. Mais les consulter prend du temps, les interpréter demande une lecture assurance, et les relier au devoir de conseil est difficile en rendez-vous.
               </p>
             </div>
             <div>
@@ -141,7 +141,7 @@ export default function HomePage() {
                 De l'analyse au devoir de conseil, en quelques secondes.
               </h2>
               <p className="mt-4 text-sm leading-7 text-slate-600">
-                MRH croise les sources officielles et produit une note claire par facteur de risque. Après le rendez-vous, le conseiller génère son compte rendu DDA — trace écrite conforme, email client prêt à envoyer, document archivable.
+                MRH croise les sources officielles et produit une analyse de risques claire par facteur d'exposition. Après le rendez-vous, le courtier génère sa synthèse DDA — trace écrite archivable, email client prêt à envoyer, document de travail relisible.
               </p>
             </div>
           </div>
@@ -221,10 +221,10 @@ export default function HomePage() {
             Pour les courtiers en assurance et les agents généraux
           </p>
           <h2 className="mt-5 max-w-2xl text-balance text-3xl font-semibold md:text-4xl">
-            Analyse risque, conseil structuré, trace écrite — en un seul outil.
+            Analyse de risques, synthèse DDA, trace écrite — en un seul outil.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-8 text-blue-100">
-            Gratuit, immédiat, sans inscription. Pour structurer un usage professionnel avec votre équipe, découvrez l'espace partenaire.
+            Gratuit, immédiat, sans inscription. Pour structurer votre conseil assurance avec votre équipe, découvrez l'espace partenaire.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <a href="#analyser" className="cta-secondary cta-lg inline-flex">
@@ -245,19 +245,19 @@ export default function HomePage() {
               Espace partenaires
             </p>
             <h2 className="mt-4 text-balance text-3xl font-semibold text-slate-950 md:text-4xl">
-              Construisons une lecture risque adaptée à vos parcours.
+              Construisons une lecture risque adaptée à vos parcours courtage.
             </h2>
             <p className="mt-5 text-base leading-8 text-slate-600">
-              MRH s'adresse aux compagnies, courtiers, agents généraux et réseaux qui veulent mieux qualifier un risque avant conseil, devis ou souscription. Habitation, local professionnel, bureau ou espace mixte : l'objectif n'est pas un raccordement gadget, mais un pilote métier cadré avec vos équipes.
+              MRH s'adresse aux compagnies, courtiers, agents généraux et réseaux qui veulent mieux qualifier un risque avant conseil, devis ou souscription. Habitation, local professionnel, bureau ou espace mixte : l'objectif n'est pas un raccordement gadget, mais un pilote métier cadré avec vos parcours de courtage.
             </p>
             <div className="mt-7 divide-y divide-slate-200/80 border-y border-slate-200/80 text-sm leading-7 text-slate-700">
               <div className="py-4">
                 <span className="font-semibold text-slate-950">Qualifier le risque avant le conseil</span>
-                <p className="mt-1 text-slate-500">Aider les équipes à repérer les points qui peuvent changer la discussion client, le dossier ou les pièces à demander.</p>
+                <p className="mt-1 text-slate-500">Aider les équipes à repérer les points qui peuvent changer la discussion client, les garanties à vérifier ou les pièces à demander.</p>
               </div>
               <div className="py-4">
                 <span className="font-semibold text-slate-950">Structurer le devoir de conseil après le RDV</span>
-                <p className="mt-1 text-slate-500">Le compte rendu DDA, l'email client et la trace archivable générés en 30 secondes à partir de l'analyse. Moins de ressaisie, moins de risque juridique.</p>
+                <p className="mt-1 text-slate-500">La synthèse DDA, l'email client et la trace archivable générés en 30 secondes à partir de l'analyse. Moins de ressaisie, plus de cohérence dans le dossier conseil.</p>
               </div>
               <div className="py-4">
                 <span className="font-semibold text-slate-950">Pilote encadré avec vos cas réels</span>

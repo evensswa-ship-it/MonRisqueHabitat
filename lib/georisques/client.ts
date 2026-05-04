@@ -65,11 +65,11 @@ const RISK_CATALOG: RiskCatalogItem[] = [
     label: "Inondation",
     priority: "high",
     keywords: ["inond", "submersion", "crue", "debordement"],
-    decision: "Vigilance recommandée avant acquisition",
+    decision: "Vigilance à tracer dans le dossier conseil",
     summary:
       "Ce bien peut être touché par des montées d'eau ou du ruissellement lors de fortes pluies. Caves et rez-de-chaussée sont les espaces les plus exposés.",
     recommendation:
-      "Renseignez-vous sur d'éventuels sinistres passés auprès du vendeur ou de la mairie. Vérifiez l'état des caves, des évacuations et des murs en contact avec le sol.",
+      "Qualifiez les sinistres passés déclarés par le client et les informations disponibles. Vérifiez l'état des caves, des évacuations et des murs en contact avec le sol.",
     watch:
       "Les caves, rez-de-chaussée, évacuations d'eau bouchées, traces d'humidité sur les murs et sols en légère cuvette."
   },

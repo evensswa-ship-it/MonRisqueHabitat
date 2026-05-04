@@ -201,7 +201,7 @@ export async function fetchPPRI(lat: number, lon: number): Promise<RiskCategory 
       label: "Zonage réglementaire inondation",
       priority,
       decision: isRedZone
-        ? "Zone rouge. Vérification obligatoire avant acquisition"
+        ? "Zone rouge. Vérification obligatoire avant recommandation"
         : "Zone réglementée. Prescriptions à consulter en mairie",
       territoryContext,
       summary:
@@ -296,11 +296,11 @@ export async function fetchPollution(lat: number, lon: number): Promise<RiskCate
         : "Activité industrielle passée. Vérification conseillée",
       territoryContext,
       summary:
-        "Des activités industrielles passées ou un site de pollution confirmée sont recensés à proximité du bien. La pollution des sols peut affecter la valeur vénale, restreindre la constructibilité et engager la responsabilité civile du propriétaire en cas de cession.",
+        "Des activités industrielles passées ou un site de pollution confirmée sont recensés à proximité du bien. La pollution des sols peut influencer l'appréciation du risque, les exclusions éventuelles et les éléments à documenter dans le dossier.",
       recommendation:
-        "Consultez les fiches BASIAS et BASOL disponibles sur Géorisques. En présence d'un site BASOL, une étude de sol est recommandée avant toute acquisition ou projet de travaux. Vérifiez les clauses d'information dans l'acte notarié.",
+        "Consultez les fiches BASIAS et BASOL disponibles sur Géorisques. En présence d'un site BASOL, qualifiez le signal avant finalisation du conseil et documentez les réserves utiles au dossier.",
       watch:
-        "La présence de puits, sources ou jardins potagers à proximité, les variations de végétation inexpliquées, les odeurs inhabituelles et les clauses environnementales dans les actes de cession.",
+        "La présence de puits, sources ou jardins potagers à proximité, les variations de végétation inexpliquées, les odeurs inhabituelles et les informations environnementales disponibles.",
     };
   } catch (e) {
     console.error("[Env/pollution] exception:", e);
@@ -357,7 +357,7 @@ export async function fetchCavites(lat: number, lon: number): Promise<RiskCatego
       summary:
         "Des cavités souterraines sont recensées à proximité du bien : anciennes carrières, caves troglodytiques, karst ou effondrements naturels. Elles peuvent fragiliser les fondations et le sol environnant, en particulier lors de travaux de terrassement ou d'extension.",
       recommendation:
-        "Vérifiez l'historique géotechnique du terrain auprès de la mairie ou d'un bureau d'études de sol. Si des travaux sont envisagés, une étude géotechnique préalable est impérative. Interrogez le vendeur sur tout affaissement ou fissuration observé.",
+        "Vérifiez l'historique géotechnique du terrain auprès de la mairie ou d'un bureau d'études de sol. Si des travaux sont envisagés, une étude géotechnique préalable est impérative. Interrogez le client sur tout affaissement ou fissuration observé.",
       watch:
         "Les fissures soudaines, les affaissements localisés, les zones humides inexpliquées, les décalages de dallage ou de fondation et toute déformation anormale des murs porteurs.",
     };

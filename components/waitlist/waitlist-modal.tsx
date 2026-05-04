@@ -11,8 +11,8 @@ type WaitlistModalProps = {
 const professions = [
   { value: "", label: "Sélectionner votre métier" },
   { value: "courtier", label: "Courtier en assurance" },
-  { value: "agent-immo", label: "Agent immobilier" },
-  { value: "notaire", label: "Notaire" },
+  { value: "agent-general", label: "Agent général" },
+  { value: "souscription", label: "Direction souscription" },
   { value: "autre", label: "Autre" },
 ];
 
@@ -115,12 +115,12 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
         {/* Header */}
         <div className="mb-6 flex items-start justify-between gap-4">
           <div>
-            <span className="eyebrow">Assistant IA de conseil</span>
+            <span className="eyebrow">Synthèse DDA</span>
             <h2 className="mt-3 text-3xl font-semibold text-slate-950">
               Conseilla
             </h2>
             <p className="mt-2 text-sm leading-6 text-slate-500">
-              La note de conseil générée à partir du diagnostic MRH.
+              La synthèse DDA générée à partir de l'analyse de risques MRH.
             </p>
           </div>
           <button
@@ -136,12 +136,11 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
         {/* Description */}
         <div className="panel-card mb-6 p-5 text-sm leading-7 text-slate-600 space-y-2">
           <p>
-            Structurez votre <strong className="text-slate-900">discours client</strong> à partir
-            des données de risque MRH : synthèse, points de vigilance, angle d'approche pour un logement, un local professionnel ou un espace mixte.
+            Structurez votre <strong className="text-slate-900">devoir de conseil</strong> à partir
+            des données de risque MRH : synthèse, points de vigilance, garanties à vérifier et éléments à tracer dans le dossier.
           </p>
           <p>
-            Conseilla produit une note de travail que vous relisez et adaptez. Aucun document
-            réglementaire, aucune recommandation contractuelle.
+            Conseilla produit une synthèse DDA de travail que vous relisez et adaptez. Elle appuie votre conseil sans se substituer au courtier.
           </p>
           <p className="font-semibold text-[var(--brand)]">
             Disponible prochainement. Inscrivez-vous pour un accès prioritaire.
@@ -222,7 +221,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
           </p>
           <div className="space-y-4 rounded-[20px] border border-slate-200 bg-[var(--background)] p-5 text-sm leading-7">
             <div>
-              <p className="mb-1 font-semibold text-slate-900">Synthèse des risques</p>
+              <p className="mb-1 font-semibold text-slate-900">Analyse de risques</p>
               <p className="text-slate-600">
                 L'adresse située au{" "}
                 <span className="font-medium text-slate-800">[ADRESSE]</span> présente les
@@ -238,9 +237,9 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
               </p>
             </div>
             <div>
-              <p className="mb-1 font-semibold text-slate-900">Angle de discours</p>
+              <p className="mb-1 font-semibold text-slate-900">Synthèse DDA</p>
               <p className="italic text-slate-400">
-                [Formulation d'introduction pour aborder les risques avec votre client]
+                [Formulation structurée pour tracer le besoin, les risques retenus et le conseil délivré]
               </p>
             </div>
             <p className="border-t border-slate-200 pt-3 text-xs text-slate-400">

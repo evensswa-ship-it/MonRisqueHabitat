@@ -1,83 +1,50 @@
 ---
-title: "Pourquoi l'historique CATNAT peut changer la lecture d'un bien"
-description: "Le nombre d'arrêtés de catastrophe naturelle d'une commune est un signal souvent ignoré. Voici pourquoi il devrait être systématiquement consulté avant un achat."
-slug: "historique-catnat-bien-immobilier"
+title: "Historique CatNat : pourquoi il change la lecture d'un dossier habitation"
+description: "Le nombre d'arrêtés CatNat d'une commune aide le courtier à distinguer un risque théorique d'un risque récurrent."
+slug: "historique-catnat-synthese-dda"
+category: "CatNat"
+updatedAt: "2026-05-04"
+sources:
+  - label: "CCR - réassurance catastrophes naturelles"
+    href: "https://www.ccr.fr/decouvrir-ccr/activites/catastrophes-naturelles/"
+  - label: "France Assureurs - assurance des catastrophes naturelles"
+    href: "https://www.franceassureurs.fr/lassurance-protege-finance-et-emploie/lassurance-protege/lassurance-en-pratique-pour-les-particuliers/assurance-des-catastrophes-naturelles/"
+related:
+  - label: "Protection gap climatique"
+    href: "/blog/catnat-protection-gap-courtier"
+  - label: "Zone inondable et conseil assurance"
+    href: "/blog/zone-inondable-synthese-dda-courtier"
+  - label: "Devoir de conseil assurance habitation"
+    href: "/blog/devoir-conseil-assurance-habitation-risques-priorites"
 ---
 
-## Un indicateur public, peu utilisé
+## Pourquoi l'historique CatNat compte
 
-Avant d'acheter un bien immobilier, la plupart des acheteurs consultent les diagnostics techniques et l'état des risques fournis par le vendeur. Peu vont chercher l'historique des arrêtés de catastrophe naturelle de la commune.
+Deux biens exposés au même aléa ne présentent pas forcément le même profil de conseil. Une commune avec plusieurs arrêtés CatNat récents donne un signal différent d'une commune sans événement reconnu depuis longtemps.
 
-C'est pourtant une des informations les plus révélatrices sur la réalité du risque dans un secteur donné. Elle est publique, gratuite, et accessible à tous.
+Pour le courtier, cet historique aide à contextualiser le risque dans la synthèse DDA. Il ne prouve pas qu'un bien sera sinistré, mais il documente l'environnement assurantiel.
 
-## Qu'est-ce qu'un arrêté CATNAT ?
+## Ce qu'il faut regarder
 
-En France, la reconnaissance de l'état de catastrophe naturelle est une procédure administrative. Lorsqu'une commune subit un événement naturel d'intensité anormale — inondation, sécheresse intense, mouvement de terrain — elle peut déposer une demande de reconnaissance auprès de l'État.
+Les points utiles sont :
 
-Si la demande est acceptée, un arrêté interministériel est publié au Journal Officiel. Cet arrêté ouvre le droit aux indemnisations par les assureurs dans le cadre du régime Cat Nat.
+- le nombre d'arrêtés ;
+- la récence du dernier événement ;
+- le péril dominant : inondation, sécheresse, mouvement de terrain ;
+- la cohérence avec les autres signaux, comme un PPRI ou une exposition argile.
 
-Ces arrêtés sont recensés depuis les années 1980 dans la base GASPAR, accessible via data.gouv.fr. Chaque arrêté mentionne la commune concernée, la nature du péril reconnu et la période de l'événement.
+L'analyse devient plus forte lorsque plusieurs signaux convergent.
 
-## Ce que l'historique CATNAT révèle réellement
+## Comment l'écrire dans une synthèse DDA
 
-### La réalité du risque sur le terrain
+Une bonne phrase doit rester factuelle :
 
-Un PPR (Plan de Prévention des Risques) cartographie un risque potentiel à partir de modèles et d'études hydrauliques ou géotechniques. L'historique CATNAT, lui, documente ce qui s'est réellement passé.
+> L'historique CatNat communal a été pris en compte comme indicateur de récurrence des événements naturels. Le conseiller a rappelé que la mobilisation de la garantie dépend des conditions du contrat et de la reconnaissance officielle de l'état de catastrophe naturelle.
 
-Une commune peut être en zone bleue d'un PPRI — risque modéré sur le papier — mais avoir accumulé 12 arrêtés d'inondation en 40 ans. Cela signifie que le phénomène est concret, récurrent et qu'il a provoqué des sinistres reconnus à plusieurs reprises.
+Cette formulation évite de promettre une indemnisation.
 
-À l'inverse, une commune en zone d'aléa fort sans aucun arrêté CATNAT peut avoir bénéficié d'un aménagement hydraulique efficace depuis l'établissement des cartes de risque.
+## Pourquoi c'est un bon sujet SEO
 
-L'historique CATNAT relie le risque théorique à la réalité du terrain.
+Les clients recherchent souvent "catastrophe naturelle assurance habitation", "franchise CatNat" ou "sécheresse maison assurance". Ces requêtes doivent renvoyer vers des contenus qui parlent à la fois au client et au courtier.
 
-### La fréquence et la récence des événements
-
-Le nombre total d'arrêtés est important, mais leur distribution dans le temps l'est tout autant.
-
-- **Beaucoup d'arrêtés anciens, aucun récent** : le risque peut avoir été traité par des aménagements, ou simplement ne pas s'être manifesté depuis. Signal modéré.
-- **Arrêtés réguliers sur les 10 dernières années** : le phénomène est actif et récurrent. Signal fort.
-- **Un arrêté très récent (2 à 3 ans)** : le bien peut avoir été directement touché. Le vendeur devrait pouvoir l'expliquer.
-
-### Le type de péril dominant
-
-Les arrêtés CATNAT couvrent plusieurs types de risques : inondations, coulées de boue, mouvements de terrain, sécheresse (retrait-gonflement des argiles), séisme, submersion marine, tempête.
-
-Si l'historique d'une commune est dominé par les inondations, cela renforce la vigilance sur un bien potentiellement exposé à ce phénomène. Si les arrêtés sont liés à la sécheresse, c'est le risque argile qui mérite attention.
-
-## L'impact sur l'assurance habitation
-
-Le régime des catastrophes naturelles en France est mutualisé : toutes les primes d'assurance MRH incluent une contribution au fonds CatNat, indépendamment de la localisation du bien.
-
-Mais les assureurs disposent d'une marge de manœuvre sur les franchises. La loi prévoit des franchises modulables selon le nombre de fois où une commune a été reconnue en état de catastrophe naturelle sans avoir adopté de Plan de Prévention des Risques (PPR).
-
-Au-delà du troisième arrêté sans PPR, la franchise peut être doublée. Au-delà du quatrième, elle peut être triplée. C'est un impact financier direct sur l'indemnisation en cas de sinistre.
-
-## Comment consulter l'historique CATNAT d'une commune
-
-Les données CATNAT sont disponibles dans la base GASPAR sur data.gouv.fr. La consultation est libre et gratuite.
-
-Pour une commune donnée, vous pouvez obtenir :
-- Le nombre total d'arrêtés
-- La date et la nature de chaque événement reconnu
-- La liste des périls concernés
-
-Cette démarche prend quelques minutes, mais elle apporte une dimension temporelle que l'état des risques instantané ne fournit pas.
-
-## Ce que ça change dans la négociation
-
-Un historique CATNAT chargé, récent ou avec un péril récurrent n'est pas nécessairement rédhibitoire. Mais il peut justifier :
-
-- Une demande de baisse de prix si les risques ne sont pas pleinement pris en compte dans la valeur affichée.
-- Une vérification approfondie de l'état du bien pour identifier des dommages passés et les travaux réalisés.
-- Une consultation de l'assureur en amont pour connaître les conditions de couverture applicables.
-- Une question directe au vendeur : des sinistres ont-ils été déclarés ? Ont-ils été indemnisés ? Des travaux ont-ils suivi ?
-
-## Un signal parmi d'autres, pas une condamnation
-
-L'historique CATNAT ne dit pas tout. Une commune active sur le plan du risque peut avoir investi dans des aménagements de protection efficaces. Un bien spécifique peut avoir été épargné par les événements passés en raison de sa position topographique favorable.
-
-Ce signal doit être mis en regard de l'état réel du bien, de sa localisation précise dans la commune, et des autres indicateurs disponibles.
-
----
-
-Pour obtenir en quelques secondes l'historique CATNAT d'une commune et son impact sur le niveau de risque global d'un bien, vous pouvez utiliser Mon Risque Habitat. L'analyse intègre automatiquement ces données dans le diagnostic.
+Pour compléter, lisez [le protection gap climatique](/blog/catnat-protection-gap-courtier) et lancez une [analyse MRH](/#analyser).
