@@ -154,6 +154,8 @@ export function PartnerDemoForm() {
             <label className="block">
               <span className="text-sm font-semibold text-slate-700">Prénom</span>
               <input
+                id="partner-first-name"
+                name="firstName"
                 type="text"
                 value={values.firstName}
                 onChange={(event) =>
@@ -166,6 +168,8 @@ export function PartnerDemoForm() {
             <label className="block">
               <span className="text-sm font-semibold text-slate-700">Nom</span>
               <input
+                id="partner-last-name"
+                name="lastName"
                 type="text"
                 value={values.lastName}
                 onChange={(event) =>
@@ -181,6 +185,8 @@ export function PartnerDemoForm() {
             <label className="block">
               <span className="text-sm font-semibold text-slate-700">Société</span>
               <input
+                id="partner-company"
+                name="company"
                 type="text"
                 value={values.company}
                 onChange={(event) =>
@@ -193,6 +199,8 @@ export function PartnerDemoForm() {
             <label className="block">
               <span className="text-sm font-semibold text-slate-700">Email professionnel</span>
               <input
+                id="partner-email"
+                name="email"
                 type="email"
                 value={values.email}
                 onChange={(event) =>
@@ -207,6 +215,8 @@ export function PartnerDemoForm() {
           <label className="block">
             <span className="text-sm font-semibold text-slate-700">Type de structure</span>
             <select
+              id="partner-org-type"
+              name="orgType"
               value={values.orgType}
               onChange={(event) =>
                 setValues((current) => ({ ...current, orgType: event.target.value }))
@@ -226,6 +236,8 @@ export function PartnerDemoForm() {
               Message <span className="text-slate-400">(optionnel)</span>
             </span>
             <textarea
+              id="partner-message"
+              name="message"
               value={values.message}
               onChange={(event) =>
                 setValues((current) => ({ ...current, message: event.target.value }))

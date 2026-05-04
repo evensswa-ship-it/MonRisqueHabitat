@@ -148,6 +148,8 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
             <label className="block">
               <span className="text-sm font-semibold text-slate-700">Prénom</span>
               <input
+                id="lead-first-name"
+                name="firstName"
                 type="text"
                 value={values.firstName}
                 onChange={(event) =>
@@ -161,6 +163,8 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
             <label className="block">
               <span className="text-sm font-semibold text-slate-700">E-mail</span>
               <input
+                id="lead-email"
+                name="email"
                 type="email"
                 value={values.email}
                 onChange={(event) =>
@@ -179,6 +183,8 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
                 <span className="ml-1 font-normal text-slate-400">(optionnel, si vous souhaitez être recontacté)</span>
               </span>
               <input
+                id="lead-phone"
+                name="phone"
                 type="tel"
                 value={values.phone}
                 onChange={(event) =>
@@ -195,6 +201,8 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
                 <span className="ml-1 font-normal text-slate-400">(optionnel)</span>
               </span>
               <select
+                id="lead-project"
+                name="project"
                 value={values.project}
                 onChange={(event) =>
                   setValues((current) => ({
@@ -215,6 +223,8 @@ export function LeadCaptureForm({ selectedAddress, result }: LeadCaptureFormProp
 
           <label className="flex items-start gap-3 rounded-[18px] border border-slate-200 bg-slate-50 px-4 py-4">
             <input
+              id="lead-consent"
+              name="consent"
               type="checkbox"
               checked={values.consent}
               onChange={(event) =>

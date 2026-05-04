@@ -554,19 +554,19 @@ function AdvisoryForm({
           <div className="mt-3 grid gap-4 sm:grid-cols-2">
             <label className="block">
               <span className={LABEL}>Nom <span className="font-normal text-rose-400">*</span></span>
-              <input type="text" value={form.advisorName} onChange={(e) => onChange("advisorName", e.target.value)} placeholder="Prénom Nom" className={INPUT} />
+              <input id="advisory-advisor-name" name="advisorName" type="text" value={form.advisorName} onChange={(e) => onChange("advisorName", e.target.value)} placeholder="Prénom Nom" className={INPUT} />
             </label>
             <label className="block">
               <span className={LABEL}>Cabinet <span className="font-normal text-rose-400">*</span></span>
-              <input type="text" value={form.advisorFirmName} onChange={(e) => onChange("advisorFirmName", e.target.value)} placeholder="Cabinet Dupont Assurances" className={INPUT} />
+              <input id="advisory-advisor-firm-name" name="advisorFirmName" type="text" value={form.advisorFirmName} onChange={(e) => onChange("advisorFirmName", e.target.value)} placeholder="Cabinet Dupont Assurances" className={INPUT} />
             </label>
             <label className="block">
               <span className={LABEL}>N° ORIAS <span className="font-normal text-slate-400">(optionnel)</span></span>
-              <input type="text" value={form.advisorOrias} onChange={(e) => onChange("advisorOrias", e.target.value)} placeholder="0000 0000" className={INPUT} />
+              <input id="advisory-advisor-orias" name="advisorOrias" type="text" value={form.advisorOrias} onChange={(e) => onChange("advisorOrias", e.target.value)} placeholder="0000 0000" className={INPUT} />
             </label>
             <label className="block">
               <span className={LABEL}>Date du RDV <span className="font-normal text-rose-400">*</span></span>
-              <input type="date" value={form.meetingDate} onChange={(e) => onChange("meetingDate", e.target.value)} className={INPUT} />
+              <input id="advisory-meeting-date" name="meetingDate" type="date" value={form.meetingDate} onChange={(e) => onChange("meetingDate", e.target.value)} className={INPUT} />
             </label>
           </div>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -592,15 +592,15 @@ function AdvisoryForm({
           <div className="mt-3 grid gap-4 sm:grid-cols-2">
             <label className="block">
               <span className={LABEL}>Prénom <span className="font-normal text-rose-400">*</span></span>
-              <input type="text" value={form.clientFirstName} onChange={(e) => onChange("clientFirstName", e.target.value)} placeholder="Marie" className={INPUT} />
+              <input id="advisory-client-first-name" name="clientFirstName" type="text" value={form.clientFirstName} onChange={(e) => onChange("clientFirstName", e.target.value)} placeholder="Marie" className={INPUT} />
             </label>
             <label className="block">
               <span className={LABEL}>Nom <span className="font-normal text-rose-400">*</span></span>
-              <input type="text" value={form.clientLastName} onChange={(e) => onChange("clientLastName", e.target.value)} placeholder="Dupont" className={INPUT} />
+              <input id="advisory-client-last-name" name="clientLastName" type="text" value={form.clientLastName} onChange={(e) => onChange("clientLastName", e.target.value)} placeholder="Dupont" className={INPUT} />
             </label>
             <label className="block sm:col-span-2">
               <span className={LABEL}>Email <span className="font-normal text-slate-400">(pour le mail récapitulatif)</span></span>
-              <input type="email" value={form.clientEmail} onChange={(e) => onChange("clientEmail", e.target.value)} placeholder="marie.dupont@exemple.fr" className={INPUT} />
+              <input id="advisory-client-email" name="clientEmail" type="email" value={form.clientEmail} onChange={(e) => onChange("clientEmail", e.target.value)} placeholder="marie.dupont@exemple.fr" className={INPUT} />
             </label>
           </div>
 
@@ -652,14 +652,14 @@ function AdvisoryForm({
                   </div>
                   <label className="block">
                     <span className="text-xs font-semibold text-slate-500">Composition du foyer <span className="font-normal">(optionnel)</span></span>
-                    <input type="text" value={form.householdComposition} onChange={(e) => onChange("householdComposition", e.target.value)} placeholder="Ex : 2 adultes, 1 enfant" className={INPUT} />
+                    <input id="advisory-household-composition" name="householdComposition" type="text" value={form.householdComposition} onChange={(e) => onChange("householdComposition", e.target.value)} placeholder="Ex : 2 adultes, 1 enfant" className={INPUT} />
                   </label>
                 </>
               ) : (
                 <>
                   <label className="block">
                     <span className="text-xs font-semibold text-slate-500">Type d'activité</span>
-                    <input type="text" value={form.activityType} onChange={(e) => onChange("activityType", e.target.value)} placeholder="Ex : Artisan plombier, cabinet médical…" className={INPUT} />
+                    <input id="advisory-activity-type" name="activityType" type="text" value={form.activityType} onChange={(e) => onChange("activityType", e.target.value)} placeholder="Ex : Artisan plombier, cabinet médical…" className={INPUT} />
                   </label>
                   <div className="flex flex-col gap-3 sm:flex-row">
                     <div>
@@ -717,7 +717,7 @@ function AdvisoryForm({
             ))}
           </div>
           {form.clientNeed === "autre" && (
-            <input type="text" value={form.clientNeedOther} onChange={(e) => onChange("clientNeedOther", e.target.value)} placeholder="Précisez le besoin…" className={`${INPUT} mt-3`} />
+            <input id="advisory-client-need-other" name="clientNeedOther" type="text" value={form.clientNeedOther} onChange={(e) => onChange("clientNeedOther", e.target.value)} placeholder="Précisez le besoin…" className={`${INPUT} mt-3`} />
           )}
         </div>
 
@@ -732,7 +732,7 @@ function AdvisoryForm({
             <div className="mt-3 space-y-2.5">
               <p className="text-xs text-slate-400">Max 3 points courts — inquiétudes, contraintes, éléments spécifiques.</p>
               {(["rdvPoint0", "rdvPoint1", "rdvPoint2"] as const).map((field, i) => (
-                <input key={field} type="text" value={form[field]} onChange={(e) => onChange(field, e.target.value)}
+                <input key={field} id={`advisory-${field}`} name={field} type="text" value={form[field]} onChange={(e) => onChange(field, e.target.value)}
                   placeholder={i === 0 ? "Ex : Inquiétude sur la franchise inondation" : i === 1 ? "Ex : Contrat actuel à échéance dans 3 mois" : "Ex : Cave aménagée au rez-de-chaussée"}
                   className={INPUT} />
               ))}
@@ -754,7 +754,7 @@ function AdvisoryForm({
                   </button>
                 ))}
               </div>
-              <input type="text"
+              <input id="advisory-contract-type-other" name="contractTypeOther" type="text"
                 value={CONTRACT_OPTIONS.includes(form.contractType as (typeof CONTRACT_OPTIONS)[number]) ? "" : form.contractType}
                 onChange={(e) => onChange("contractType", e.target.value)}
                 placeholder="Autre contrat…" className={`${INPUT} mt-2`} />
@@ -823,7 +823,7 @@ function AdvisoryForm({
           {form.clientDecision !== "accepted" && (
             <label className="mt-3 block">
               <span className="text-xs font-semibold text-slate-500">Motif exprimé <span className="font-normal">(optionnel)</span></span>
-              <input type="text" value={form.decisionNote} onChange={(e) => onChange("decisionNote", e.target.value)} placeholder="Ex : Souhaite comparer avec son assureur actuel." className={INPUT} />
+              <input id="advisory-decision-note" name="decisionNote" type="text" value={form.decisionNote} onChange={(e) => onChange("decisionNote", e.target.value)} placeholder="Ex : Souhaite comparer avec son assureur actuel." className={INPUT} />
             </label>
           )}
         </div>

@@ -162,6 +162,8 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
             <label className="block">
               <span className="text-sm font-semibold text-slate-700">Email professionnel</span>
               <input
+                id="waitlist-email"
+                name="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -174,6 +176,8 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
             <label className="block">
               <span className="text-sm font-semibold text-slate-700">Votre métier</span>
               <select
+                id="waitlist-profession"
+                name="profession"
                 value={profession}
                 onChange={(e) => setProfession(e.target.value)}
                 className="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[var(--brand)] focus:ring-4 focus:ring-blue-100"
@@ -191,6 +195,8 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
                 Message <span className="text-slate-400">(optionnel)</span>
               </span>
               <textarea
+                id="waitlist-message"
+                name="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 className="mt-2 min-h-[96px] w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-[var(--brand)] focus:ring-4 focus:ring-blue-100"
