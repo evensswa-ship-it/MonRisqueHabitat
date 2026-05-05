@@ -114,6 +114,7 @@ export interface BrokerInput {
 
   // Bien assuré
   propertyType: PropertyType;
+  propertyAddress?: string;
 
   // Besoin principal
   clientNeed: ClientNeed;

@@ -250,7 +250,7 @@ function ddaBuildClientBlock(input: BrokerInput): string {
 }
 
 function buildDDAPrompt(
-  result: RiskResult,
+  result: RiskResult | undefined,
   input: BrokerInput,
   riskNotes: AdvisoryRiskNote[]
 ): string {
@@ -292,7 +292,7 @@ function buildDDAPrompt(
       : "Aucun risque significatif sélectionné par le conseiller pour ce dossier.";
 
   const catnatBlock =
-    result.catnat && result.catnat.count > 0
+    result?.catnat && result.catnat.count > 0
       ? `\nHistorique CatNat : ${result.catnat.sentence}`
       : "";
 
@@ -342,10 +342,10 @@ ${optionsBlock}
 
 RISQUES MRH IDENTIFIÉS SUR CE BIEN
 ────────────────────────────────────
-(Sources : Géorisques, GASPAR, BRGM — données publiques indicatives)
+${result ? `(Sources : Géorisques, GASPAR, BRGM — données publiques indicatives)
 Niveau global : ${result.overallRisk.label}
 
-${riskBlock}${catnatBlock}
+${riskBlock}${catnatBlock}` : "Données MRH non disponibles pour ce dossier."}
 
 FORMAT DE SORTIE — JSON strict uniquement
 ═════════════════════════════════════════
@@ -479,7 +479,7 @@ function sanitizeDDAContent(content: MistralDDAContent): MistralDDAContent {
 }
 
 export async function generateDDAReport(
-  result: RiskResult,
+  result: RiskResult | undefined,
   input: BrokerInput,
   riskNotes: AdvisoryRiskNote[]
 ): Promise<MistralDDAContent> {

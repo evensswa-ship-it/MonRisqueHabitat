@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, type CSSProperties } from "react";
 import type { RiskResult, RiskCategory } from "@/types/risk";
 import type {
   AdvisoryResult,
@@ -34,6 +34,7 @@ type FormState = {
   advisorOrias: string;
   meetingType: MeetingType;
   meetingDate: string;
+  propertyAddress: string;
   clientFirstName: string;
   clientLastName: string;
   clientEmail: string;
@@ -105,7 +106,7 @@ const INPUT = "mt-1.5 w-full rounded-2xl border border-slate-200 bg-white px-4 p
 const LABEL = "block text-sm font-semibold text-slate-700";
 const SECTION_LABEL = "text-xs font-semibold uppercase tracking-[0.16em] text-slate-400";
 const BRAND_CARD = "reveal-up rounded-[24px] bg-[linear-gradient(135deg,#eff6ff_0%,#dbeafe_45%,#f8faff_100%)] p-6 ring-1 ring-blue-200 md:p-8";
-const CHIP_BASE = "cursor-pointer rounded-2xl border px-4 py-2.5 text-sm transition select-none";
+const CHIP_BASE = "cursor-pointer rounded-2xl border px-4 py-2.5 text-sm transition-all duration-150 select-none active:scale-[0.96]";
 const CHIP_ON = "border-[var(--brand)] bg-[var(--brand-soft)] text-[var(--brand-ink)] font-medium";
 const CHIP_OFF = "border-slate-200 bg-white text-slate-600 hover:border-slate-300";
 
@@ -127,51 +128,73 @@ const DECISION_STYLE: Record<ClientDecision, { badge: string; label: string }> =
 
 function serializeDocument(r: AdvisoryResult): string {
   const c = r.content;
-  const lines: string[] = [
-    "DEVOIR DE CONSEIL — DOCUMENT DE TRAÇABILITÉ",
-    `${r.advisorFirmName}${r.advisorOrias ? ` · ORIAS ${r.advisorOrias}` : ""}`,
-    `Conseiller : ${r.advisorName}  |  Client : ${r.clientName}`,
-    `Date RDV : ${formatDate(r.meetingDate)}  |  Bien : ${r.propertyAddress}`,
+  const sep = "\n";
+  const block = (title: string, body: string) => `${title}\n${body}`;
+
+  const parts: string[] = [
+    "DEVOIR DE CONSEIL",
+    `Document de traçabilité confidentiel`,
+    "",
+    `Cabinet : ${r.advisorFirmName}${r.advisorOrias ? ` (ORIAS ${r.advisorOrias})` : ""}`,
+    `Conseiller : ${r.advisorName}`,
+    `Client : ${r.clientName}`,
+    `Date du rendez-vous : ${formatDate(r.meetingDate)}`,
+    `Bien : ${r.propertyAddress}`,
     `Contrat envisagé : ${r.contractType}`,
-    "",
-    "── 1. SYNTHÈSE CLIENT ──────────────────────────────────",
-    c.synthese_client,
-    "",
-    "── 2. ANALYSE DU BESOIN ────────────────────────────────",
-    `Objectif : ${c.analyse_besoin.objectif}`,
-    c.analyse_besoin.enjeux.length > 0 ? `\nEnjeux :\n${c.analyse_besoin.enjeux.map(e => `· ${e}`).join("\n")}` : "",
-    c.analyse_besoin.niveau_comprehension ? `\nNiveau de compréhension : ${c.analyse_besoin.niveau_comprehension}` : "",
-    "",
-    "── 3. DEVOIR DE CONSEIL (DDA) ──────────────────────────",
-    `Besoin exprimé : ${c.devoir_conseil.besoin_exprime}`,
-    c.devoir_conseil.solutions_evoquees.length > 0
-      ? `\nSolutions évoquées :\n${c.devoir_conseil.solutions_evoquees.map(s => `· ${s}`).join("\n")}`
-      : "",
-    `\nAdéquation : ${c.devoir_conseil.adequation}`,
-    c.devoir_conseil.limites ? `\nLimites / à compléter : ${c.devoir_conseil.limites}` : "",
-    "",
-    "── 4. POINTS DE VIGILANCE ──────────────────────────────",
-    c.points_de_vigilance.risques.length > 0
-      ? `Risques :\n${c.points_de_vigilance.risques.map(x => `· ${x}`).join("\n")}`
-      : "",
-    c.points_de_vigilance.incertitudes.length > 0
-      ? `\nIncertitudes :\n${c.points_de_vigilance.incertitudes.map(x => `· ${x}`).join("\n")}`
-      : "",
-    c.points_de_vigilance.a_valider.length > 0
-      ? `\nÀ valider :\n${c.points_de_vigilance.a_valider.map(x => `· ${x}`).join("\n")}`
-      : "",
-    "",
-    "── 5. RECOMMANDATIONS ──────────────────────────────────",
-    c.recommandations.actions.length > 0
-      ? `Actions :\n${c.recommandations.actions.map((a, i) => `${i + 1}. ${a}`).join("\n")}`
-      : "",
-    c.recommandations.ajustements ? `\nAjustements : ${c.recommandations.ajustements}` : "",
-    c.recommandations.a_clarifier ? `\nÀ clarifier : ${c.recommandations.a_clarifier}` : "",
-    "",
-    "───────────────────────────────────────────────────────",
+    sep,
+    block("1. SYNTHÈSE CLIENT", c.synthese_client),
+    sep,
+    block("2. ANALYSE DU BESOIN",
+      [
+        `Objectif : ${c.analyse_besoin.objectif}`,
+        c.analyse_besoin.enjeux.length > 0
+          ? `\nEnjeux :\n${c.analyse_besoin.enjeux.map(e => `  - ${e}`).join("\n")}`
+          : "",
+        c.analyse_besoin.niveau_comprehension
+          ? `\nNiveau de compréhension : ${c.analyse_besoin.niveau_comprehension}`
+          : "",
+      ].filter(Boolean).join("")
+    ),
+    sep,
+    block("3. DEVOIR DE CONSEIL",
+      [
+        `Besoin exprimé : ${c.devoir_conseil.besoin_exprime}`,
+        c.devoir_conseil.solutions_evoquees.length > 0
+          ? `\nSolutions évoquées :\n${c.devoir_conseil.solutions_evoquees.map(s => `  - ${s}`).join("\n")}`
+          : "",
+        `\nAdéquation : ${c.devoir_conseil.adequation}`,
+        c.devoir_conseil.limites ? `\nPoints à compléter : ${c.devoir_conseil.limites}` : "",
+      ].filter(Boolean).join("")
+    ),
+    sep,
+    block("4. POINTS DE VIGILANCE",
+      [
+        c.points_de_vigilance.risques.length > 0
+          ? `Risques :\n${c.points_de_vigilance.risques.map(x => `  - ${x}`).join("\n")}`
+          : "",
+        c.points_de_vigilance.incertitudes.length > 0
+          ? `\nZones d'incertitude :\n${c.points_de_vigilance.incertitudes.map(x => `  - ${x}`).join("\n")}`
+          : "",
+        c.points_de_vigilance.a_valider.length > 0
+          ? `\nÀ valider avant souscription :\n${c.points_de_vigilance.a_valider.map(x => `  - ${x}`).join("\n")}`
+          : "",
+      ].filter(Boolean).join("")
+    ),
+    sep,
+    block("5. RECOMMANDATIONS",
+      [
+        c.recommandations.actions.length > 0
+          ? `Actions :\n${c.recommandations.actions.map((a, i) => `  ${i + 1}. ${a}`).join("\n")}`
+          : "",
+        c.recommandations.ajustements ? `\nAjustements : ${c.recommandations.ajustements}` : "",
+        c.recommandations.a_clarifier ? `\nÀ clarifier : ${c.recommandations.a_clarifier}` : "",
+      ].filter(Boolean).join("")
+    ),
+    sep,
     r.legalFooter,
   ];
-  return lines.filter((l) => l !== "").join("\n");
+
+  return parts.filter((p) => p !== "").join("\n");
 }
 
 function serializeEmail(r: AdvisoryResult): string {
@@ -444,7 +467,7 @@ function IdleCard({ onStart }: { onStart: () => void }) {
         Compte rendu post-RDV
       </h4>
       <p className="mt-2 max-w-lg text-sm leading-7 text-slate-600">
-        Structurez votre devoir de conseil en quelques secondes. L'analyse risque devient la base de votre DDA — document interne archivable et mail client prêt à envoyer.
+        Structurez votre devoir de conseil en quelques secondes. L'analyse risque devient la base de votre document DDA archivable, avec le mail client prêt à envoyer.
       </p>
       <div className="mt-5 grid gap-3 text-sm text-slate-700 sm:grid-cols-3">
         {["Document DDA défendable", "Mail client prêt à envoyer", "Trace archivable 5 ans"].map((item) => (
@@ -516,16 +539,16 @@ function AdvisoryForm({
   onCancel,
 }: {
   form: FormState;
-  result: RiskResult;
+  result?: RiskResult;
   onChange: <K extends keyof FormState>(field: K, value: FormState[K]) => void;
   onToggleOption: (opt: string) => void;
   onToggleRisk: (id: string) => void;
   onSubmit: () => void;
   onCancel: () => void;
 }) {
-  const suggestedRisks = result.categories.filter(
-    (c) => c.priority === "high" || c.priority === "medium"
-  );
+  const suggestedRisks = result
+    ? result.categories.filter((c) => c.priority === "high" || c.priority === "medium")
+    : [];
 
   const isQuickValid =
     form.clientFirstName.trim() &&
@@ -694,7 +717,22 @@ function AdvisoryForm({
         {/* ── BIEN ─────────────────────────────────────────────────── */}
         <div>
           <p className={SECTION_LABEL}>Bien assuré</p>
-          <p className="mt-0.5 text-xs text-slate-400">{result.address}</p>
+          {result ? (
+            <p className="mt-0.5 text-xs text-slate-400">{result.address}</p>
+          ) : (
+            <label className="mt-2 block">
+              <span className={LABEL}>Adresse ou localisation <span className="font-normal text-slate-400">(optionnel)</span></span>
+              <input
+                id="advisory-property-address"
+                name="propertyAddress"
+                type="text"
+                value={form.propertyAddress}
+                onChange={(e) => onChange("propertyAddress", e.target.value)}
+                placeholder="Ex : 12 rue de la Paix, Lyon 69001"
+                className={INPUT}
+              />
+            </label>
+          )}
           <div className="mt-3 flex flex-wrap gap-2">
             {(Object.entries(PROPERTY_TYPE_LABELS) as [PropertyType, string][]).map(([value, label]) => (
               <button key={value} type="button" onClick={() => onChange("propertyType", value)}
@@ -851,6 +889,7 @@ const DEFAULT_FORM: FormState = {
   advisorOrias: "",
   meetingType: "discovery",
   meetingDate: new Date().toISOString().slice(0, 10),
+  propertyAddress: "",
   clientFirstName: "",
   clientLastName: "",
   clientEmail: "",
@@ -877,11 +916,12 @@ const DEFAULT_FORM: FormState = {
   showRdvPoints: false,
 };
 
-export function AdvisoryPanel({ result }: { result: RiskResult }) {
+export function AdvisoryPanel({ result }: { result?: RiskResult }) {
   const [phase, setPhase] = useState<Phase>("idle");
   const [form, setForm] = useState<FormState>(DEFAULT_FORM);
   const [report, setReport] = useState<AdvisoryResult | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const panelRef = useRef<HTMLDivElement>(null);
 
   function handleChange<K extends keyof FormState>(field: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [field]: value }));
@@ -907,6 +947,9 @@ export function AdvisoryPanel({ result }: { result: RiskResult }) {
 
   async function handleSubmit() {
     setPhase("loading");
+    setTimeout(() => {
+      panelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 60);
 
     const brokerInput: BrokerInput = {
       advisorName: form.advisorName,
@@ -925,6 +968,7 @@ export function AdvisoryPanel({ result }: { result: RiskResult }) {
       hasEquipmentOrStock: form.hasEquipmentOrStock ?? undefined,
       receivesPublic: form.receivesPublic ?? undefined,
       propertyType: form.propertyType,
+      propertyAddress: result?.address ?? form.propertyAddress ?? undefined,
       clientNeed: (form.clientNeed || "protection-essentielle") as ClientNeed,
       clientNeedOther: form.clientNeedOther || undefined,
       rdvPoints: [form.rdvPoint0, form.rdvPoint1, form.rdvPoint2],
@@ -940,7 +984,7 @@ export function AdvisoryPanel({ result }: { result: RiskResult }) {
       const res = await fetch("/api/advisory", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ riskResult: result, brokerInput }),
+        body: JSON.stringify({ riskResult: result ?? undefined, brokerInput }),
       });
 
       if (!res.ok) {
@@ -963,19 +1007,39 @@ export function AdvisoryPanel({ result }: { result: RiskResult }) {
     setErrorMessage("");
   }
 
-  if (phase === "idle") return <IdleCard onStart={() => setPhase("form")} />;
+  if (phase === "idle") return (
+    <div ref={panelRef}>
+      <IdleCard onStart={() => setPhase("form")} />
+    </div>
+  );
 
   if (phase === "loading") {
     return (
       <div className={BRAND_CARD}>
-        <span className="eyebrow">Devoir de conseil</span>
-        <h4 className="mt-3 text-3xl font-semibold text-[var(--brand-ink)]">Conseilla rédige…</h4>
-        <div className="mt-6 flex items-center gap-3">
-          <span className="h-4 w-4 animate-spin rounded-full border-2 border-[var(--brand)] border-t-transparent" />
-          <p className="text-sm text-slate-600">
-            Analyse de l'entretien et rédaction du document DDA en cours. Quelques secondes.
-          </p>
+        <div className="flex items-center gap-2.5">
+          <span className="eyebrow">Devoir de conseil</span>
+          <span className="rounded-full bg-[var(--brand-soft)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em] text-[var(--brand)]">DDA</span>
         </div>
+        <h4 className="mt-3 text-2xl font-semibold text-[var(--brand-ink)]">
+          Rédaction en cours
+        </h4>
+        <div className="mt-6 space-y-3">
+          {[
+            { label: "Analyse de l'entretien", delay: "0ms" },
+            { label: "Structuration du document DDA", delay: "600ms" },
+            { label: "Rédaction du mail client", delay: "1200ms" },
+          ].map(({ label, delay }) => (
+            <div
+              key={label}
+              className="flex items-center gap-3 opacity-0"
+              style={{ animation: `fadeIn 0.4s ease forwards`, animationDelay: delay } as CSSProperties}
+            >
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--brand)] animate-pulse" />
+              <p className="text-sm text-slate-600">{label}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-6 text-xs text-slate-400">Quelques secondes…</p>
       </div>
     );
   }
@@ -993,18 +1057,24 @@ export function AdvisoryPanel({ result }: { result: RiskResult }) {
   }
 
   if (phase === "result" && report) {
-    return <DocumentResult result={report} onReset={handleReset} />;
+    return (
+      <div ref={panelRef} className="reveal-up" style={{ "--delay": "0ms" } as CSSProperties}>
+        <DocumentResult result={report} onReset={handleReset} />
+      </div>
+    );
   }
 
   return (
-    <AdvisoryForm
-      form={form}
-      result={result}
-      onChange={handleChange}
-      onToggleOption={handleToggleOption}
-      onToggleRisk={handleToggleRisk}
-      onSubmit={handleSubmit}
-      onCancel={handleReset}
-    />
+    <div ref={panelRef}>
+      <AdvisoryForm
+        form={form}
+        result={result}
+        onChange={handleChange}
+        onToggleOption={handleToggleOption}
+        onToggleRisk={handleToggleRisk}
+        onSubmit={handleSubmit}
+        onCancel={handleReset}
+      />
+    </div>
   );
 }

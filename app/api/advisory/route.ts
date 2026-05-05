@@ -20,22 +20,13 @@ import type { RiskResult } from "@/types/risk";
 export const maxDuration = 30;
 
 type Payload = {
-  riskResult: RiskResult;
+  riskResult?: RiskResult;
   brokerInput: BrokerInput;
 };
 
 function validate(body: unknown): Payload | null {
   if (!body || typeof body !== "object") return null;
   const b = body as Partial<Payload>;
-
-  if (
-    !b.riskResult ||
-    typeof b.riskResult !== "object" ||
-    !b.riskResult.address ||
-    !Array.isArray(b.riskResult.categories)
-  ) {
-    return null;
-  }
 
   const bi = b.brokerInput;
   if (
@@ -66,7 +57,7 @@ function formatDate(isoDate: string): string {
 // without AI — same shape, all fields filled from structured form data.
 
 function buildFallbackContent(
-  result: RiskResult,
+  result: RiskResult | undefined,
   input: BrokerInput,
   riskNotes: AdvisoryRiskNote[]
 ): MistralDDAContent {
@@ -200,7 +191,8 @@ export async function POST(request: Request) {
   }
 
   const { riskResult, brokerInput } = payload;
-  const riskNotes = buildRiskNotes(riskResult, brokerInput.confirmedRiskIds);
+  const riskNotes = riskResult ? buildRiskNotes(riskResult, brokerInput.confirmedRiskIds) : [];
+  const propertyAddress = brokerInput.propertyAddress ?? riskResult?.address ?? "Adresse non renseignée";
 
   let content: MistralDDAContent;
   let source: "ai" | "deterministic";
@@ -217,7 +209,7 @@ export async function POST(request: Request) {
   const result: AdvisoryResult = {
     id: `advisory-${Date.now()}`,
     generatedAt: new Date().toISOString(),
-    propertyAddress: riskResult.address,
+    propertyAddress,
     meetingDate: brokerInput.meetingDate,
     advisorName: brokerInput.advisorName,
     advisorFirmName: brokerInput.advisorFirmName,

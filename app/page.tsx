@@ -81,15 +81,13 @@ export default function HomePage() {
             </div>
             <nav className="hidden gap-7 text-sm text-slate-600 md:flex">
               <a href="#analyser" className="transition hover:text-slate-900">Analyser</a>
+              <a href="/conseilla" className="font-medium text-[var(--brand)] transition hover:text-[var(--brand-deep)]">Conseilla</a>
               <a href="/blog" className="transition hover:text-slate-900">Blog</a>
               <a href="#fonctionnement" className="transition hover:text-slate-900">Fonctionnement</a>
               <a href="#partenaires" className="transition hover:text-slate-900">Partenaires</a>
             </nav>
             <div className="hidden items-center gap-3 md:flex">
               <WaitlistNavButton />
-              <a href="#analyser" className="cta-primary cta-md">
-                Analyser →
-              </a>
             </div>
             <MobileMenu />
           </header>
@@ -173,9 +171,10 @@ export default function HomePage() {
           ))}
         </div>
 
-        <div className="mt-10 text-center md:mt-12">
-          <a href="#analyser" className="cta-primary cta-lg">
-            Analyser une adresse →
+        <div className="mt-10 flex justify-center md:mt-12 reveal-up" style={{ "--delay": "240ms" } as CSSProperties}>
+          <a href="/conseilla" className="cta-primary cta-lg cta-animated group inline-flex items-center gap-3">
+            Générer mon compte rendu DDA
+            <span className="cta-arrow-icon transition-transform duration-200 group-hover:translate-x-1">→</span>
           </a>
         </div>
       </section>
@@ -214,28 +213,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CTA FINAL ────────────────────────────────────────────────────── */}
-      <section className="shell mt-16 md:mt-24">
-        <div className="reveal-up rounded-[28px] bg-[var(--brand-ink)] p-8 text-left text-white shadow-[0_28px_80px_rgba(8,38,79,0.22)] md:p-12">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">
-            Pour les courtiers en assurance et les agents généraux
-          </p>
-          <h2 className="mt-5 max-w-2xl text-balance text-3xl font-semibold md:text-4xl">
-            Analyse de risques, synthèse DDA et trace écrite. En un seul outil.
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-8 text-blue-100">
-            Gratuit, immédiat, sans inscription. Pour structurer votre conseil assurance avec votre équipe, découvrez l'espace partenaire.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a href="#analyser" className="cta-secondary cta-lg inline-flex">
-              Analyser une adresse →
-            </a>
-            <a href="#partenaires" className="text-sm font-medium text-blue-200 transition hover:text-white">
-              Voir l'offre partenaire
-            </a>
-          </div>
-        </div>
-      </section>
 
       {/* ── B2B — PARTENAIRES ────────────────────────────────────────────── */}
       <section id="partenaires" className="shell mt-16 pt-2 md:mt-24 md:pt-4">

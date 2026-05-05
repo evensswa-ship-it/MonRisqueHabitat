@@ -6,7 +6,7 @@ import { ArrowRight, Check, Download, RefreshCcw, Share2 } from "@/components/wi
 import { LeadCaptureForm } from "@/components/widget/lead-capture-form";
 import { RiskCard } from "@/components/widget/risk-card";
 import { enableNearbyPartners } from "@/lib/feature-flags";
-import { AdvisoryPanel } from "@/components/advisory/advisory-panel";
+
 import { downloadRiskReport } from "@/services/risk-report-service";
 import { buildDeskSummary } from "@/lib/risk-professional-wording";
 import { getRiskTone } from "@/lib/risk-tone";
@@ -379,9 +379,6 @@ export function WidgetResult({ selectedAddress, result, onReset }: WidgetResultP
           </button>
         </div>
       </div>
-
-      {/* ── COMPTE RENDU DDA ─────────────────────────────────────────── */}
-      <AdvisoryPanel result={result} />
 
       {/* Partenaires à proximité (feature flag) */}
       {enableNearbyPartners && (
