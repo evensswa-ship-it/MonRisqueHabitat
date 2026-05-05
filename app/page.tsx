@@ -141,7 +141,7 @@ export default function HomePage() {
                 De l'analyse au devoir de conseil, en quelques secondes.
               </h2>
               <p className="mt-4 text-sm leading-7 text-slate-600">
-                MRH croise les sources officielles et produit une analyse de risques claire par facteur d'exposition. Après le rendez-vous, le courtier génère sa synthèse DDA — trace écrite archivable, email client prêt à envoyer, document de travail relisible.
+                MRH croise les sources officielles et produit une analyse de risques claire par facteur d'exposition. Après le rendez-vous, le courtier génère sa synthèse DDA : trace écrite archivable, email client prêt à envoyer, document de travail relisible.
               </p>
             </div>
           </div>
@@ -221,7 +221,7 @@ export default function HomePage() {
             Pour les courtiers en assurance et les agents généraux
           </p>
           <h2 className="mt-5 max-w-2xl text-balance text-3xl font-semibold md:text-4xl">
-            Analyse de risques, synthèse DDA, trace écrite — en un seul outil.
+            Analyse de risques, synthèse DDA et trace écrite. En un seul outil.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-8 text-blue-100">
             Gratuit, immédiat, sans inscription. Pour structurer votre conseil assurance avec votre équipe, découvrez l'espace partenaire.
